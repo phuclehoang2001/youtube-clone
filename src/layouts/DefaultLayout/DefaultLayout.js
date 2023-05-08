@@ -7,9 +7,9 @@ const DefaultLayout = ({ children }) => {
   return (
     <>
       <Header />
-      <div className="app_container border border-info">
+      <div className="app_container">
         <Sidebar />
-        <Container fluid className="app_main border border-warning">
+        <Container fluid className="app_main">
           {children}
         </Container>
       </div>

@@ -1,0 +1,16 @@
+.wrapper {
+  width: 240px;
+  padding: 10px 0 26px 10px;
+  height: 600px;
+  position: sticky;
+  top: 60px;
+  overflow-y: hidden;
+}
+
+.wrapper:hover {
+  overflow-y: scroll;
+}
+
+.wrapper::-webkit-scrollbar {
+  width: 6px;
+}

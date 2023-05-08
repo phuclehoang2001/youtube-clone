@@ -5,11 +5,15 @@ const Header = () => {
   return (
     <div className="header">
       <button className="header_menu yt_btn">
-        <Menu />
+        <div className="header_menu_icon">
+          <Menu width="1.6rem" height="1.6rem" />
+        </div>
+
+        <div className="header_logo">
+          <LogoYoutube width="100%" height="100%" />
+        </div>
       </button>
-      <div className="header_logo">
-        <LogoYoutube width="100%" height="100%" />
-      </div>
+
       <form>
         <input type="text" placeholder="Tìm kiếm" />
         <button type="submit" className="yt_btn">
