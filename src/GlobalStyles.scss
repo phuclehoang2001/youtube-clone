@@ -1,12 +1,11 @@
 :root {
-  --text-color: #b1bdb4;
+  --text-primary-color: #0f0f0f;
 
   --black-primary: #16181b;
   --black-secondary: #121417;
   --border-color: #4c4c4c;
 
-  --breakpoint-medium: 1224px;
-  --breakpoint-small: 520px;
+  --white-primary: #fff;
 }
 
 * {
@@ -15,8 +14,8 @@
 }
 
 body {
-  background: var(--black-primary);
+  background: var(--white-primary);
   background-attachment: fixed;
-  color: var(--text-color);
+  color: var(--text-primary-color);
   letter-spacing: 0.1px;
 }
