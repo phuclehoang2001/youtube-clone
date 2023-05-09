@@ -56,6 +56,102 @@ const Sidebar = ({ sidebar }) => {
               icon={<SubscribeChannel />}
               activeIcon={<SubscribeChannelActive />}
             ></MenuItem>
+            <MenuItem
+              title="Kênh đăng ký"
+              to={config.routes.subscriptions}
+              icon={<SubscribeChannel />}
+              activeIcon={<SubscribeChannelActive />}
+            ></MenuItem>
+            <MenuItem
+              title="Kênh đăng ký"
+              to={config.routes.subscriptions}
+              icon={<SubscribeChannel />}
+              activeIcon={<SubscribeChannelActive />}
+            ></MenuItem>
+            <MenuItem
+              title="Kênh đăng ký"
+              to={config.routes.subscriptions}
+              icon={<SubscribeChannel />}
+              activeIcon={<SubscribeChannelActive />}
+            ></MenuItem>
+            <MenuItem
+              title="Kênh đăng ký"
+              to={config.routes.subscriptions}
+              icon={<SubscribeChannel />}
+              activeIcon={<SubscribeChannelActive />}
+            ></MenuItem>
+            <MenuItem
+              title="Kênh đăng ký"
+              to={config.routes.subscriptions}
+              icon={<SubscribeChannel />}
+              activeIcon={<SubscribeChannelActive />}
+            ></MenuItem>
+            <MenuItem
+              title="Kênh đăng ký"
+              to={config.routes.subscriptions}
+              icon={<SubscribeChannel />}
+              activeIcon={<SubscribeChannelActive />}
+            ></MenuItem>
+            <MenuItem
+              title="Kênh đăng ký"
+              to={config.routes.subscriptions}
+              icon={<SubscribeChannel />}
+              activeIcon={<SubscribeChannelActive />}
+            ></MenuItem>
+            <MenuItem
+              title="Kênh đăng ký"
+              to={config.routes.subscriptions}
+              icon={<SubscribeChannel />}
+              activeIcon={<SubscribeChannelActive />}
+            ></MenuItem>
+            <MenuItem
+              title="Kênh đăng ký"
+              to={config.routes.subscriptions}
+              icon={<SubscribeChannel />}
+              activeIcon={<SubscribeChannelActive />}
+            ></MenuItem>
+            <MenuItem
+              title="Kênh đăng ký"
+              to={config.routes.subscriptions}
+              icon={<SubscribeChannel />}
+              activeIcon={<SubscribeChannelActive />}
+            ></MenuItem>
+            <MenuItem
+              title="Kênh đăng ký"
+              to={config.routes.subscriptions}
+              icon={<SubscribeChannel />}
+              activeIcon={<SubscribeChannelActive />}
+            ></MenuItem>
+            <MenuItem
+              title="Kênh đăng ký"
+              to={config.routes.subscriptions}
+              icon={<SubscribeChannel />}
+              activeIcon={<SubscribeChannelActive />}
+            ></MenuItem>
+            <MenuItem
+              title="Kênh đăng ký"
+              to={config.routes.subscriptions}
+              icon={<SubscribeChannel />}
+              activeIcon={<SubscribeChannelActive />}
+            ></MenuItem>
+            <MenuItem
+              title="Kênh đăng ký"
+              to={config.routes.subscriptions}
+              icon={<SubscribeChannel />}
+              activeIcon={<SubscribeChannelActive />}
+            ></MenuItem>
+            <MenuItem
+              title="Kênh đăng ký"
+              to={config.routes.subscriptions}
+              icon={<SubscribeChannel />}
+              activeIcon={<SubscribeChannelActive />}
+            ></MenuItem>
+            <MenuItem
+              title="Kênh đăng ký"
+              to={config.routes.subscriptions}
+              icon={<SubscribeChannel />}
+              activeIcon={<SubscribeChannelActive />}
+            ></MenuItem>
           </>
         )}
       </Menu>
