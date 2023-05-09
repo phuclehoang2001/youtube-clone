@@ -1,9 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Menu.scss";
-const MenuItem = ({ title, to, icon, activeIcon }) => {
+const MenuItem = ({ sidebar, title, to, icon, activeIcon }) => {
   return (
-    <NavLink className="menu_item" to={to}>
+    <NavLink
+      className={sidebar ? "menu_item menu_shrink" : "menu_item"}
+      to={to}
+    >
       <span className={"icon"}>{icon}</span>
       <span className={"active_icon"}>{activeIcon}</span>
       <span className={"title"}>{title}</span>

@@ -1,10 +1,22 @@
 .wrapper {
-  width: 240px;
+  width: 300px;
   padding: 10px 0 26px 10px;
-  height: 600px;
+  // height: 300px;
   position: sticky;
   top: 60px;
   overflow-y: hidden;
+}
+
+.wrapper.shrink {
+  width: 70px;
+  padding: 10px 0 14px 0;
+  margin-left: 4px;
+  position: sticky;
+  top: 60px;
+
+  &:hover {
+    overflow: hidden;
+  }
 }
 
 .wrapper:hover {
@@ -13,4 +25,17 @@
 
 .wrapper::-webkit-scrollbar {
   width: 6px;
+}
+
+.wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.wrapper::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 5px;
+}
+
+.wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
 }

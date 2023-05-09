@@ -1,11 +1,11 @@
 import React from "react";
 import { LogoYoutube, CreateVideo, Search, Notification, Menu } from "../Icons";
 import "./Header.scss";
-const Header = () => {
+const Header = ({ handleSidebar }) => {
   return (
     <div className="header">
       <button className="header_menu yt_btn">
-        <div className="header_menu_icon">
+        <div className="header_menu_icon" onClick={() => handleSidebar()}>
           <Menu width="1.6rem" height="1.6rem" />
         </div>
 
