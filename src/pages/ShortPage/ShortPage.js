@@ -1,7 +1,7 @@
 import React from "react";
 
-const Short = () => {
+const ShortPage = () => {
   return <div>Video Short</div>;
 };
 
-export default Short;
+export default ShortPage;

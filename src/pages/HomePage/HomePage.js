@@ -1,8 +1,8 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import CategoriesBar from "../CategoriesBar/";
-import Video from "../Videos/";
-const HomeScreen = () => {
+import CategoriesBar from "../../components/CategoriesBar";
+import Video from "../../components/Videos";
+const HomePage = () => {
   return (
     <Container>
       <CategoriesBar />
@@ -17,4 +17,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default HomePage;
