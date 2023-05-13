@@ -1,7 +1,8 @@
 import React from "react";
-import "./Menu.scss";
+import "./SliderCategories.scss";
+
 const SliderCategories = ({ children }) => {
-  return <nav>{children}</nav>;
+  return <nav className="slider_category">{children}</nav>;
 };
 
 export default SliderCategories;

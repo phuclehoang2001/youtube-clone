@@ -4,6 +4,7 @@ const routes = {
   login: "/login",
   shorts: "/shorts",
   subscriptions: "/subscriptions",
+  videos: "/video",
 };
 
 export default routes;

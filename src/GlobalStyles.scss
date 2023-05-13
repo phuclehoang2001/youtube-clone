@@ -5,6 +5,10 @@
   --black-secondary: #121417;
   --border-color: #4c4c4c;
 
+  --search-border-radius: 40px 0 0 40px;
+  --search-height: 46px;
+  --search-button-width: 64px;
+
   --white-primary: #fff;
 }
 
@@ -18,4 +22,12 @@ body {
   background-attachment: fixed;
   color: var(--text-primary-color);
   letter-spacing: 0.1px;
+}
+
+a {
+  color: var(--text-primary-color);
+  text-decoration: none;
+  &:hover {
+    color: var(--text-primary-color);
+  }
 }

@@ -5,8 +5,18 @@
   position: sticky;
   top: 60px;
   overflow-y: hidden;
+  // background-color: blue;
 }
 
+.wrapper.hide_sidebar {
+  /* áp dụng transition cho khi có class hide_sidebar */
+  transition: all ease 0.5s;
+}
+
+.wrapper.open_sidebar {
+  /* áp dụng transition cho khi có class open_sidebar */
+  transition: all ease 0.5s;
+}
 .wrapper.shrink {
   width: 70px;
   padding: 10px 0 14px 0;
@@ -34,4 +44,14 @@
 .wrapper::-webkit-scrollbar-thumb {
   background-color: #999;
   border-radius: 15px;
+}
+
+.hide_sidebar {
+  transform: translateX(-20em);
+}
+
+.open_sidebar {
+  transform: translateX(0);
+  background-color: #ecebeb;
+  border-radius: 0 10px 10px 0;
 }

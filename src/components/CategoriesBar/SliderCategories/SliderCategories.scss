@@ -1,0 +1,35 @@
+.slider_category {
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+.category_item {
+  margin-right: 10px;
+  color: var(--text-primary-color);
+  text-decoration: none;
+  text-align: center;
+  padding: 0px 12px 0px 12px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  &.active {
+    background-color: rgb(0, 0, 0);
+    color: #fff;
+    font-weight: 400;
+    .icon {
+      display: none;
+    }
+
+    .active_icon {
+      display: flex;
+    }
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+  }
+  &:hover {
+    color: var(--text-primary-color);
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}

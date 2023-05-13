@@ -1,7 +1,170 @@
-import React from "react";
-import { LogoYoutube, CreateVideo, Search, Notification, Menu } from "../Icons";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import { login } from "../../redux/actions/auth";
+import Search from "../Search/";
+import {
+  LogoYoutube,
+  CreateVideo,
+  Notification,
+  Menu,
+  TopbarMenu,
+  LoginIcon,
+  YourChannel,
+  YoutubeStudio,
+  LogOut,
+  Theme,
+  Language,
+  Location,
+  Setting,
+  NextMenu,
+} from "../Icons";
 import "./Header.scss";
+
+import { Menu as MenuHeader } from "../Popper/Menu";
+const MENU_ITEMS_PROFILE = [
+  {
+    leftIcon: <YourChannel />,
+    title: "Kênh của bạn",
+    to: "/yourchannel",
+  },
+  {
+    leftIcon: <YoutubeStudio />,
+    title: "Youtube Studio",
+    to: "/youtube-stutdio",
+  },
+  {
+    leftIcon: <LogOut />,
+    title: "Đăng xuất",
+    logOut: true,
+  },
+];
+
+const MENU_ITEMS_SWITCH = [
+  {
+    leftIcon: <Theme />,
+    rightIcon: <NextMenu />,
+    title: "Giao diện: ",
+    selectedOption: "Giao diện thiết bị",
+    children: {
+      title: "Giao diện",
+      data: [
+        {
+          type: "theme",
+          code: "default",
+          title: "Dùng giao diện của thiết bị",
+          separate: true,
+        },
+        {
+          type: "theme",
+          code: "dark",
+          title: "Giao diện tối",
+        },
+        {
+          type: "theme",
+          code: "light",
+          title: "Giao diện sáng",
+          lastItem: true,
+        },
+      ],
+    },
+    separate: true,
+  },
+  {
+    leftIcon: <Language />,
+    rightIcon: <NextMenu />,
+    title: "Ngôn ngữ: ",
+    selectedOption: "Tiếng Việt",
+    children: {
+      title: "Chọn ngôn ngữ của bạn",
+      data: [
+        {
+          type: "language",
+          code: "vi",
+          title: "Tiếng Việt",
+          separate: true,
+        },
+        {
+          type: "language",
+          code: "en",
+          title: "English",
+          lastItem: true,
+        },
+      ],
+    },
+  },
+  {
+    leftIcon: <Location />,
+    rightIcon: <NextMenu />,
+    title: "Địa điểm: ",
+    selectedOption: "Việt Nam",
+    children: {
+      title: "Chọn vị trí của bạn",
+      data: [
+        {
+          type: "location",
+          code: "+84",
+          title: "Việt Nam",
+          separate: true,
+        },
+        {
+          type: "location",
+          code: "+82",
+          title: "Hàn Quốc",
+        },
+        {
+          type: "location",
+          code: "+81",
+          title: "Nhật Bản",
+        },
+        {
+          type: "location",
+          code: "+33",
+          title: "Pháp",
+        },
+        {
+          type: "location",
+          code: "+358",
+          title: "Phần Lan",
+          lastItem: true,
+        },
+      ],
+    },
+  },
+];
+
 const Header = ({ handleSidebar }) => {
+  const { accessToken, user } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+
+  // Handle logic
+  const handleMenuChange = (menuItem) => {
+    switch (menuItem.type) {
+      case "language":
+        // Handle change language
+        break;
+      default:
+    }
+  };
+
+  const userMenu = [
+    ...MENU_ITEMS_PROFILE,
+    ...MENU_ITEMS_SWITCH,
+    {
+      leftIcon: <Setting />,
+      title: "Cài đặt",
+      to: "/account",
+      separate: true,
+      lastItem: true,
+    },
+  ];
+
+  const handleLogin = () => {
+    dispatch(login());
+  };
+
   return (
     <div className="header">
       <button className="header_menu yt_btn">
@@ -14,24 +177,49 @@ const Header = ({ handleSidebar }) => {
         </div>
       </button>
 
-      <form>
-        <input type="text" placeholder="Tìm kiếm" />
-        <button type="submit" className="yt_btn">
-          <Search width="1.6rem" height="1.6rem" />
-        </button>
-      </form>
-
+      <Search />
       <div className="header_actions">
-        <button className="action_btn yt_btn">
-          <CreateVideo />
-        </button>
-        <button className="action_btn yt_btn">
-          <Notification />
-        </button>
-        <img
-          src="https://yt3.ggpht.com/FID9udkB2vTqIte2w003UhOkJdjGNEaPoFLcCQNXm3gcum0AtFZBVQG-MVIeC0B_vIWmd1NIpw=s88-c-k-c0x00ffffff-no-rj-mo"
-          alt="avatar"
-        />
+        {accessToken ? (
+          <>
+            <button className="action_btn yt_btn">
+              <CreateVideo />
+            </button>
+            <button className="action_btn yt_btn">
+              <Notification />
+            </button>
+          </>
+        ) : (
+          ""
+        )}
+        {accessToken ? (
+          <MenuHeader items={userMenu} onChange={handleMenuChange} data={user}>
+            <img src={user.photoURL} alt="avatar" className="avatar" />
+          </MenuHeader>
+        ) : (
+          ""
+        )}
+
+        {accessToken ? (
+          ""
+        ) : (
+          <div className="youtube_masthead">
+            <div className="masthead">
+              <button className="action_btn yt_btn">
+                <TopbarMenu width="1.5rem" height="1.5rem" />
+              </button>
+              <button className="topbar_login" onClick={handleLogin}>
+                <div className="topbar_login_shape">
+                  <div className="topbar_login_icon">
+                    <LoginIcon />
+                  </div>
+                  <div className="topbar_login_content">
+                    <span>Đăng nhập</span>
+                  </div>
+                </div>
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

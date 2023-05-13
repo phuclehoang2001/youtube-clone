@@ -1,34 +1,44 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { publicRoutes } from "./routes/";
 import DefaultLayout from "./layouts/DefaultLayout/";
+import HeaderOnly from "./layouts/HeaderOnly/";
 import { Fragment } from "react";
+import { useSelector } from "react-redux";
 const App = () => {
+  const { accessToken, loading } = useSelector((state) => state.auth);
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!loading && !accessToken) {
+      // xử lý khi chưa đăng nhập
+      //navigate("/");
+    }
+  }, [accessToken, loading, navigate]);
+
   return (
-    <Router>
-      <Routes>
-        {publicRoutes.map((route, index) => {
-          const Page = route.component;
-          let Layout = DefaultLayout;
-          if (route.layout) {
-            Layout = route.layout;
-          } else if (route.layout === null) {
-            Layout = Fragment;
-          }
-          return (
-            <Route
-              key={index}
-              path={route.path}
-              element={
-                <Layout>
-                  <Page />
-                </Layout>
-              }
-            />
-          );
-        })}
-      </Routes>
-    </Router>
+    <Routes>
+      {publicRoutes.map((route, index) => {
+        const Page = route.component;
+        let Layout = DefaultLayout;
+        if (route.layout) {
+          Layout = route.layout;
+        } else if (route.layout === null) {
+          Layout = HeaderOnly;
+        }
+        return (
+          <Route
+            key={index}
+            path={route.path}
+            element={
+              <Layout>
+                <Page />
+              </Layout>
+            }
+          />
+        );
+      })}
+    </Routes>
   );
 };
 
