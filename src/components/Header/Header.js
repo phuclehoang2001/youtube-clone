@@ -174,6 +174,7 @@ const Header = ({ handleSidebar }) => {
 
         <div className="header_logo">
           <LogoYoutube width="100%" height="100%" />
+          <span className="header_countrycode">VN</span>
         </div>
       </button>
 

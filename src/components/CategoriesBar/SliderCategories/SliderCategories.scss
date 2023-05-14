@@ -13,6 +13,8 @@
   border-radius: 8px;
   display: flex;
   align-items: center;
+  background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
   &.active {
     background-color: rgb(0, 0, 0);
     color: #fff;
@@ -20,16 +22,9 @@
     .icon {
       display: none;
     }
-
-    .active_icon {
-      display: flex;
-    }
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.1);
-    }
   }
-  &:hover {
+  &:not(.active):hover {
     color: var(--text-primary-color);
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: rgba(0, 0, 0, 0.1);
   }
 }

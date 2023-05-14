@@ -1,0 +1,44 @@
+.video_container {
+  margin-bottom: 1rem;
+  font-size: 16px;
+  width: 100%;
+  height: 322px;
+}
+
+.video_thumbnail {
+  position: relative;
+  border-radius: 15px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: inherit;
+  }
+  .duration {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background-color: rgba($color: #000000, $alpha: 0.8);
+    line-height: 14px;
+    border-radius: 4px;
+    color: #fff;
+    padding: 4px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  &:hover {
+    // transform: scale(1.1);
+    border-radius: 0;
+  }
+}
+
+.video_thumbnail .duration {
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.video_thumbnail:hover .duration {
+  opacity: 0;
+}
