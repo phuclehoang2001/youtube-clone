@@ -1,4 +1,12 @@
 .app_container {
   display: flex;
   height: 90vh;
+  padding-top: 60px;
+  height: 100%;
+  .scrollbar + .app_main {
+    padding-left: 300px;
+  }
+  .scrollbar.shrink + .app_main {
+    padding-left: 0px;
+  }
 }

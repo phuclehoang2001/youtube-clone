@@ -8,13 +8,13 @@ const HomePage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // dispatch(getPopularVideos());
+    dispatch(getPopularVideos());
   }, [dispatch]);
 
   return (
     <Container>
       <CategoriesBar />
-      <Row>
+      <Row className="mb-40">
         {[...new Array(20)].map((_, index) => (
           <Col lg={4} md={4} key={index}>
             <Video />

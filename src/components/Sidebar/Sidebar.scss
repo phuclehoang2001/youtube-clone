@@ -1,30 +1,25 @@
-.wrapper {
-  width: 300px;
+.scrollbar {
+  position: fixed;
+  width: 240px;
   padding: 10px 0 26px 10px;
-  // height: 300px;
-  position: sticky;
+  height: 100%;
   top: 60px;
-  overflow-y: hidden;
-  // background-color: blue;
+  display: flex;
+  flex-direction: column;
+}
+.wrapper {
+  overflow: hidden;
+  a {
+    width: 204px;
+  }
 }
 
-.wrapper.hide_sidebar {
-  /* áp dụng transition cho khi có class hide_sidebar */
-  transition: all ease 0.5s;
-}
-
-.wrapper.open_sidebar {
-  /* áp dụng transition cho khi có class open_sidebar */
-  transition: all ease 0.5s;
-}
-.wrapper.shrink {
-  width: 70px;
+.scrollbar.shrink {
+  width: 64px;
   padding: 10px 0 14px 0;
   margin-left: 4px;
-  position: sticky;
   top: 60px;
-
-  &:hover {
+  .wrapper:hover {
     overflow: hidden;
   }
 }
@@ -46,12 +41,97 @@
   border-radius: 15px;
 }
 
+// Sider dành cho layout onlyheader
+.wrapper_drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  overflow-y: hidden;
+  z-index: 1001;
+  width: 240px;
+  height: 100%;
+  display: flex;
+  padding: 5px;
+  flex-direction: column;
+}
+
 .hide_sidebar {
   transform: translateX(-20em);
 }
 
 .open_sidebar {
   transform: translateX(0);
-  background-color: #ecebeb;
-  border-radius: 0 10px 10px 0;
+}
+
+.wrapper_drawer.hide_sidebar {
+  /* áp dụng transition cho khi có class hide_sidebar */
+  transition: all ease 0.3s;
+}
+
+.wrapper_drawer.open_sidebar {
+  /* áp dụng transition cho khi có class open_sidebar */
+  transition: all ease 0.3s;
+}
+
+.sidebar_drawer {
+  padding: 10px 0 26px 10px;
+  overflow: hidden;
+  a {
+    width: 204px;
+  }
+}
+
+.sidebar_drawer:hover {
+  overflow-y: scroll;
+}
+
+.sidebar_drawer::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar_drawer::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+.sidebar_drawer::-webkit-scrollbar-thumb {
+  background-color: #999;
+  border-radius: 15px;
+}
+
+.sidebar_header {
+  height: 56px;
+  padding-left: 16px;
+  display: flexbox;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  &_menu {
+    color: #030303;
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      border-radius: 50%;
+      background-color: rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+  }
+  &_logo {
+    height: 40px;
+    width: 110px;
+    margin-left: 16px;
+    object-fit: contain;
+    display: flex;
+    cursor: pointer;
+  }
+  &_countrycode {
+    color: #606060;
+    margin: 2px 0 0 5px;
+    font-size: 10px;
+  }
 }

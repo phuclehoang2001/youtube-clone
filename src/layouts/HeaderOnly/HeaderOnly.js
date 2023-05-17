@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import Header from "../../components/Header/";
 import Sidebar from "../../components/Sidebar/";
+import Backdrop from "../../components/Sidebar/Backdrop";
 import "./HeaderOnly.scss";
 const HeaderOnly = ({ children }) => {
   const [openSidebar, toggleSidebar] = useState(false);
@@ -12,7 +13,12 @@ const HeaderOnly = ({ children }) => {
     <>
       <Header handleSidebar={handleSidebar} />
       <div className="app_container">
-        <Sidebar renderVideo={true} open={openSidebar} />
+        <Backdrop sidebar={openSidebar} handleSidebar={handleSidebar} />
+        <Sidebar
+          renderVideo={true}
+          open={openSidebar}
+          handleSidebar={handleSidebar}
+        />
         <Container fluid className="app_main">
           {children}
         </Container>

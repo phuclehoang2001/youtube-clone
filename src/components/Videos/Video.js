@@ -12,17 +12,28 @@ const Video = () => {
       </div>
 
       <div className="video_details">
-        <img
-          src="https://yt3.ggpht.com/ytc/AGIKgqP2ZDMDaAb547oJ7sq1Np9MxCgCqTkKglqFJ1afFg=s68-c-k-c0x00ffffff-no-rj"
-          alt="thumbnail"
-        />
+        <div className="avatar">
+          <img
+            src="https://yt3.ggpht.com/ytc/AGIKgqP2ZDMDaAb547oJ7sq1Np9MxCgCqTkKglqFJ1afFg=s68-c-k-c0x00ffffff-no-rj"
+            alt="thumbnail"
+          />
+        </div>
         <div className="video_metadata">
-          <span className="title">Thử thách cắm trại sa mạc 25H</span>
+          {/* Gặp vấn đề khi title quá dài */}
+          <h3 className="title">
+            <a href="#">Thử thách cắm trại sa mạc 50H</a>
+          </h3>
           <div className="additional_medata">
-            <div className="channel_name"></div>
+            <div className="channel_name">
+              <a href="#">Lâm Vlog</a>
+            </div>
             <div className="metadata_line">
-              <span className="view_count">20 N lượt xem</span>
-              <span className="publication_date">. 1 năm trước</span>
+              <span className="view_count metadata_line_item">
+                5,3 Tr lượt xem
+              </span>
+              <span className="publication_date metadata_line_item">
+                1 năm trước
+              </span>
             </div>
           </div>
         </div>

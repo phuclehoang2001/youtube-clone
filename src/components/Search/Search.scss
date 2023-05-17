@@ -1,3 +1,37 @@
+.header_center {
+  width: 640px;
+  min-width: 0px;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: row;
+}
+.keyboard {
+  line-height: 24px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  opacity: 0.6;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+}
+
+.touch_response {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  height: 40px;
+  min-width: 40px;
+  margin-left: 10px;
+  &:hover {
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+}
+
 .search {
   position: relative;
   width: 650px;
