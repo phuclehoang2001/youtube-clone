@@ -1,0 +1,16 @@
+.watch_active_metadata {
+  margin-top: 12px;
+  margin-bottom: 24px;
+  display: block;
+  .title {
+    h1 {
+      font-size: 16px;
+    }
+  }
+  .top_row {
+    margin-top: -4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+}

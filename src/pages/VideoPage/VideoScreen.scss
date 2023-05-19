@@ -1,0 +1,48 @@
+.wrapper_video_content {
+  width: 100%;
+  height: 100%;
+}
+
+.columns {
+  min-width: 720px;
+  height: 100%;
+  justify-content: center;
+  background-color: cadetblue;
+  display: flex;
+  flex-direction: row;
+  .primary_content {
+    max-width: 660px;
+    min-width: 660px;
+    padding: 24px 24px 0 0;
+    margin-left: 24px;
+    .primary_inner {
+      position: relative;
+      width: 640px;
+      height: 100%;
+      background-color: red;
+    }
+  }
+
+  .secondary_content {
+    max-width: 430px;
+    min-width: 430px;
+    padding: 24px 24px 0 0;
+    .secondary_inner {
+      position: relative;
+      width: 420px;
+      height: 100%;
+      background-color: blue;
+    }
+  }
+}
+
+.player {
+  position: relative;
+  max-height: 360px;
+  height: 360px;
+  background-color: pink;
+}
+
+.below {
+  position: relative;
+}
