@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./CategoriesBar.scss";
 import SliderCategories, { CategoryItem } from "./SliderCategories/";
+import { useDispatch } from "react-redux";
+import { getVideosByCategory } from "../../redux/actions/videos";
 
 const categories = [
   "Tất cả",
@@ -10,15 +12,17 @@ const categories = [
   "Tin tức",
   "Trực tiếp",
   "Hoạt họa",
-  "Hài kịch tình huống",
+  "Vlog",
   "Chương trình nấu ăn",
   "bóng đá",
 ];
 const CategoriesBar = () => {
   const [activeCategory, setActiveCategory] = useState("Tất cả");
 
+  const dispatch = useDispatch();
   const handleClick = (value) => {
     setActiveCategory(value);
+    dispatch(getVideosByCategory(value));
   };
 
   return (

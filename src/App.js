@@ -1,13 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { publicRoutes } from "./routes/";
 import DefaultLayout from "./layouts/DefaultLayout/";
 import HeaderOnly from "./layouts/HeaderOnly/";
+import NoInternet from "./pages/NoInternet/NoInternet";
 import { Fragment } from "react";
 import { useSelector } from "react-redux";
 const App = () => {
   const { accessToken, loading } = useSelector((state) => state.auth);
-
+  const { internet, checkInternet } = useState(true);
   const navigate = useNavigate();
   useEffect(() => {
     if (!loading && !accessToken) {

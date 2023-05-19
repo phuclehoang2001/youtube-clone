@@ -1,38 +1,109 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
+import moment from "moment";
+import numeral from "numeral";
+import "numeral/locales/vi";
+import "moment/locale/vi";
+
+import { getVideoDetails, getChannelDetails } from "../../redux/actions/videos";
 import "./Video.scss";
-const Video = () => {
+moment.locale("vi");
+const Video = ({ video }) => {
+  const {
+    id,
+    snippet: {
+      publishedAt,
+      channelId,
+      title,
+      channelTitle,
+      thumbnails: { medium },
+    },
+  } = video;
+  const [isLocaleSet, setIsLocaleSet] = useState(false);
+  const [views, setViews] = useState(null);
+  const [duration, setDuration] = useState(null);
+  const [channelAvatar, setchannelAvatar] = useState(null);
+
+  const seconds = moment.duration(duration).asSeconds();
+  const _duration = moment.utc(seconds * 1000).format("mm:ss");
+  const _videoId = id?.videoId || id;
+
+  const playerRef = useRef();
+
+  const formatNumber = (number) => {
+    const formattedNumber = numeral(number).format("0,0.0a");
+    return formattedNumber;
+  };
+  useEffect(() => {
+    if (!isLocaleSet) {
+      numeral.locales.vi.abbreviations.thousand = " N";
+      numeral.locales.vi.abbreviations.million = " Tr";
+      numeral.locale("vi");
+
+      setIsLocaleSet(true);
+    }
+  }, [isLocaleSet]);
+
+  useEffect(() => {
+    getVideoDetails(_videoId).then((details) => {
+      setDuration(details[0].contentDetails.duration);
+      let _views = formatNumber(details[0].statistics.viewCount);
+      setViews(_views);
+    });
+  }, [_videoId]);
+
+  useEffect(() => {
+    getChannelDetails(channelId).then((details) => {
+      setchannelAvatar(details[0].snippet.thumbnails.default);
+    });
+  }, [channelId]);
+
+  const onMouseOver = () => {
+    // console.log("playerRef", playerRef);
+  };
+
+  const onMouseOut = () => {};
   return (
     <div className="video_container">
-      <div className="video_thumbnail">
-        <img
-          src="https://i.ytimg.com/vi/NUtoFscKUFU/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD5oefP0lt8PB1iW-cpYQVhnqIo-w"
-          alt="thumbnail"
-        />
-        <span className="duration">12:30</span>
+      <div
+        className="video_thumbnail"
+        onMouseOver={onMouseOver}
+        onMouseOut={onMouseOut}
+      >
+        <img src={medium.url} alt="thumbnail" />
+        <div className="preview_video">
+          {/* <iframe
+            ref={playerRef}
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/UIX0DSaNOjI"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe> */}
+        </div>
+
+        <span className="duration">{_duration}</span>
       </div>
 
       <div className="video_details">
         <div className="avatar">
-          <img
-            src="https://yt3.ggpht.com/ytc/AGIKgqP2ZDMDaAb547oJ7sq1Np9MxCgCqTkKglqFJ1afFg=s68-c-k-c0x00ffffff-no-rj"
-            alt="thumbnail"
-          />
+          <img src={channelAvatar?.url} alt="avatar channel" />
         </div>
         <div className="video_metadata">
-          {/* Gặp vấn đề khi title quá dài */}
           <h3 className="title">
-            <a href="#">Thử thách cắm trại sa mạc 50H</a>
+            <a href="#">{title}</a>
           </h3>
           <div className="additional_medata">
             <div className="channel_name">
-              <a href="#">Lâm Vlog</a>
+              <a href="#">{channelTitle}</a>
             </div>
             <div className="metadata_line">
               <span className="view_count metadata_line_item">
-                5,3 Tr lượt xem
+                {views} lượt xem
               </span>
               <span className="publication_date metadata_line_item">
-                1 năm trước
+                {moment(publishedAt).fromNow()}
               </span>
             </div>
           </div>

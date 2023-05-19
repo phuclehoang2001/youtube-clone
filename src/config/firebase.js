@@ -1,5 +1,5 @@
 const firebase = {
-  apiKey: "AIzaSyC0GOO44s-f_vD9_u8F34wCYk2AxF_kcok",
+  apiKey: process.env.REACT_APP_YOUTUBE_API_KEY,
   authDomain: "yt-lhp.firebaseapp.com",
   projectId: "yt-lhp",
   storageBucket: "yt-lhp.appspot.com",

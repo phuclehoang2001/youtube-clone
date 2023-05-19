@@ -3,8 +3,10 @@ import { Container } from "react-bootstrap";
 import Header from "../../components/Header/";
 import Sidebar from "../../components/Sidebar/";
 import "./DefaultLayout.scss";
+import Footer from "../../components/Footer/Footer";
 const DefaultLayout = ({ children }) => {
   const [sidebar, toggleSidebar] = useState(false);
+  const [footer, toggleFooter] = useState(false);
   const handleSidebar = () => {
     toggleSidebar((value) => !value);
   };
@@ -17,6 +19,7 @@ const DefaultLayout = ({ children }) => {
           {children}
         </Container>
       </div>
+      {footer ? <Footer /> : ""}
     </>
   );
 };
