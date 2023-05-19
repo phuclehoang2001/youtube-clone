@@ -1,5 +1,7 @@
 import React from "react";
 import "./WatchMetadata.scss";
+import { CheckedIcon } from "../Icons/Icons";
+
 const WatchMetadata = () => {
   return (
     <div className="watch_active_metadata">
@@ -15,7 +17,9 @@ const WatchMetadata = () => {
             <div className="upload_info">
               <div className="channel_name">
                 <span>JV</span>
+                <CheckedIcon />
                 {/* tick channel */}
+
                 {/* <div></div>  */}
               </div>
               <span className="owner_sub_count">2,12 Tr người đăng ký</span>
