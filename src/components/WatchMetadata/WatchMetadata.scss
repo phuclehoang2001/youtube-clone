@@ -11,6 +11,37 @@
     margin-top: -4px;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
+  }
+  .channel_info {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+  }
+  img {
+    border-radius: 50%;
+  }
+
+  .channel_name {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    span {
+      font-weight: bold;
+    }
+  }
+
+  .owner_sub_count {
+    color: gray;
+    font-size: 0.8rem;
+  }
+
+  .btn-subscribe {
+    border-radius: 1rem;
+    height: 2.5rem;
+    width: 6rem;
+    background-color: #000000;
+    color: white;
+    font-weight: 400;
   }
 }

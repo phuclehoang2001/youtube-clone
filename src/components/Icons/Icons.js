@@ -685,3 +685,7 @@ export const DisLikedIcon = ({ width = "1.4rem", height = "1.4rem", className })
 export const LikedIcon = ({ width = "1.4rem", height = "1.4rem", className }) => (
   <svg fill="#000000" width={width} height={height} viewBox="0 0 24 24" className={className} xmlns="http://www.w3.org/2000/svg"><path d="M2,22H18.644a3.036,3.036,0,0,0,3-2.459l1.305-7a2.962,2.962,0,0,0-.637-2.439A3.064,3.064,0,0,0,19.949,9H15.178V5c0-2.061-2.113-3-4.076-3a1,1,0,0,0-1,1c0,1.907-.34,3.91-.724,4.284L6.593,10H2a1,1,0,0,0-1,1V21A1,1,0,0,0,2,22ZM8,11.421l2.774-2.7c.93-.907,1.212-3.112,1.3-4.584.542.129,1.109.38,1.109.868v5a1,1,0,0,0,1,1h5.771a1.067,1.067,0,0,1,.824.38.958.958,0,0,1,.21.8l-1.3,7A1.036,1.036,0,0,1,18.644,20H8ZM3,12H6v8H3Z" stroke="rgba(0,0,0,0.1)" /></svg>
 );
+
+export const ShareIcon = ({ width = "1.4rem", height = "1.4rem", className }) => (
+  <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" className={className} width={width} height={height}><g mirror-in-rtl="" className={className}><path d="M15,5.63L20.66,12L15,18.37V15v-1h-1c-3.96,0-7.14,1-9.75,3.09c1.84-4.07,5.11-6.4,9.89-7.1L15,9.86V9V5.63 M14,3v6 C6.22,10.13,3.11,15.33,2,21c2.78-3.97,6.44-6,12-6v6l8-9L14,3L14,3z" className={className}></path></g></svg>
+);

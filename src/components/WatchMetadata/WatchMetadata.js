@@ -1,6 +1,6 @@
 import React from "react";
 import "./WatchMetadata.scss";
-import { CheckedIcon, DisLikedIcon, LikedIcon } from "../Icons/Icons";
+import { CheckedIcon, DisLikedIcon, LikedIcon, ShareIcon } from "../Icons/Icons";
 
 const WatchMetadata = () => {
   return (
@@ -18,18 +18,21 @@ const WatchMetadata = () => {
               <div className="channel_name">
                 <span>JV</span>
                 <CheckedIcon />
-                <DisLikedIcon />
-                <LikedIcon />
                 {/* tick channel */}
 
                 {/* <div></div>  */}
               </div>
               <span className="owner_sub_count">2,12 Tr người đăng ký</span>
             </div>
+            <button className="btn-subscribe">Đăng ký</button>
           </div>
-          <button className="btn-subcribe">Đăng ký</button>
+
         </div>
-        <div className="actions"></div>
+        <div className="actions">
+          <LikedIcon />
+          <DisLikedIcon />
+          <ShareIcon />
+        </div>
       </div>
       <div className="bottom_row"></div>
     </div>
