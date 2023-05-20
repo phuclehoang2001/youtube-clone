@@ -11,13 +11,13 @@
   display: flex;
   flex-direction: row;
   .primary_content {
-    max-width: 660px;
+    max-width: 1000px;
     min-width: 660px;
     padding: 24px 24px 0 0;
     margin-left: 24px;
     .primary_inner {
       position: relative;
-      width: 640px;
+      width: 960px;
       height: 100%;
       background-color: red;
     }

@@ -58,7 +58,7 @@ function Menu({
 
   const renderResult = (attrs) => (
     <div className={"menu_list"} tabIndex="-1" {...attrs}>
-      <PopperWrapper className={"menu_popper"}>
+      <PopperWrapper className={"menu_popper_wrapper"}>
         {history.length === 1 && data && <HeaderMenuUser dataUser={data} />}
         {history.length > 1 && (
           <Header title={current.title} onBack={handleBack} />
