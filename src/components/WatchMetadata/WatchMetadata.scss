@@ -44,4 +44,75 @@
     color: white;
     font-weight: 400;
   }
+
+  .btn_like {
+    height: 2.5rem;
+    background-color: #e9eaecfb;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 1rem 0.5rem;
+    border: none;
+    border-right: 1px solid #0000001a;
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+  }
+  .actions {
+    max-height: 2.5rem;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: space-between;
+  }
+
+  .btn_dislike {
+    background-color: #e9eaecfb;
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    border: none;
+    height: 2.5rem;
+    padding: 0.5rem;
+    align-items: center;
+  }
+
+  .btn_share {
+    background-color: #e9eaecfb;
+    border-radius: 40rem;
+    border: none;
+    height: 2.5rem;
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    align-items: center;
+  }
+
+  .dislay_flex {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .btn_save {
+    background-color: #e9eaecfb;
+    border-radius: 40rem;
+    border: none;
+    height: 2.5rem;
+    padding: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .btn_more {
+    background-color: #e9eaecfb;
+    border-radius: 40rem;
+    border: none;
+    height: 2.5rem;
+    padding: 0.5rem;
+    align-items: center;
+  }
+
+  .container_describe {
+    background-color: #e9eaecfb;
+    border-radius: 1rem;
+  }
 }
