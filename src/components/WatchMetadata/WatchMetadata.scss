@@ -4,7 +4,9 @@
   display: block;
   .title {
     h1 {
-      font-size: 16px;
+      margin-left: -1.2rem;
+      font-size: 20px;
+      margin-bottom: 1rem;
     }
   }
   .top_row {
@@ -119,9 +121,17 @@
   .container_describe {
     background-color: #e9eaecfb;
     border-radius: 1rem;
+    padding: 1rem 1rem;
   }
 
   .bottom_row {
     margin-top: 1rem;
+  }
+
+  .btn_show_hide_more {
+    border: none;
+    font-weight: 600;
+    margin-left: -2rem;
+    background-color: transparent;
   }
 }
