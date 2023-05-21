@@ -1,6 +1,6 @@
 import React from "react";
 import "./WatchMetadata.scss";
-import { CheckedIcon, DisLikedIcon, LikedIcon, MoreIcon, SaveIcon, ShareIcon } from "../Icons/Icons";
+import { CheckedIcon, DisLikedIcon, LikeIcon, LikedIcon, MoreIcon, SaveIcon, ShareIcon } from "../Icons/Icons";
 
 const WatchMetadata = () => {
   return (
@@ -31,7 +31,7 @@ const WatchMetadata = () => {
         <div className="actions">
           <div className="dislay_flex">
             <button className="btn_like">
-              <LikedIcon />
+              <LikeIcon />
               <span>
                 Like
               </span>

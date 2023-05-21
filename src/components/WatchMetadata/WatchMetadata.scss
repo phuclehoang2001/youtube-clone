@@ -16,9 +16,13 @@
   .channel_info {
     display: flex;
     flex-direction: row;
-    gap: 15px;
+  }
+
+  .upload_info {
+    margin-left: -2rem;
   }
   img {
+    width: 50%;
     border-radius: 50%;
   }
 
@@ -37,12 +41,13 @@
   }
 
   .btn-subscribe {
-    border-radius: 1rem;
+    border-radius: 20rem;
     height: 2.5rem;
     width: 6rem;
     background-color: #000000;
     color: white;
     font-weight: 400;
+    margin-left: 1rem;
   }
 
   .btn_like {
@@ -114,5 +119,9 @@
   .container_describe {
     background-color: #e9eaecfb;
     border-radius: 1rem;
+  }
+
+  .bottom_row {
+    margin-top: 1rem;
   }
 }
