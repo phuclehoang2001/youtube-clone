@@ -8,8 +8,8 @@ const Wrapper = () => {
     <div className="wrapper_comments">
       <CommentList>
         <CommentHeader />
-        {[...Array(15)].map(() => (
-          <CommentItem />
+        {[...Array(15)].map((_, index) => (
+          <CommentItem key={index} />
         ))}
       </CommentList>
     </div>

@@ -4,7 +4,7 @@
     flex-direction: column;
     margin-top: 24px;
     margin-bottom: 32px;
-    .title {
+    &_title {
       margin-bottom: 24px;
       display: flex;
       flex-direction: row;
@@ -143,6 +143,17 @@
   position: relative;
   display: flex;
   flex-direction: row;
+  .comment_channel {
+    height: 40px;
+  }
+  .menu_comment {
+    fill: transparent;
+  }
+  &:hover {
+    .menu_comment {
+      fill: #030303;
+    }
+  }
 }
 
 #main.comment_render {
@@ -153,7 +164,139 @@
   flex-direction: column;
 }
 
+#header.comment_render {
+  margin-bottom: 2px;
+}
+
+#header_author.comment_render {
+  align-items: baseline;
+  display: flex;
+  flex-direction: row;
+}
+
+#header_comment_badge.comment_render {
+  height: 20px;
+  background-color: transparent;
+  border-radius: 12px;
+  margin-bottom: 2px;
+  padding-right: 4px;
+  max-width: 100%;
+  box-sizing: border-box;
+  flex-direction: row;
+  align-items: center;
+  display: inline-flex;
+  a {
+    cursor: pointer;
+    text-decoration: none;
+    max-height: 1.8rem;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.8rem;
+  }
+  .channel_tick {
+    width: 12px;
+    height: 12px;
+    margin-left: 4px;
+    margin-top: 4px;
+    .icon {
+      width: 100%;
+      height: 100%;
+      fill: #030303;
+    }
+  }
+}
+
+#header_comment_publish_date.comment_render {
+  font-size: 12px;
+  line-height: 1rem;
+  font-weight: 400;
+  a {
+    color: #606060;
+  }
+}
+
+#comment_content.comment_render {
+  span {
+    color: #0f0f0f;
+    font-size: 16px;
+    line-height: 1rem;
+    font-weight: 400;
+    overflow-wrap: anywhere;
+  }
+}
+
+#action_menu.comment_render {
+  min-width: 40px;
+  .btn_menu_comment {
+    border: none;
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+#actions.comment_render {
+  margin-top: 4px;
+  .toolbar {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    color: #606060;
+    .btn_like {
+      margin-left: -8px;
+    }
+    .comment_action_render {
+      border: none;
+      background-color: transparent;
+      height: 32px;
+      width: 32px;
+      border-radius: 50%;
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    }
+    .vote_count_middle {
+      display: inline-block;
+      margin-right: 8px;
+      font-family: sans-serif;
+      font-size: 14px;
+      line-height: 1rem;
+      font-weight: 400;
+    }
+  }
+}
+
 .replies {
   display: block;
   margin-left: 56px;
+}
+#expander.comment_render {
+  display: block;
+  text-transform: none;
+  .more_replies {
+    margin-left: -16px;
+    .btn_expand_comment {
+      border: none;
+      background-color: transparent;
+      font-size: 16px;
+      line-height: 2rem;
+      font-weight: 500;
+      color: #065fd4;
+      height: 36px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      border-radius: 18px;
+      padding: 0 14px;
+      .reply_comment {
+        display: flex;
+        align-items: center;
+        margin-right: 6px;
+        fill: currentColor;
+      }
+      &:hover {
+        background-color: #def1ff;
+      }
+    }
+  }
 }

@@ -34,7 +34,7 @@ const CommentHeader = () => {
 
   return (
     <div className="header_comment">
-      <div className="title">
+      <div className="header_comment_title">
         <h2 className="count comment_header_renderer">800 bình luận</h2>
         <div className="sort_menu comment_header_renderer">
           <SortIcon className={"dropdown_menu"} />
