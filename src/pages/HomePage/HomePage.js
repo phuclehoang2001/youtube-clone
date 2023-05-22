@@ -12,7 +12,7 @@ const HomePage = () => {
   }, [dispatch]);
 
   return (
-    <Container>
+    <Container style={{ paddingTop: "76px" }}>
       <CategoriesBar />
       <Row className="mb-40">
         {videos.map((video) => (

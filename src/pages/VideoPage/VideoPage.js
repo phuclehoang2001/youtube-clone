@@ -1,8 +1,8 @@
 import React from "react";
-import "./VideoScreen.scss";
+import "./VideoPage.scss";
 import WatchMetadata from "../../components/WatchMetadata/WatchMetadata";
 import { Wrapper as CommentsWrapper } from "../../components/Comments";
-const VideoScreen = () => {
+const VideoPage = () => {
   return (
     <div className="wrapper_video_content">
       <div className="columns">
@@ -25,4 +25,4 @@ const VideoScreen = () => {
   );
 };
 
-export default VideoScreen;
+export default VideoPage;

@@ -3,7 +3,7 @@ import moment from "moment";
 import numeral from "numeral";
 import "numeral/locales/vi";
 import "moment/locale/vi";
-
+import { TopbarMenu } from "../Icons";
 import { getVideoDetails, getChannelDetails } from "../../redux/actions/videos";
 import "./Video.scss";
 moment.locale("vi");
@@ -106,6 +106,9 @@ const Video = ({ video }) => {
                 {moment(publishedAt).fromNow()}
               </span>
             </div>
+          </div>
+          <div className="video_menu_grid">
+            <TopbarMenu className={"menu_video"} />
           </div>
         </div>
       </div>

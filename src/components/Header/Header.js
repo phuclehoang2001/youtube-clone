@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
 import { login } from "../../redux/actions/auth";
 import Search from "../Search/";
 import {
@@ -172,22 +173,40 @@ const Header = ({ handleSidebar }) => {
           <Menu width="1.6rem" height="1.6rem" />
         </div>
 
-        <div className="header_logo">
+        <a className="header_logo" href="https://www.youtube.com/">
           <LogoYoutube width="100%" height="100%" />
           <span className="header_countrycode">VN</span>
-        </div>
+        </a>
       </button>
 
       <Search />
       <div className="header_actions">
         {accessToken ? (
           <>
-            <button className="action_btn yt_btn">
-              <CreateVideo />
-            </button>
-            <button className="action_btn yt_btn">
-              <Notification />
-            </button>
+            <Tippy
+              delay={[0, 50]}
+              offset={[0, 18]}
+              arrow={false}
+              className="tippy_box"
+              content="Tạo"
+              placement="bottom"
+            >
+              <button className="action_btn yt_btn">
+                <CreateVideo />
+              </button>
+            </Tippy>
+            <Tippy
+              delay={[0, 50]}
+              offset={[0, 18]}
+              arrow={false}
+              className="tippy_box"
+              content="Thông báo"
+              placement="bottom"
+            >
+              <button className="action_btn yt_btn">
+                <Notification />
+              </button>
+            </Tippy>
           </>
         ) : (
           ""
@@ -205,9 +224,18 @@ const Header = ({ handleSidebar }) => {
         ) : (
           <div className="youtube_masthead">
             <div className="masthead">
-              <button className="action_btn yt_btn">
-                <TopbarMenu width="1.5rem" height="1.5rem" />
-              </button>
+              <Tippy
+                delay={[0, 50]}
+                offset={[0, 18]}
+                arrow={false}
+                className="tippy_box"
+                content="Cài đặt"
+                placement="bottom"
+              >
+                <button className="action_btn yt_btn">
+                  <TopbarMenu width="1.5rem" height="1.5rem" />
+                </button>
+              </Tippy>
               <button className="topbar_login" onClick={handleLogin}>
                 <div className="topbar_login_shape">
                   <div className="topbar_login_icon">

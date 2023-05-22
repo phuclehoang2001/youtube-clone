@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./WatchMetadata.scss";
-import { CheckedIcon, DisLikedIcon, LikeIcon, MoreIcon, SaveIcon, ShareIcon } from "../Icons/Icons";
-import Button from "../../components/Button/Button"
+import {
+  CheckedIcon,
+  DisLikedIcon,
+  LikeIcon,
+  MoreIcon,
+  SaveIcon,
+  ShareIcon,
+} from "../Icons/Icons";
+import Button from "../../components/Button/Button";
 const WatchMetadata = () => {
-  const [describe, setDescription] = useState("")
-  const [showHideName, setShowHideName] = useState("Hiện thêm")
-  const [isShowMore, setIsShowMore] = useState(false)
-  const [data, setData] = useState("")
+  const [describe, setDescription] = useState("");
+  const [showHideName, setShowHideName] = useState("Hiện thêm");
+  const [isShowMore, setIsShowMore] = useState(false);
+  const [data, setData] = useState("");
 
   useEffect(() => {
     const data = `25.401 lượt xem  19 thg 5, 2023  #nhaclofi #CryzT #thucuoi
@@ -39,23 +46,21 @@ const WatchMetadata = () => {
             ► Fanpage: https://www.facebook.com/wmmusicc.net
 
             © Copyright Cryz T
-            © Copyright by Cryz T & WM Media ☞ Do not Reup`
-    setData(data)
-    setDescription(data.substring(0, 200))
-
-  }, [])
+            © Copyright by Cryz T & WM Media ☞ Do not Reup`;
+    setData(data);
+    setDescription(data.substring(0, 200));
+  }, []);
   const handleShowHideButton = () => {
-    setIsShowMore(!isShowMore)
+    setIsShowMore(!isShowMore);
 
     if (isShowMore) {
-      setDescription(data)
-      setShowHideName("Ẩn bớt")
+      setDescription(data);
+      setShowHideName("Ẩn bớt");
+    } else {
+      setDescription(data.substring(0, 200));
+      setShowHideName("Hiện thêm");
     }
-    else {
-      setDescription(data.substring(0, 200))
-      setShowHideName("Hiện thêm")
-    }
-  }
+  };
 
   return (
     <div className="watch_active_metadata">
@@ -80,15 +85,12 @@ const WatchMetadata = () => {
             </div>
             <button className="btn-subscribe">Đăng ký</button>
           </div>
-
         </div>
         <div className="actions">
           <div className="dislay_flex">
             <button className="btn_like">
               <LikeIcon />
-              <span>
-                Like
-              </span>
+              <span>Like</span>
             </button>
             <button className="btn_dislike">
               <DisLikedIcon />
@@ -97,9 +99,7 @@ const WatchMetadata = () => {
           <div className="display_flex">
             <button className="btn_share">
               <ShareIcon />
-              <span>
-                Share
-              </span>
+              <span>Share</span>
             </button>
           </div>
           <div className="display_Flex">
@@ -119,10 +119,12 @@ const WatchMetadata = () => {
       {/* Container for describe of video*/}
       <div className="bottom_row">
         <div className="container_describe">
-          <span>
-            {describe}
-          </span>
-          <Button children={showHideName} className="btn_show_hide_more" onClick={handleShowHideButton} />
+          <span>{describe}</span>
+          <Button
+            children={showHideName}
+            className="btn_show_hide_more"
+            onClick={handleShowHideButton}
+          />
         </div>
       </div>
     </div>

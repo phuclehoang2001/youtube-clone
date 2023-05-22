@@ -1,5 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { SearchIcon, TouchResponse } from "../Icons";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
 import "./Search.scss";
 function Search() {
   return (
@@ -12,16 +14,34 @@ function Search() {
             alt="Bàn phím"
           />
         </div>
-        <button
-          className={"search_btn"}
-          onMouseDown={(e) => e.preventDefault()}
+        <Tippy
+          delay={[0, 50]}
+          offset={[0, 18]}
+          arrow={false}
+          className="tippy_box"
+          content="Tìm kiếm"
+          placement="bottom"
         >
-          <SearchIcon />
-        </button>
+          <button
+            className={"search_btn"}
+            onMouseDown={(e) => e.preventDefault()}
+          >
+            <SearchIcon />
+          </button>
+        </Tippy>
       </div>
-      <div className="touch_response">
-        <TouchResponse />
-      </div>
+      <Tippy
+        delay={[0, 50]}
+        offset={[0, 18]}
+        arrow={false}
+        className="tippy_box"
+        content="Tìm kiếm bằng giọng nói"
+        placement="bottom"
+      >
+        <div className="touch_response">
+          <TouchResponse />
+        </div>
+      </Tippy>
     </div>
   );
 }

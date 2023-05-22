@@ -21,7 +21,7 @@
 
 .header_logo {
   height: 40px;
-  width: 100px;
+  width: 120px;
   object-fit: contain;
   display: flex;
   cursor: pointer;
@@ -145,4 +145,11 @@
   font-size: 14px;
   line-height: 36px;
   font-weight: 600;
+}
+
+.tippy_box {
+  background-color: #707070;
+  padding: 3px 0px 3px 0px;
+  font-weight: 400;
+  font-size: 12px;
 }
