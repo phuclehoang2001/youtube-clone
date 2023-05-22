@@ -947,3 +947,18 @@ export const LeftIcon = ({
     </g>
   </svg>
 );
+
+export const ReportIcon = ({
+  width = "1.4rem",
+  height = "1.4rem",
+  className,
+}) => (
+  <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" className={className} width={width} height={height}><g className={className}><path d="M13.18,4l0.24,1.2L13.58,6h0.82H19v7h-5.18l-0.24-1.2L13.42,11H12.6H6V4H13.18 M14,3H5v18h1v-9h6.6l0.4,2h7V5h-5.6L14,3 L14,3z" className={className}></path></g></svg>
+);
+
+export const ScriptIcon = (
+  width = "1.4rem",
+  height = "1.4rem",
+  className,) => (
+  <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" className={className} width={width} height={height}><g className={className}><path d="M5,11h2v2H5V11z M15,15H5v2h10V15z M19,15h-2v2h2V15z M19,11H9v2h10V11z M22,6H2v14h20V6z M3,7h18v12H3V7z" className={className}></path></g></svg>
+);
