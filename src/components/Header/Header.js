@@ -173,7 +173,7 @@ const Header = ({ handleSidebar }) => {
           <Menu width="1.6rem" height="1.6rem" />
         </div>
 
-        <a className="header_logo" href="https://www.youtube.com/">
+        <a className="header_logo" href="/">
           <LogoYoutube width="100%" height="100%" />
           <span className="header_countrycode">VN</span>
         </a>

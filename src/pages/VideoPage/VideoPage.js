@@ -2,6 +2,7 @@ import React from "react";
 import "./VideoPage.scss";
 import WatchMetadata from "../../components/WatchMetadata/WatchMetadata";
 import { Wrapper as CommentsWrapper } from "../../components/Comments";
+import { Wrapper as RelatedVideosWrapper } from "../../components/RelatedVideos";
 import { useParams } from "react-router-dom";
 const VideoPage = () => {
   const { videoId } = useParams();
@@ -29,7 +30,9 @@ const VideoPage = () => {
           </div>
         </div>
         <div className="secondary_content">
-          <div className="secondary_inner"></div>
+          <div className="secondary_inner">
+            <RelatedVideosWrapper />
+          </div>
         </div>
       </div>
     </div>

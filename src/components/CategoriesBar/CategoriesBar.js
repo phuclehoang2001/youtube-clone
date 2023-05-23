@@ -3,26 +3,8 @@ import { useDispatch } from "react-redux";
 import { RightIcon, LeftIcon } from "../Icons/";
 import "./CategoriesBar.scss";
 import SliderCategories, { CategoryItem } from "./SliderCategories/";
-import { getVideosByCategory } from "../../redux/actions/videos";
 
-const categories = [
-  "Tất cả",
-  "Âm nhạc",
-  "Trò chơi",
-  "Danh sách kết hợp",
-  "Tin tức",
-  "Trực tiếp",
-  "Hoạt họa",
-  "Vlog",
-  "Chương trình nấu ăn",
-  "bóng đá",
-  "Du lịch",
-  "Nghệ sĩ",
-  "Ẩm thực",
-  "Trò chơi vui nhộn",
-];
-
-const CategoriesBar = () => {
+const CategoriesBar = ({ categories, className, getData }) => {
   const [activeCategory, setActiveCategory] = useState("Tất cả");
   const [isDragging, setIsDragging] = useState(false);
   const sliderRef = useRef(null);
@@ -33,7 +15,7 @@ const CategoriesBar = () => {
 
   const handleClick = (value) => {
     setActiveCategory(value);
-    dispatch(getVideosByCategory(value));
+    if (getData) dispatch(getData(value));
   };
 
   const dragging = (e) => {
@@ -69,7 +51,7 @@ const CategoriesBar = () => {
     setTimeout(() => handleIcons(), 300);
   };
   return (
-    <aside className="wrapper_category">
+    <aside className={`wrapper_category ${className ? className : ""}`}>
       <div className="slider_category_icon">
         <button
           className={"icon_category left_icon"}
