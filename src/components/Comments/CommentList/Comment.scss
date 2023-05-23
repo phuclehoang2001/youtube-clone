@@ -104,8 +104,13 @@
         border: none;
         background-color: transparent;
         font-weight: 500;
-        &:not([disabled]):not(.unhide):hover {
-          background-color: rgba(0, 0, 0, 0.1);
+        &:not([disabled]):not(.unhide) {
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+          }
+          &:active {
+            background-color: rgba(0, 0, 0, 0.2);
+          }
         }
       }
       .hide {
@@ -128,8 +133,12 @@
     width: 36px;
     border: none;
     border-radius: 50%;
+    background-color: transparent;
     &:hover {
       background-color: rgba(0, 0, 0, 0.1);
+    }
+    &:active {
+      background-color: rgba(0, 0, 0, 0.2);
     }
   }
 }
@@ -270,6 +279,7 @@
   display: block;
   margin-left: 56px;
 }
+
 #expander.comment_render {
   display: block;
   text-transform: none;
@@ -298,5 +308,19 @@
         background-color: #def1ff;
       }
     }
+  }
+}
+
+#emojis.comment_box {
+  margin-top: 10px;
+  padding-bottom: 16px;
+  position: absolute;
+  background-color: #fff;
+  z-index: 2;
+  border-radius: 4px;
+  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14),
+    0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.4);
+  .EmojiPickerReact {
+    border: none;
   }
 }
