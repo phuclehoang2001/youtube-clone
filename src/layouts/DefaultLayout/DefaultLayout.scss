@@ -7,5 +7,9 @@
   }
   .scrollbar.shrink + .app_main {
     padding-left: 0px;
+    .wrapper_category {
+      left: 106px;
+      max-width: 1398px;
+    }
   }
 }

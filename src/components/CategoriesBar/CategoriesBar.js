@@ -39,16 +39,15 @@ const CategoriesBar = ({ categories, className, getData }) => {
     const classList = e.currentTarget.classList;
     if (classList.contains("left_icon")) {
       sliderRef.current.scroll({
-        left: sliderRef.current.scrollLeft - 500,
+        left: sliderRef.current.scrollLeft - 900,
         behavior: "smooth",
       });
     } else if (classList.contains("right_icon")) {
       sliderRef.current.scroll({
-        left: sliderRef.current.scrollLeft + 500,
+        left: sliderRef.current.scrollLeft + 900,
         behavior: "smooth",
       });
     }
-    setTimeout(() => handleIcons(), 300);
   };
   return (
     <aside className={`wrapper_category ${className ? className : ""}`}>
@@ -65,6 +64,7 @@ const CategoriesBar = ({ categories, className, getData }) => {
         onMouseMove={dragging}
         onMouseDown={() => setIsDragging(true)}
         onMouseUp={() => setIsDragging(false)}
+        onScroll={handleIcons}
         elementRef={sliderRef}
       >
         {categories.map((value, index) => (

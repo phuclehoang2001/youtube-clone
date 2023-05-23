@@ -23,6 +23,8 @@ const categories_homepage_videos = [
   "Nghệ sĩ",
   "Ẩm thực",
   "Trò chơi vui nhộn",
+  "Chương trình hành động",
+  "Phim võ thuật",
 ];
 
 const HomePage = () => {
