@@ -14,6 +14,7 @@ import {
 import Button from "../../components/Button/Button";
 import { Menu as MenuHeader } from "../Popper/Menu";
 import Tippy, { tippy } from "@tippyjs/react";
+import TippyMenuVideo from "./Tippy/TippyMenuVideo";
 const WatchMetadata = () => {
   const moreButton = useRef(null)
   const [describe, setDescription] = useState("");
@@ -163,11 +164,11 @@ const WatchMetadata = () => {
             </Tippy>
           </div>
           <div className="display_Flex">
-            <MenuHeader items={items}>
+            <TippyMenuVideo items={items}>
               <button className="btn_more" ref={moreButton}>
                 <MoreIcon />
               </button>
-            </MenuHeader>
+            </TippyMenuVideo>
           </div>
         </div>
       </div>
