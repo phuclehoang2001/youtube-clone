@@ -16,7 +16,12 @@ const HomePage = () => {
       <CategoriesBar />
       <Row className="mb-40">
         {videos.map((video) => (
-          <Col lg={4} md={4} key={video.id?.videoId || video.id}>
+          <Col
+            lg={4}
+            md={4}
+            key={video.id?.videoId || video.id}
+            style={{ maxWidth: "380px" }}
+          >
             <Video video={video} />
           </Col>
         ))}

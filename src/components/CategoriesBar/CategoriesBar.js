@@ -56,11 +56,17 @@ const CategoriesBar = () => {
   const handleClickToDrag = (e) => {
     const classList = e.currentTarget.classList;
     if (classList.contains("left_icon")) {
-      sliderRef.current.scrollLeft += -350;
+      sliderRef.current.scroll({
+        left: sliderRef.current.scrollLeft - 500,
+        behavior: "smooth",
+      });
     } else if (classList.contains("right_icon")) {
-      sliderRef.current.scrollLeft += 350;
+      sliderRef.current.scroll({
+        left: sliderRef.current.scrollLeft + 500,
+        behavior: "smooth",
+      });
     }
-    setTimeout(() => handleIcons(), 50);
+    setTimeout(() => handleIcons(), 300);
   };
   return (
     <aside className="wrapper_category">
