@@ -5,6 +5,7 @@ const SliderCategories = ({
   onMouseMove,
   onMouseDown,
   onMouseUp,
+  onScroll,
   elementRef,
   children,
 }) => {
@@ -15,6 +16,7 @@ const SliderCategories = ({
       ref={elementRef}
       onMouseDown={onMouseDown}
       onMouseUp={onMouseUp}
+      onScroll={onScroll}
     >
       {children}
     </nav>

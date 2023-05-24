@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ShapeIcon, SortIcon } from "../../Icons/Icons";
-
+import EmojiComment from "../EmojiComment";
 const CommentHeader = () => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [commentBox, setCommentBox] = useState(false);
@@ -60,12 +60,16 @@ const CommentHeader = () => {
           </div>
           {commentBox ? (
             <div className="comment_box">
-              <button className="btn_shape">
-                <ShapeIcon />
-              </button>
+              <EmojiComment>
+                <button className="btn_shape">
+                  <ShapeIcon />
+                </button>
+              </EmojiComment>
               <div className="actions">
-                <div className="btn_action cancel">
-                  <button onClick={handleUnFocus}>Hủy</button>
+                <div className="btn_action">
+                  <button onClick={handleUnFocus} className="cancel">
+                    Hủy
+                  </button>
                 </div>
                 <div className="btn_action submit">
                   <button

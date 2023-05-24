@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import moment from "moment";
 import numeral from "numeral";
 import "numeral/locales/vi";
@@ -27,6 +28,7 @@ const Video = ({ video }) => {
   const _duration = moment.utc(seconds * 1000).format("mm:ss");
   const _videoId = id?.videoId || id;
 
+  const navigate = useNavigate();
   const playerRef = useRef();
 
   const formatNumber = (number) => {
@@ -57,13 +59,20 @@ const Video = ({ video }) => {
     });
   }, [channelId]);
 
-  const onMouseOver = () => {
-    // console.log("playerRef", playerRef);
-  };
+  const onMouseOver = () => {};
 
   const onMouseOut = () => {};
+
+  const handleLinkToVideo = () => {
+    navigate(`/watch/${_videoId}`);
+  };
+
+  const handleLinkToChannel = (e) => {
+    e.stopPropagation();
+  };
+
   return (
-    <div className="video_container">
+    <div className="video_container" onClick={handleLinkToVideo}>
       <div
         className="video_thumbnail"
         onMouseOver={onMouseOver}
@@ -87,16 +96,22 @@ const Video = ({ video }) => {
       </div>
 
       <div className="video_details">
-        <div className="avatar">
+        <Link
+          className="avatar"
+          to={`/@${channelId}`}
+          onClick={handleLinkToChannel}
+        >
           <img src={channelAvatar?.url} alt="avatar channel" />
-        </div>
+        </Link>
         <div className="video_metadata">
           <h3 className="title">
             <a href="#">{title}</a>
           </h3>
           <div className="additional_medata">
             <div className="channel_name">
-              <a href="#">{channelTitle}</a>
+              <Link to={`/@${channelId}`} onClick={handleLinkToChannel}>
+                {channelTitle}
+              </Link>
             </div>
             <div className="metadata_line">
               <span className="view_count metadata_line_item">

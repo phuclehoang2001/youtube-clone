@@ -1,6 +1,6 @@
 .wrapper_category {
   overflow-x: hidden;
-  max-width: 1000px;
+  max-width: 1240px;
   padding: 0 0 4px 0px;
   position: fixed;
   top: 56px;
@@ -18,7 +18,7 @@
   position: absolute;
   top: 0;
   height: 100%;
-  width: 120px;
+  width: 100px;
   display: flex;
   align-items: center;
 }
@@ -32,20 +32,20 @@
 }
 
 .slider_category_icon:first-child {
-  left: -30px;
+  left: -10px;
   display: none;
-  background: linear-gradient(90deg, #fff 70%, transparent);
+  background: linear-gradient(90deg, #fff 72%, transparent);
   .icon_category {
-    margin-left: 32px;
+    margin-left: 12px;
   }
 }
 
 .slider_category_icon:last-child {
   right: 0;
-  background: linear-gradient(-90deg, #fff 70%, transparent);
   justify-content: flex-end;
+  background: linear-gradient(-90deg, #fff 72%, transparent);
   .icon_category {
-    margin-right: 15px;
+    margin-right: 5px;
   }
 }
 

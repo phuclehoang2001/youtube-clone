@@ -3,26 +3,8 @@ import { useDispatch } from "react-redux";
 import { RightIcon, LeftIcon } from "../Icons/";
 import "./CategoriesBar.scss";
 import SliderCategories, { CategoryItem } from "./SliderCategories/";
-import { getVideosByCategory } from "../../redux/actions/videos";
 
-const categories = [
-  "Tất cả",
-  "Âm nhạc",
-  "Trò chơi",
-  "Danh sách kết hợp",
-  "Tin tức",
-  "Trực tiếp",
-  "Hoạt họa",
-  "Vlog",
-  "Chương trình nấu ăn",
-  "bóng đá",
-  "Du lịch",
-  "Nghệ sĩ",
-  "Ẩm thực",
-  "Trò chơi vui nhộn",
-];
-
-const CategoriesBar = () => {
+const CategoriesBar = ({ categories, className, getData }) => {
   const [activeCategory, setActiveCategory] = useState("Tất cả");
   const [isDragging, setIsDragging] = useState(false);
   const sliderRef = useRef(null);
@@ -33,7 +15,7 @@ const CategoriesBar = () => {
 
   const handleClick = (value) => {
     setActiveCategory(value);
-    dispatch(getVideosByCategory(value));
+    if (getData) dispatch(getData(value));
   };
 
   const dragging = (e) => {
@@ -56,14 +38,19 @@ const CategoriesBar = () => {
   const handleClickToDrag = (e) => {
     const classList = e.currentTarget.classList;
     if (classList.contains("left_icon")) {
-      sliderRef.current.scrollLeft += -350;
+      sliderRef.current.scroll({
+        left: sliderRef.current.scrollLeft - 900,
+        behavior: "smooth",
+      });
     } else if (classList.contains("right_icon")) {
-      sliderRef.current.scrollLeft += 350;
+      sliderRef.current.scroll({
+        left: sliderRef.current.scrollLeft + 900,
+        behavior: "smooth",
+      });
     }
-    setTimeout(() => handleIcons(), 50);
   };
   return (
-    <aside className="wrapper_category">
+    <aside className={`wrapper_category ${className ? className : ""}`}>
       <div className="slider_category_icon">
         <button
           className={"icon_category left_icon"}
@@ -77,6 +64,7 @@ const CategoriesBar = () => {
         onMouseMove={dragging}
         onMouseDown={() => setIsDragging(true)}
         onMouseUp={() => setIsDragging(false)}
+        onScroll={handleIcons}
         elementRef={sliderRef}
       >
         {categories.map((value, index) => (

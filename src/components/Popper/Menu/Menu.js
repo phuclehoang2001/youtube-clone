@@ -75,7 +75,7 @@ function Menu({
       trigger="click"
       offset={[0, 20]}
       delay={[0, 150]}
-      placement="left-end"
+      placement="bottom-end"
       onHide={handleReset}
       render={renderResult}
     >
