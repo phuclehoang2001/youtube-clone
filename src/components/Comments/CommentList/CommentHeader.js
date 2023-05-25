@@ -1,20 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ShapeIcon, SortIcon } from "../../Icons/Icons";
 import EmojiComment from "../EmojiComment";
+
 const CommentHeader = () => {
   const [isDisabled, setIsDisabled] = useState(true);
+  const [isFocused, setIsFocused] = useState(false);
+
   const [commentBox, setCommentBox] = useState(false);
   const [comment, setComment] = useState("");
+
+  const inputRef = useRef(null);
+  const tippyInstance = useRef(null);
 
   const handleClick = () => {
     console.log("Button clicked!");
   };
 
-  const handleFocus = () => {
+  const handleInputFocus = () => {
     setCommentBox(true);
+    setIsFocused(true);
   };
 
-  const handleUnFocus = () => {
+  const handleInputBlur = () => {
+    setIsFocused(false);
+  };
+
+  //Khi nhấn nút "hủy"
+  const handleCancel = () => {
     setCommentBox(false);
     setComment("");
   };
@@ -24,6 +36,13 @@ const CommentHeader = () => {
     setComment(value);
   };
 
+  //Thêm emoji vào bình luận
+  const onEmojiClick = (emojiData, event) => {
+    setComment((value) => value + emojiData.emoji);
+    inputRef.current.focus();
+  };
+
+  //xử lý disable nút "bình luận" khi có comment hoặc không có comment
   useEffect(() => {
     if (comment.length >= 1) {
       setIsDisabled(false);
@@ -31,6 +50,10 @@ const CommentHeader = () => {
       setIsDisabled(true);
     }
   }, [comment]);
+
+  useEffect(() => {
+    console.log("input focus:", isFocused);
+  }, [isFocused]);
 
   return (
     <div className="header_comment">
@@ -53,21 +76,28 @@ const CommentHeader = () => {
             <input
               type="text"
               placeholder="Viết bình luận..."
+              ref={inputRef}
               value={comment}
-              onFocus={handleFocus}
+              onFocus={handleInputFocus}
+              onBlur={handleInputBlur}
               onChange={handleInputChange}
             />
           </div>
           {commentBox ? (
             <div className="comment_box">
-              <EmojiComment>
+              <EmojiComment
+                onEmojiClick={onEmojiClick}
+                onCreate={(instance) => {
+                  tippyInstance.current = instance;
+                }}
+              >
                 <button className="btn_shape">
                   <ShapeIcon />
                 </button>
               </EmojiComment>
               <div className="actions">
                 <div className="btn_action">
-                  <button onClick={handleUnFocus} className="cancel">
+                  <button onClick={handleCancel} className="cancel">
                     Hủy
                   </button>
                 </div>

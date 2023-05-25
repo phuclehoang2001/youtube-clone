@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { Col, Container, Row } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { useContext } from "react";
+import { GridLayout } from "../../layouts/DefaultLayout/DefaultLayout";
 import CategoriesBar from "../../components/CategoriesBar";
 import Video from "../../components/Videos";
-import { useDispatch, useSelector } from "react-redux";
 import {
   getPopularVideos,
   getVideosByCategory,
@@ -29,6 +31,7 @@ const categories_homepage_videos = [
 
 const HomePage = () => {
   const dispatch = useDispatch();
+  const grid = useContext(GridLayout);
   const { videos } = useSelector((state) => state.homeVideos);
   useEffect(() => {
     dispatch(getPopularVideos());
@@ -43,8 +46,8 @@ const HomePage = () => {
       <Row className="mb-40">
         {videos.map((video) => (
           <Col
-            lg={4}
-            md={4}
+            lg={grid}
+            md={grid}
             key={video.id?.videoId || video.id}
             style={{ maxWidth: "380px" }}
           >

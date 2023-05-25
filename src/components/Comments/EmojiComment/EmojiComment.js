@@ -44,10 +44,11 @@ const previewConfig = {
   showPreview: false,
 };
 
-const EmojiComment = ({ children, hideOnClick = true }) => {
+const EmojiComment = ({ onEmojiClick, onCreate, children }) => {
   const renderEmoji = (attrs) => (
     <div id="emojis" className="comment_box" tabIndex="-1" {...attrs}>
       <EmojiPicker
+        onEmojiClick={onEmojiClick}
         previewConfig={previewConfig}
         categories={configLanguage_VN}
         searchPlaceHolder={"Tìm kiếm biểu tượng cảm xúc"}
@@ -58,8 +59,10 @@ const EmojiComment = ({ children, hideOnClick = true }) => {
   );
   return (
     <Tippy
+      appendTo={document.body}
       interactive
-      hideOnClick={hideOnClick}
+      hideOnClick={true}
+      onCreate={onCreate}
       trigger="click"
       offset={[0, 20]}
       delay={[0, 150]}
