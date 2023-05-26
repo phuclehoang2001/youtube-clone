@@ -5,7 +5,7 @@ import EmojiComment from "../EmojiComment";
 const CommentHeader = () => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [isFocused, setIsFocused] = useState(false);
-
+  const [hideOnClick, setHideOnClick] = useState(true);
   const [commentBox, setCommentBox] = useState(false);
   const [comment, setComment] = useState("");
 
@@ -52,8 +52,12 @@ const CommentHeader = () => {
   }, [comment]);
 
   useEffect(() => {
-    console.log("input focus:", isFocused);
+    // console.log("input focus:", isFocused);
   }, [isFocused]);
+
+  useEffect(() => {
+    // console.log("hide on click:", hideOnClick);
+  }, [hideOnClick]);
 
   return (
     <div className="header_comment">
@@ -90,6 +94,7 @@ const CommentHeader = () => {
                 onCreate={(instance) => {
                   tippyInstance.current = instance;
                 }}
+                hideOnClick={hideOnClick}
               >
                 <button className="btn_shape">
                   <ShapeIcon />

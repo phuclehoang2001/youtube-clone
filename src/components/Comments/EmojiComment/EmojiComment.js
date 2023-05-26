@@ -44,7 +44,12 @@ const previewConfig = {
   showPreview: false,
 };
 
-const EmojiComment = ({ onEmojiClick, onCreate, children }) => {
+const EmojiComment = ({
+  onEmojiClick,
+  onCreate,
+  hideOnClick = true,
+  children,
+}) => {
   const renderEmoji = (attrs) => (
     <div id="emojis" className="comment_box" tabIndex="-1" {...attrs}>
       <EmojiPicker
@@ -61,7 +66,7 @@ const EmojiComment = ({ onEmojiClick, onCreate, children }) => {
     <Tippy
       appendTo={document.body}
       interactive
-      hideOnClick={true}
+      hideOnClick={hideOnClick}
       onCreate={onCreate}
       trigger="click"
       offset={[0, 20]}

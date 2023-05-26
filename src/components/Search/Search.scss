@@ -1,5 +1,6 @@
 .header_center {
-  width: 640px;
+  flex: 0 1 728px;
+  min-width: 0;
   min-width: 0px;
   padding-left: 16px;
   display: flex;
@@ -34,12 +35,9 @@
 
 .search {
   position: relative;
-  width: 650px;
   display: flex;
-  border-radius: 40px;
-  border: 1.5px solid rgba(22, 24, 35, 0.2);
+  width: 650px;
   background-color: var(--white-primary);
-  box-shadow: inset 0 10px 10px -16px rgba(58, 58, 58, 0.5);
   height: 40px;
 
   input {
@@ -50,7 +48,6 @@
     color: var(--text-primary-color);
     background-color: transparent;
     padding-right: 40px;
-    padding-left: 15px;
     border: none;
     font-weight: 400;
 
@@ -61,18 +58,45 @@
   input:not(:placeholder-shown) ~ .search_btn {
     color: rgba(22, 24, 35, 0.75);
   }
-  &::after {
-    content: "";
-    position: absolute;
-    right: var(--search-button-width);
-    width: 0.8px;
-    height: 100%;
-    background-color: rgba(22, 24, 35, 0.12);
-  }
+}
 
+.container_search_box {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  flex-basis: 1e-9px;
+  align-items: center;
+  padding: 0px 4px 0px 16px;
+  margin-left: 32px;
+  border: 1.5px solid rgba(22, 24, 35, 0.2);
+  box-shadow: inset 0 1px 2px #eee;
+  border-right: none;
+  border-radius: 40px 0 0 40px;
   &:focus-within {
-    border-color: #065fd4;
+    margin-left: 0;
+    padding: 2px 4px 2px 48px;
+    border: 1px solid #1c62b9;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+    .search_icon_box {
+      padding: 0 12px 0 16px;
+      width: 48px;
+      height: 20px;
+      display: inline-flex;
+
+      svg {
+        fill: #030303;
+      }
+    }
   }
+}
+
+.search_icon_box {
+  display: none;
+  position: absolute;
+  left: 0;
+  color: #030303;
+  padding: 0 10px;
 }
 
 .search_btn {
@@ -81,11 +105,10 @@
   justify-content: center;
   width: var(--search-button-width);
   height: 100%;
-  border: none;
-  border-top-right-radius: 40px;
-  border-bottom-right-radius: 40px;
-  font-size: 1.8rem;
+  border: 1px solid #d3d3d3;
   background-color: #f8f8f8;
+  border-radius: 0 40px 40px 0;
+  font-size: 1.8rem;
   &:hover {
     cursor: pointer;
     background-color: #f0f0f0;
@@ -93,4 +116,24 @@
   &:active {
     background-color: rgba(22, 24, 35, 0.06);
   }
+}
+.search_result {
+  width: calc(650px - var(--search-button-width));
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background: rgb(255, 255, 255);
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  border-top: 0;
+  cursor: default;
+}
+
+.menu_search_popper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 734px;
+  min-height: 100px;
+  border-radius: 8px;
+  padding: 16px 0 8px;
 }
