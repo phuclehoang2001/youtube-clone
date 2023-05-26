@@ -1,8 +1,21 @@
 import Tippy from "@tippyjs/react";
-import React from "react";
-import { QueueIcon, WatchLaterIcon } from "../../Icons/Icons";
-import MenuItem from "../../Popper/Menu/MenuItem"
+import React, { useState } from "react";
+import { QueueIcon, ShareIcon, TopbarMenu, WatchLaterIcon } from "../../Icons/Icons";
+import TippyMenuVideo from "../../WatchMetadata/Tippy/TippyMenuVideo";
 const RelatedVideoItem = () => {
+  const items = [{
+    leftIcon: <QueueIcon />,
+    title: "Thêm vào hàng chờ"
+  },
+  {
+    leftIcon: <ShareIcon />,
+    title: "Chia sẻ"
+  }]
+  const [hideOnClick, setHideOnClick] = useState(false)
+  const handleOnclick = () => {
+    setHideOnClick(!hideOnClick)
+  }
+
   return <div className="related-video-item-container">
     <a target="_self" href="#">
       <div className="video-thumbnails">
@@ -11,7 +24,12 @@ const RelatedVideoItem = () => {
         ></img>
         <div className="action_container">
 
-
+          <button className="btn_icon">
+            <WatchLaterIcon className="icon_svg" width="1.7rem" height="1.7rem" />
+          </button>
+          <button className="btn_icon">
+            <QueueIcon className="icon_svg" width="1.7rem" height="1.7rem" />
+          </button>
         </div>
       </div>
 
@@ -24,7 +42,7 @@ const RelatedVideoItem = () => {
           className="tippy_box"
           content="4 mùa thương em"
           placement="bottom">
-          <span className="video-tittle">4 mùa thương em 4</span>
+          <span className="video-tittle">4 mùa thương em</span>
         </Tippy>
         <Tippy delay={[0, 50]}
           offset={[0, 1]}
@@ -40,6 +58,15 @@ const RelatedVideoItem = () => {
         </div>
       </div>
     </a>
+
+    <div className="menu_action">
+
+      <TippyMenuVideo items={items} className="tippy_menu">
+        <button style={{ backgroundColor: "inherit", border: "none" }} onClick={handleOnclick}>
+          <TopbarMenu />
+        </button>
+      </TippyMenuVideo>
+    </div>
 
   </div >;
 };

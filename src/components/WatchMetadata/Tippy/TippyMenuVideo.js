@@ -8,9 +8,9 @@ const TippyMenuVideo = ({
     items = [],
     className,
     placement,
+    hideOnClick = true,
     children
 }) => {
-
 
     const renderItems = () => {
         return items.map((item, index) => {
@@ -33,15 +33,14 @@ const TippyMenuVideo = ({
 
     return (
         <Tippy
+            hideOnClick={true}
             interactive
             trigger="click"
-            hideOnClick={true}
             offset={[0, 20]}
             delay={[0, 150]}
             placement={placement}
             render={renderResult}
-            interactiveBorder="40"
-
+            className={className}
         >
             {children}
         </Tippy>

@@ -14,7 +14,14 @@
   margin: 1rem 1rem;
   gap: 0.4rem;
   max-height: 8rem;
+  position: relative;
 
+  .menu_action {
+    position: absolute;
+    top: 0;
+    right: 0;
+    visibility: hidden;
+  }
   .video-thumbnails {
     max-width: 100%;
     height: 100%;
@@ -23,6 +30,12 @@
 
     .action_container {
       position: absolute;
+      top: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      visibility: hidden;
     }
   }
 
@@ -30,6 +43,7 @@
     text-decoration: none;
     cursor: pointer;
     display: inline-block;
+    position: relative;
   }
 
   .video-information {
@@ -59,4 +73,37 @@
       }
     }
   }
+}
+
+.related-video-item-container:hover {
+  .menu_action {
+    visibility: visible;
+  }
+
+  .action_container {
+    visibility: visible;
+  }
+}
+
+.icon_svg {
+  background-color: black;
+  fill: white;
+  stroke: white;
+  stroke-width: 0.5px;
+}
+
+.btn_icon {
+  min-width: 1.7rem;
+  background-color: none;
+  height: 1.7rem;
+  border: none;
+}
+
+.tippy_menu {
+  background-color: white;
+}
+
+.action_container {
+  height: 1rem;
+  width: 10rem;
 }
