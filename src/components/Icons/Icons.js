@@ -947,3 +947,60 @@ export const LeftIcon = ({
     </g>
   </svg>
 );
+
+export const CloseIcon = ({
+  width = "1.4rem",
+  height = "1.4rem",
+  className,
+}) => (
+  <svg
+    className={className}
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    preserveAspectRatio="xMidYMid meet"
+    focusable="false"
+  >
+    <g>
+      <path d="M12.7,12l6.6,6.6l-0.7,0.7L12,12.7l-6.6,6.6l-0.7-0.7l6.6-6.6L4.6,5.4l0.7-0.7l6.6,6.6l6.6-6.6l0.7,0.7L12.7,12z"></path>
+    </g>
+  </svg>
+);
+
+export const ExpandIcon = ({
+  width = "1.4rem",
+  height = "1.4rem",
+  className,
+}) => (
+  <svg
+    className={className}
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    preserveAspectRatio="xMidYMid meet"
+    focusable="false"
+  >
+    <g>
+      <path d="M12,15.7L5.6,9.4l0.7-0.7l5.6,5.6l5.6-5.6l0.7,0.7L12,15.7z"></path>
+    </g>
+  </svg>
+);
+
+export const AddPlaylist = ({
+  width = "1.4rem",
+  height = "1.4rem",
+  className,
+}) => (
+  <svg
+    className={className}
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    preserveAspectRatio="xMidYMid meet"
+    focusable="false"
+  >
+    <g>
+      <path d="M4,20h14v1H3V6h1V20z M18,10h-4V6h-1v4H9v1h4v4h1v-4h4V10z M21,3v15H6V3H21z M20,4H7v13h13V4z"></path>
+    </g>
+  </svg>
+);

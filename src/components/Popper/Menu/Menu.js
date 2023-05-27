@@ -17,6 +17,7 @@ function Menu({
   hideOnClick = true,
   onChange = defaultFn,
   data = null,
+  offset = null,
 }) {
   const [history, setHistory] = useState([{ data: items }]);
   const current = history[history.length - 1];
@@ -73,7 +74,7 @@ function Menu({
       interactive
       hideOnClick={hideOnClick}
       trigger="click"
-      offset={[0, 20]}
+      offset={offset ? offset : [(0, 20)]}
       delay={[0, 150]}
       placement="bottom-end"
       onHide={handleReset}

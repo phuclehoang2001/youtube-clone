@@ -1,0 +1,119 @@
+.wrapper_playlist {
+  position: relative;
+  height: 540px;
+  margin-bottom: 24px;
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  &.shrink {
+    height: auto;
+    background-color: rgba(235, 234, 221, 0.949);
+  }
+}
+
+#header.playlist_header {
+  padding: 12px 6px 0 16px;
+  flex: none;
+  &.collapsed {
+    padding-bottom: 12px;
+  }
+}
+
+#header.playlist_header {
+  .header_top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .header_description {
+      min-width: 0;
+      margin-right: 8px;
+      flex: 1;
+      flex-basis: 1e-9px;
+      .title_playlist {
+        display: block;
+        font-size: 1.17em;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        font-weight: bold;
+        margin: 0px;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .next_video_playlist {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 14px;
+        line-height: 1.2rem;
+        margin: 0px;
+        span:first-child {
+          font-weight: 500;
+          margin-right: 4px;
+        }
+        span:last-child {
+          display: block;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          font-weight: 400;
+        }
+      }
+      .publisher_playlist {
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1.5rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    .expand_btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      width: 40px;
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+    }
+  }
+}
+
+#header.playlist_header {
+  .playlist_actions {
+    display: flex;
+    justify-content: space-between;
+    .menu_popper_wrapper {
+      border-radius: 12px;
+      .menu-body {
+        padding: 8px 0 8px 0;
+        .menu_item_header {
+          padding: 4px 16px;
+        }
+      }
+    }
+
+    .menu_playlist_btn {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      width: 40px;
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+    }
+  }
+}
