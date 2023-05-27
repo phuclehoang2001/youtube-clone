@@ -1,22 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./WatchMetadata.scss";
 import {
   CheckedIcon,
   DisLikedIcon,
+  LeftIcon,
   LikeIcon,
   MoreIcon,
+  ReportIcon,
   SaveIcon,
+  ScriptIcon,
   ShareIcon,
 } from "../Icons/Icons";
 import Button from "../../components/Button/Button";
+import { Menu as MenuHeader } from "../Popper/Menu";
+import Tippy, { tippy } from "@tippyjs/react";
+import TippyMenuVideo from "./Tippy/TippyMenuVideo";
 const WatchMetadata = () => {
+  const moreButton = useRef(null)
   const [describe, setDescription] = useState("");
   const [showHideName, setShowHideName] = useState("Hiện thêm");
   const [isShowMore, setIsShowMore] = useState(false);
   const [data, setData] = useState("");
-
+  const items = [
+    {
+      leftIcon: <ReportIcon />,
+      title: "Báo cáo vi phạm",
+    },
+    {
+      leftIcon: <ScriptIcon />,
+      title: "Hiện thị bản chép lời",
+    },
+  ]
   useEffect(() => {
-    const data = `25.401 lượt xem  19 thg 5, 2023  #nhaclofi #CryzT #thucuoi
+    const data = `
             Có lẽ nào em vội quên đi...Thu Cuối Lofi - Nhạc Lofi 2023 - Những Bản Nhạc Lofi Chill Nhẹ Nhàng Hay Nhất
             #thucuoi #nhaclofi #CryzT
             Nguồn ảnh: Sưu tầm
@@ -50,6 +66,8 @@ const WatchMetadata = () => {
     setData(data);
     setDescription(data.substring(0, 200));
   }, []);
+
+
   const handleShowHideButton = () => {
     setIsShowMore(!isShowMore);
 
@@ -88,30 +106,69 @@ const WatchMetadata = () => {
         </div>
         <div className="actions">
           <div className="dislay_flex">
-            <button className="btn_like">
-              <LikeIcon />
-              <span>Like</span>
-            </button>
-            <button className="btn_dislike">
-              <DisLikedIcon />
-            </button>
+            <Tippy
+              delay={[0, 50]}
+              offset={[0, 18]}
+              arrow={false}
+              className="tippy_box"
+              content="Tôi thích video này"
+              placement="bottom"
+            >
+              <button className="btn_like">
+                <LikeIcon />
+                <span>Thích</span>
+              </button>
+            </Tippy>
+            <Tippy
+              delay={[0, 50]}
+              offset={[0, 18]}
+              arrow={false}
+              className="tippy_box"
+              content="Tôi không thích video này"
+              placement="bottom"
+            >
+              <button className="btn_dislike">
+                <DisLikedIcon />
+              </button>
+            </Tippy>
           </div>
           <div className="display_flex">
-            <button className="btn_share">
-              <ShareIcon />
-              <span>Share</span>
-            </button>
+            <Tippy
+              delay={[0, 50]}
+              offset={[0, 18]}
+              arrow={false}
+              className="tippy_box"
+              content="Chia sẻ"
+              placement="bottom"
+            >
+              <button className="btn_share">
+                <ShareIcon />
+                <span>Chia sẻ</span>
+              </button>
+
+            </Tippy>
           </div>
           <div className="display_Flex">
-            <button className="btn_save">
-              <SaveIcon />
-              <span>Save</span>
-            </button>
+            <Tippy
+              delay={[0, 50]}
+              offset={[0, 18]}
+              arrow={false}
+              className="tippy_box"
+              content="Lưu"
+              placement="bottom"
+            >
+              <button className="btn_save">
+                <SaveIcon />
+                <span>Lưu</span>
+              </button>
+            </Tippy>
           </div>
           <div className="display_Flex">
-            <button className="btn_more">
-              <MoreIcon />
-            </button>
+            <TippyMenuVideo items={items}>
+              <button className="btn_more" ref={moreButton}>
+                <MoreIcon />
+              </button>
+            </TippyMenuVideo>
           </div>
         </div>
       </div>
@@ -119,6 +176,17 @@ const WatchMetadata = () => {
       {/* Container for describe of video*/}
       <div className="bottom_row">
         <div className="container_describe">
+          <Tippy
+            delay={[0, 50]}
+            offset={[0, 18]}
+            arrow={false}
+            className="tippy_box"
+            content="25.401 lượt xem  19 thg 5, 2023  #nhaclofi #CryzT #thucuoi"
+            placement="bottom"
+          >
+            <span className="header_description">25.401 lượt xem  19 thg 5, 2023  #nhaclofi #CryzT #thucuoi</span>
+          </Tippy>
+          <br></br>
           <span>{describe}</span>
           <Button
             children={showHideName}

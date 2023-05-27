@@ -52,6 +52,10 @@
     margin-left: 1rem;
   }
 
+  .btn-subscribe:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
   .btn_like {
     height: 2.5rem;
     background-color: #e9eaecfb;
@@ -63,7 +67,19 @@
     border-right: 1px solid #0000001a;
     border-top-left-radius: 2rem;
     border-bottom-left-radius: 2rem;
+    span {
+      font-weight: 500;
+    }
   }
+
+  .btn_like:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  .btn_dislike:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
   .actions {
     max-height: 2.5rem;
     display: flex;
@@ -91,8 +107,14 @@
     gap: 0.5rem;
     padding: 0.5rem;
     align-items: center;
+    span {
+      font-weight: 500;
+    }
   }
 
+  .btn_share:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
   .dislay_flex {
     display: flex;
     flex-direction: row;
@@ -107,8 +129,14 @@
     display: flex;
     gap: 0.5rem;
     align-items: center;
+    span {
+      font-weight: 500;
+    }
   }
 
+  .btn_save:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
   .btn_more {
     background-color: #e9eaecfb;
     border-radius: 40rem;
@@ -118,6 +146,9 @@
     align-items: center;
   }
 
+  .btn_more:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
   .container_describe {
     background-color: #e9eaecfb;
     border-radius: 1rem;
@@ -133,5 +164,8 @@
     font-weight: 600;
     margin-left: -2rem;
     background-color: transparent;
+  }
+  .header_description {
+    font-weight: 500;
   }
 }

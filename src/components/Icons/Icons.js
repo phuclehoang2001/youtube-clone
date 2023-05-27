@@ -1004,3 +1004,91 @@ export const AddPlaylist = ({
     </g>
   </svg>
 );
+
+export const ReportIcon = ({
+  width = "1.4rem",
+  height = "1.4rem",
+  className,
+}) => (
+  <svg
+    viewBox="0 0 24 24"
+    preserveAspectRatio="xMidYMid meet"
+    focusable="false"
+    className={className}
+    width={width}
+    height={height}
+  >
+    <g className={className}>
+      <path
+        d="M13.18,4l0.24,1.2L13.58,6h0.82H19v7h-5.18l-0.24-1.2L13.42,11H12.6H6V4H13.18 M14,3H5v18h1v-9h6.6l0.4,2h7V5h-5.6L14,3 L14,3z"
+        className={className}
+      ></path>
+    </g>
+  </svg>
+);
+
+export const ScriptIcon = ({
+  width = "1.4rem",
+  height = "1.4rem",
+  className,
+}) => (
+  <svg
+    viewBox="0 0 24 24"
+    preserveAspectRatio="xMidYMid meet"
+    focusable="false"
+    className={className}
+    width={width}
+    height={height}
+  >
+    <g className={className}>
+      <path
+        d="M5,11h2v2H5V11z M15,15H5v2h10V15z M19,15h-2v2h2V15z M19,11H9v2h10V11z M22,6H2v14h20V6z M3,7h18v12H3V7z"
+        className={className}
+      ></path>
+    </g>
+  </svg>
+);
+
+export const QueueIcon = ({
+  width = "1.4rem",
+  height = "1.4rem",
+  className,
+}) => (
+  <svg
+    viewBox="0 0 24 24"
+    preserveAspectRatio="xMidYMid meet"
+    focusable="false"
+    className={className}
+    width={width}
+    height={height}
+  >
+    <g className={className}>
+      <path
+        d="M21,16h-7v-1h7V16z M21,11H9v1h12V11z M21,7H3v1h18V7z M10,15l-7-4v8L10,15z"
+        className={className}
+      ></path>
+    </g>
+  </svg>
+);
+
+export const WatchLaterIcon = ({
+  width = "1.4rem",
+  height = "1.4rem",
+  className,
+}) => (
+  <svg
+    viewBox="0 0 24 24"
+    preserveAspectRatio="xMidYMid meet"
+    focusable="false"
+    className={className}
+    width={width}
+    height={height}
+  >
+    <g className={className}>
+      <path
+        d="M14.97,16.95L10,13.87V7h2v5.76l4.03,2.49L14.97,16.95z M12,3c-4.96,0-9,4.04-9,9s4.04,9,9,9s9-4.04,9-9S16.96,3,12,3 M12,2c5.52,0,10,4.48,10,10s-4.48,10-10,10S2,17.52,2,12S6.48,2,12,2L12,2z"
+        className={className}
+      ></path>
+    </g>
+  </svg>
+);
