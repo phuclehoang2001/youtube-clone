@@ -9,6 +9,7 @@ const TippyMenuVideo = ({
   placement,
   hideOnClick = true,
   children,
+  onCreate,
 }) => {
   const renderItems = () => {
     return items.map((item, index) => {
@@ -35,10 +36,9 @@ const TippyMenuVideo = ({
       delay={[0, 150]}
       placement={placement}
       render={() => <RenderResult />}
+      onCreate={onCreate}
     >
-
       {children}
-
     </Tippy>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import RelatedVideoList from "./RelatedVideoList";
 import RelatedVideoItem from "./RelatedVideoList/RelatedVideoItem";
 import CategoriesBar from "../CategoriesBar/";

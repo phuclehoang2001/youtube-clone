@@ -20,7 +20,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    visibility: hidden;
+
     .tippy_menu_video {
       width: 15rem;
     }
@@ -34,11 +34,11 @@
 
     .action_container {
       position: absolute;
-      top: 5px;
-      right: 5px;
+      top: 4px;
+      right: 4px;
       display: flex;
       flex-direction: column;
-      gap: 0.4rem;
+      gap: 0.2rem;
       visibility: hidden;
     }
   }
@@ -69,7 +69,7 @@
       font-size: 0.75rem;
       color: gray;
       display: flex;
-      gap: 1rem;
+      gap: 6px;
 
       .video-time-upload::before {
         content: "•";
@@ -79,7 +79,24 @@
   }
 }
 
+//  dùng kỹ thuật portal
+
+.btn_menu {
+  background-color: inherit;
+  border: none;
+  visibility: hidden;
+}
+
+.btn_menu_visibility {
+  background-color: inherit;
+  border: none;
+  visibility: visible;
+}
+
 .related-video-item-container:hover {
+  .btn_menu {
+    visibility: visible;
+  }
   .menu_action {
     visibility: visible;
   }
@@ -94,11 +111,12 @@
   fill: white;
   stroke: white;
   stroke-width: 0.5px;
+  border-radius: 4px;
 }
 
-.btn_icon {
+.btn_icon_thumbnail {
   min-width: 1.7rem;
-  background-color: none;
+  background-color: transparent;
   height: 1.7rem;
   margin-left: auto;
   border: none;
@@ -112,13 +130,4 @@
 .action_container {
   height: 1rem;
   width: 10rem;
-}
-
-.btn_menu {
-  background-color: inherit;
-  border: none;
-}
-
-.btn_menu_visibility {
-  visibility: visible;
 }
