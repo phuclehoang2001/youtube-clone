@@ -1,4 +1,4 @@
-import Tippy from "@tippyjs/react";
+import Tippy from "@tippyjs/react/headless";
 import React from "react";
 import MenuItem from "../../Popper/Menu/MenuItem";
 import "./TippyMenuVideo.scss";
@@ -13,29 +13,32 @@ const TippyMenuVideo = ({
   const renderItems = () => {
     return items.map((item, index) => {
       return (
-        <div>
-          <MenuItem key={index} data={item} />
+        <div key={index}>
+          <MenuItem data={item} />
         </div>
       );
     });
   };
 
-  const renderResult = () => {
-    return <div className="tippy_menu_video">{renderItems()}</div>;
-  };
+  const RenderResult = () => (
+    <div className="tippy_menu_video">
+      <div className="tippy_menu_button">{renderItems()}</div>
+    </div>
+  );
 
   return (
     <Tippy
-      hideOnClick={true}
+      hideOnClick={hideOnClick}
       interactive
       trigger="click"
       offset={[0, 20]}
       delay={[0, 150]}
       placement={placement}
-      render={renderResult}
-      className={className}
+      render={() => <RenderResult />}
     >
+
       {children}
+
     </Tippy>
   );
 };

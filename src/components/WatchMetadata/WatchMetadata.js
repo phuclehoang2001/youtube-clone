@@ -148,7 +148,7 @@ const WatchMetadata = () => {
 
             </Tippy>
           </div>
-          <div className="display_Flex">
+          <div className="display_flex">
             <Tippy
               delay={[0, 50]}
               offset={[0, 18]}
@@ -183,6 +183,7 @@ const WatchMetadata = () => {
             className="tippy_box"
             content="25.401 lượt xem  19 thg 5, 2023  #nhaclofi #CryzT #thucuoi"
             placement="bottom"
+
           >
             <span className="header_description">25.401 lượt xem  19 thg 5, 2023  #nhaclofi #CryzT #thucuoi</span>
           </Tippy>

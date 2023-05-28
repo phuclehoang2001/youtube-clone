@@ -21,6 +21,9 @@
     top: 0;
     right: 0;
     visibility: hidden;
+    .tippy_menu_video {
+      width: 15rem;
+    }
   }
   .video-thumbnails {
     max-width: 100%;
@@ -101,9 +104,19 @@
 
 .tippy_menu {
   background-color: white;
+  border-radius: 1rem;
 }
 
 .action_container {
   height: 1rem;
   width: 10rem;
+}
+
+.btn_menu {
+  background-color: inherit;
+  border: none;
+}
+
+.btn_menu_visibility {
+  visibility: visible;
 }
