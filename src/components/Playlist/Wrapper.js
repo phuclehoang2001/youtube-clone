@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import PlaylistSection from "./PlaylistSection";
+import { PlaylistSection } from "./PlaylistSection/index";
 import PlaylistItem from "./PlaylistSection/PlaylistItem";
-import "./Wrapper.scss";
 import PlaylistHeader from "./PlaylistSection/PlaylistHeader";
+import "./Wrapper.scss";
 const Wrapper = () => {
   const [showMore, setShowMore] = useState(true);
   const handleShowPlaylist = () => {

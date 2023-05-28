@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import { SearchIcon, TouchResponse } from "../Icons";
 import HeadlessTippy from "@tippyjs/react/headless";
 import Tippy from "@tippyjs/react";
-import "tippy.js/dist/tippy.css";
 import { Wrapper as SearchPopper } from "../Popper";
 import SearchItem from "./SearchItem";
 

@@ -2,4 +2,25 @@
   background-color: blue;
   height: 100%;
   overflow-y: hidden;
+  .playlist_item {
+    height: 100px;
+  }
+}
+
+.playlist_section_scroll {
+  padding: 10px 10px 26px 10px;
+  overflow-y: scroll;
+}
+
+.playlist_section_scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.playlist_section_scroll::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+.playlist_section_scroll::-webkit-scrollbar-thumb {
+  background-color: #999;
+  border-radius: 15px;
 }

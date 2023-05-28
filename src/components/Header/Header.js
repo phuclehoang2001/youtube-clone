@@ -187,7 +187,7 @@ const Header = ({ handleSidebar }) => {
               delay={[0, 50]}
               offset={[0, 18]}
               arrow={false}
-              className="tippy_box"
+              className="tippy_box_header"
               content="Tạo"
               placement="bottom"
             >
@@ -199,7 +199,7 @@ const Header = ({ handleSidebar }) => {
               delay={[0, 50]}
               offset={[0, 18]}
               arrow={false}
-              className="tippy_box"
+              className="tippy_box_header"
               content="Thông báo"
               placement="bottom"
             >
@@ -228,7 +228,7 @@ const Header = ({ handleSidebar }) => {
                 delay={[0, 50]}
                 offset={[0, 18]}
                 arrow={false}
-                className="tippy_box"
+                className="tippy_box_header"
                 content="Cài đặt"
                 placement="bottom"
               >

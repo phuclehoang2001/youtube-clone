@@ -16,7 +16,7 @@ import { Menu as MenuHeader } from "../Popper/Menu";
 import Tippy, { tippy } from "@tippyjs/react";
 import TippyMenuVideo from "./Tippy/TippyMenuVideo";
 const WatchMetadata = () => {
-  const moreButton = useRef(null)
+  const moreButton = useRef(null);
   const [describe, setDescription] = useState("");
   const [showHideName, setShowHideName] = useState("Hiện thêm");
   const [isShowMore, setIsShowMore] = useState(false);
@@ -30,7 +30,7 @@ const WatchMetadata = () => {
       leftIcon: <ScriptIcon />,
       title: "Hiện thị bản chép lời",
     },
-  ]
+  ];
   useEffect(() => {
     const data = `
             Có lẽ nào em vội quên đi...Thu Cuối Lofi - Nhạc Lofi 2023 - Những Bản Nhạc Lofi Chill Nhẹ Nhàng Hay Nhất
@@ -66,7 +66,6 @@ const WatchMetadata = () => {
     setData(data);
     setDescription(data.substring(0, 200));
   }, []);
-
 
   const handleShowHideButton = () => {
     setIsShowMore(!isShowMore);
@@ -145,7 +144,6 @@ const WatchMetadata = () => {
                 <ShareIcon />
                 <span>Chia sẻ</span>
               </button>
-
             </Tippy>
           </div>
           <div className="display_Flex">
@@ -163,7 +161,7 @@ const WatchMetadata = () => {
               </button>
             </Tippy>
           </div>
-          <div className="display_Flex">
+          <div className="display_flex">
             <TippyMenuVideo items={items}>
               <button className="btn_more" ref={moreButton}>
                 <MoreIcon />
@@ -184,7 +182,9 @@ const WatchMetadata = () => {
             content="25.401 lượt xem  19 thg 5, 2023  #nhaclofi #CryzT #thucuoi"
             placement="bottom"
           >
-            <span className="header_description">25.401 lượt xem  19 thg 5, 2023  #nhaclofi #CryzT #thucuoi</span>
+            <span className="header_description">
+              25.401 lượt xem 19 thg 5, 2023 #nhaclofi #CryzT #thucuoi
+            </span>
           </Tippy>
           <br></br>
           <span>{describe}</span>

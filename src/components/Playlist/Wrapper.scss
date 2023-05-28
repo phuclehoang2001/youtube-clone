@@ -8,6 +8,7 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  overflow-y: hidden;
   &.shrink {
     height: auto;
     background-color: rgba(235, 234, 221, 0.949);
