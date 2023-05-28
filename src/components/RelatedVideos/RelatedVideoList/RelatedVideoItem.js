@@ -12,6 +12,7 @@ const RelatedVideoItem = () => {
     title: "Chia sẻ"
   }]
   const [hideOnClick, setHideOnClick] = useState(false)
+
   const handleOnclick = () => {
     setHideOnClick(!hideOnClick)
   }
@@ -60,9 +61,8 @@ const RelatedVideoItem = () => {
     </a>
 
     <div className="menu_action">
-
-      <TippyMenuVideo items={items} className="tippy_menu">
-        <button style={{ backgroundColor: "inherit", border: "none" }} onClick={handleOnclick}>
+      <TippyMenuVideo items={items} hideOnClick={false}>
+        <button className={`btn_menu ${hideOnClick === true ? "btn_menu_visibility" : ""}`} onClick={handleOnclick}>
           <TopbarMenu />
         </button>
       </TippyMenuVideo>
