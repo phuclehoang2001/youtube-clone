@@ -47,7 +47,7 @@ function Search() {
               delay={[0, 50]}
               offset={[0, 18]}
               arrow={false}
-              className="tippy_box"
+              className="tippy_box_header"
               content="Tìm kiếm"
               placement="bottom"
             >
@@ -66,7 +66,7 @@ function Search() {
         delay={[0, 50]}
         offset={[0, 18]}
         arrow={false}
-        className="tippy_box"
+        className="tippy_box_header"
         content="Tìm kiếm bằng giọng nói"
         placement="bottom"
       >

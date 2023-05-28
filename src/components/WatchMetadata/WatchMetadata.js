@@ -109,7 +109,7 @@ const WatchMetadata = () => {
               delay={[0, 50]}
               offset={[0, 18]}
               arrow={false}
-              className="tippy_box"
+              className="tippy_box_header"
               content="Tôi thích video này"
               placement="bottom"
             >
@@ -122,7 +122,7 @@ const WatchMetadata = () => {
               delay={[0, 50]}
               offset={[0, 18]}
               arrow={false}
-              className="tippy_box"
+              className="tippy_box_header"
               content="Tôi không thích video này"
               placement="bottom"
             >
@@ -136,7 +136,7 @@ const WatchMetadata = () => {
               delay={[0, 50]}
               offset={[0, 18]}
               arrow={false}
-              className="tippy_box"
+              className="tippy_box_header"
               content="Chia sẻ"
               placement="bottom"
             >
@@ -151,7 +151,7 @@ const WatchMetadata = () => {
               delay={[0, 50]}
               offset={[0, 18]}
               arrow={false}
-              className="tippy_box"
+              className="tippy_box_header"
               content="Lưu"
               placement="bottom"
             >
@@ -178,10 +178,9 @@ const WatchMetadata = () => {
             delay={[0, 50]}
             offset={[0, 18]}
             arrow={false}
-            className="tippy_box"
+            className="tippy_box_header"
             content="25.401 lượt xem  19 thg 5, 2023  #nhaclofi #CryzT #thucuoi"
             placement="bottom"
-
           >
             <span className="header_description">
               25.401 lượt xem 19 thg 5, 2023 #nhaclofi #CryzT #thucuoi
