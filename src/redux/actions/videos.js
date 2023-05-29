@@ -5,7 +5,7 @@ import {
 } from "../actionType";
 import request from "../../utils/httpRequests";
 
-export const getPopularVideos = () => async (dispatch) => {
+export const getPopularVideos = () => async (dispatch, getState) => {
   try {
     dispatch({
       type: HOME_VIDEOS_REQUEST,
@@ -15,8 +15,8 @@ export const getPopularVideos = () => async (dispatch) => {
         part: "snippet,contentDetails,statistics",
         chart: "mostPopular",
         regionCode: "VN",
-        maxResults: 21,
-        pageToken: "",
+        maxResults: 12,
+        pageToken: getState().homeVideos.nextPageToken,
       },
     });
 
@@ -69,7 +69,7 @@ export const getVideosByCategory = (keyword) => async (dispatch, getState) => {
     const { data } = await request("/search", {
       params: {
         part: "snippet",
-        maxResults: 21,
+        maxResults: 12,
         regionCode: "VN",
         pageToken: getState().homeVideos.nextPageToken,
         q: keyword,

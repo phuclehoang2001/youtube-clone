@@ -1,7 +1,6 @@
 const categories_homepage_videos = [
   "Âm nhạc",
   "Trò chơi",
-  "Danh sách kết hợp",
   "Tin tức",
   "Trực tiếp",
   "Hoạt họa",

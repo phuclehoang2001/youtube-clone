@@ -3,8 +3,12 @@ import { useDispatch } from "react-redux";
 import { RightIcon, LeftIcon } from "../Icons/";
 import "./CategoriesBar.scss";
 import SliderCategories, { CategoryItem } from "./SliderCategories/";
+import {
+  getPopularVideos,
+  getVideosByCategory,
+} from "../../redux/actions/videos";
 
-const CategoriesBar = ({ categories, className, getData }) => {
+const CategoriesBar = ({ categories, className }) => {
   const [activeCategory, setActiveCategory] = useState("Tất cả");
   const [isDragging, setIsDragging] = useState(false);
   const sliderRef = useRef(null);
@@ -15,7 +19,11 @@ const CategoriesBar = ({ categories, className, getData }) => {
 
   const handleClick = (value) => {
     setActiveCategory(value);
-    if (getData) dispatch(getData(value));
+    if (value === "Tất cả") {
+      dispatch(getPopularVideos());
+    } else {
+      dispatch(getVideosByCategory(value));
+    }
   };
 
   const dragging = (e) => {
