@@ -9,25 +9,9 @@ import {
   getPopularVideos,
   getVideosByCategory,
 } from "../../redux/actions/videos";
+import { categoryHomePage } from "../../utils/randomCategory";
 
-const categories_homepage_videos = [
-  "Tất cả",
-  "Âm nhạc",
-  "Trò chơi",
-  "Danh sách kết hợp",
-  "Tin tức",
-  "Trực tiếp",
-  "Hoạt họa",
-  "Vlog",
-  "Chương trình nấu ăn",
-  "bóng đá",
-  "Du lịch",
-  "Nghệ sĩ",
-  "Ẩm thực",
-  "Trò chơi vui nhộn",
-  "Chương trình hành động",
-  "Phim võ thuật",
-];
+const categories = ["Tất cả", ...categoryHomePage()];
 
 const HomePage = () => {
   const dispatch = useDispatch();
@@ -39,10 +23,7 @@ const HomePage = () => {
 
   return (
     <Container style={{ paddingTop: "76px" }}>
-      <CategoriesBar
-        categories={categories_homepage_videos}
-        getData={getVideosByCategory}
-      />
+      <CategoriesBar categories={categories} getData={getVideosByCategory} />
       <Row className="mb-40">
         {videos.map((video) => (
           <Col

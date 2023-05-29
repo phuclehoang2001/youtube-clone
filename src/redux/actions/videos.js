@@ -70,6 +70,7 @@ export const getVideosByCategory = (keyword) => async (dispatch, getState) => {
       params: {
         part: "snippet",
         maxResults: 21,
+        regionCode: "VN",
         pageToken: getState().homeVideos.nextPageToken,
         q: keyword,
         type: "video",
