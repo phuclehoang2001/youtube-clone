@@ -4,26 +4,49 @@ import EmojiComment from "../EmojiComment";
 
 const CommentHeader = () => {
   const [isDisabled, setIsDisabled] = useState(true);
-  const [isFocused, setIsFocused] = useState(false);
-  const [hideOnClick, setHideOnClick] = useState(true);
+  const [showEmoji, setShowEmoji] = useState(false);
   const [commentBox, setCommentBox] = useState(false);
   const [comment, setComment] = useState("");
 
   const inputRef = useRef(null);
   const tippyInstance = useRef(null);
+  const wrapperEmojiRef = useRef(null);
 
-  const handleClick = () => {
-    console.log("Button clicked!");
+  const handleComment = () => {
+    console.log("Đăng bình luận!");
   };
 
   const handleInputFocus = () => {
-    setCommentBox(true);
-    setIsFocused(true);
+    if (!commentBox) setCommentBox(true);
   };
 
-  const handleInputBlur = () => {
-    setIsFocused(false);
+  const handleButtonClick = () => {
+    setShowEmoji((value) => !value);
   };
+
+  const useOutsideAlerter = (ref) => {
+    useEffect(() => {
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          if (event.target == inputRef.current) {
+            return;
+          }
+          if (
+            tippyInstance.current.popper.childNodes[0].contains(event.target)
+          ) {
+            return;
+          }
+          setShowEmoji(false);
+        }
+      }
+
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  };
+  useOutsideAlerter(wrapperEmojiRef);
 
   //Khi nhấn nút "hủy"
   const handleCancel = () => {
@@ -52,12 +75,14 @@ const CommentHeader = () => {
   }, [comment]);
 
   useEffect(() => {
-    // console.log("input focus:", isFocused);
-  }, [isFocused]);
-
-  useEffect(() => {
-    // console.log("hide on click:", hideOnClick);
-  }, [hideOnClick]);
+    if (tippyInstance.current) {
+      if (!tippyInstance.current.state.isVisible && showEmoji) {
+        tippyInstance.current.show();
+      } else if (!showEmoji) {
+        tippyInstance.current.hide();
+      }
+    }
+  }, [showEmoji]);
 
   return (
     <div className="header_comment">
@@ -83,7 +108,6 @@ const CommentHeader = () => {
               ref={inputRef}
               value={comment}
               onFocus={handleInputFocus}
-              onBlur={handleInputBlur}
               onChange={handleInputChange}
             />
           </div>
@@ -94,9 +118,13 @@ const CommentHeader = () => {
                 onCreate={(instance) => {
                   tippyInstance.current = instance;
                 }}
-                hideOnClick={hideOnClick}
+                hideOnClick={false}
               >
-                <button className="btn_shape">
+                <button
+                  className="btn_shape"
+                  onClick={handleButtonClick}
+                  ref={wrapperEmojiRef}
+                >
                   <ShapeIcon />
                 </button>
               </EmojiComment>
@@ -109,7 +137,7 @@ const CommentHeader = () => {
                 <div className="btn_action submit">
                   <button
                     disabled={isDisabled}
-                    onClick={handleClick}
+                    onClick={handleComment}
                     className={isDisabled ? "hide" : "unhide"}
                   >
                     Bình luận

@@ -9,6 +9,7 @@
   display: flex;
   flex-direction: column;
   overflow-y: hidden;
+  padding-right: 5px;
   &.shrink {
     height: auto;
     background-color: rgba(235, 234, 221, 0.949);
@@ -16,7 +17,7 @@
 }
 
 #header.playlist_header {
-  padding: 12px 6px 0 16px;
+  padding: 12px 10px 0 16px;
   flex: none;
   &.collapsed {
     padding-bottom: 12px;
