@@ -4,6 +4,7 @@ import moment from "moment";
 import numeral from "numeral";
 import "numeral/locales/vi";
 import "moment/locale/vi";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { TopbarMenu } from "../Icons";
 import { getVideoDetails, getChannelDetails } from "../../redux/actions/videos";
 import "./Video.scss";
@@ -78,7 +79,8 @@ const Video = ({ video }) => {
         onMouseOver={onMouseOver}
         onMouseOut={onMouseOut}
       >
-        <img src={medium.url} alt="thumbnail" />
+        {/* <img src={medium.url} alt="thumbnail" /> */}
+        <LazyLoadImage src={medium.url} alt="thumbnail" effect="blur" />
         <div className="preview_video">
           {/* <iframe
             ref={playerRef}
@@ -101,7 +103,12 @@ const Video = ({ video }) => {
           to={`/@${channelId}`}
           onClick={handleLinkToChannel}
         >
-          <img src={channelAvatar?.url} alt="avatar channel" />
+          <LazyLoadImage
+            src={channelAvatar?.url}
+            alt="avatar channel"
+            effect="blur"
+          />
+          {/* <img src={channelAvatar?.url} alt="avatar channel" /> */}
         </Link>
         <div className="video_metadata">
           <h3 className="title">
