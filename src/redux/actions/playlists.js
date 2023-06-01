@@ -19,12 +19,14 @@ export const getPlaylists = () => async (dispatch) => {
       },
     });
 
-    dispatch({
-      type: HOME_PLAYLISTS_SUCCESS,
-      payload: {
-        playlists: data.items,
-        pageInfo: data.pageInfo,
-      },
+    getPlaylistItems(data).then(() => {
+      dispatch({
+        type: HOME_PLAYLISTS_SUCCESS,
+        payload: {
+          playlists: data.items,
+          pageInfo: data.pageInfo,
+        },
+      });
     });
   } catch (error) {
     console.log(error.message);
@@ -34,3 +36,17 @@ export const getPlaylists = () => async (dispatch) => {
     });
   }
 };
+
+async function getPlaylistItems(playlists) {
+  for (const playlist of playlists.items) {
+    const { data } = await request("/playlistItems", {
+      params: {
+        part: "snippet",
+        playlistId: playlist.id,
+        maxResults: 10,
+        pageToken: "",
+      },
+    });
+    playlist.playlistItems = data;
+  }
+}

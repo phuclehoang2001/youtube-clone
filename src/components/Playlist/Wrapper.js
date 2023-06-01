@@ -16,7 +16,7 @@ const Wrapper = () => {
       />
       {showMore && (
         <PlaylistSection>
-          {[...Array(15)].map((_, index) => (
+          {[...Array(7)].map((_, index) => (
             <PlaylistItem key={index} />
           ))}
         </PlaylistSection>

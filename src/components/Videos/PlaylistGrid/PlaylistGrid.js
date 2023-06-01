@@ -11,13 +11,24 @@ const PlaylistGrid = ({ video }) => {
       channelTitle,
       thumbnails: { medium },
     },
+    playlistItems,
   } = video;
+
+  // lấy videoId của video đầu tiền trong playlist
+  const firstVideo = playlistItems.items[0];
+  const {
+    snippet: {
+      resourceId: { videoId },
+    },
+  } = firstVideo;
+
   return (
     <div className="playlist_container">
       <a
         className="playlist_thumbnail"
         // onMouseOver={onMouseOver}
         // onMouseOut={onMouseOut}
+        href={`/watch?v=${videoId}&list=${id}&start_radio=1`}
       >
         {/* <img src={medium.url} alt="thumbnail" /> */}
         <LazyLoadImage src={medium.url} alt="thumbnail" effect="blur" />
@@ -39,7 +50,9 @@ const PlaylistGrid = ({ video }) => {
       <div className="playlist_details">
         <div className="playlist_metadata">
           <h3 className="title">
-            <a href="#">Danh sách kết hợp – {title}</a>
+            <a href={`/watch?v=${videoId}&list=${id}&start_radio=1`}>
+              Danh sách kết hợp – {title}
+            </a>
           </h3>
           <div className="channel_playlist">
             <span>{channelTitle}</span>

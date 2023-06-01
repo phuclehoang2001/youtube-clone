@@ -1,15 +1,18 @@
 .wrapper_playlist {
   position: relative;
-  height: 540px;
+  min-height: 0;
+  max-height: 540px;
+  height: 100%;
   margin-bottom: 24px;
   background-color: transparent;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-  overflow: hidden;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   overflow-y: hidden;
   padding-right: 5px;
+  overflow: hidden;
   &.shrink {
     height: auto;
     background-color: rgba(235, 234, 221, 0.949);
