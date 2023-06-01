@@ -4,9 +4,10 @@ import WatchMetadata from "../../components/WatchMetadata/WatchMetadata";
 import { Wrapper as CommentsWrapper } from "../../components/Comments";
 import { Wrapper as RelatedVideosWrapper } from "../../components/RelatedVideos";
 import { Wrapper as PlaylistWrapper } from "../../components/Playlist";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 const VideoPage = () => {
-  const { videoId } = useParams();
+  const location = useLocation();
+  const videoId = new URLSearchParams(location.search).get("v");
   return (
     <div className="wrapper_video_content">
       <div className="columns">

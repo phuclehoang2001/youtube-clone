@@ -65,7 +65,7 @@ const Video = ({ video }) => {
   const onMouseOut = () => {};
 
   const handleLinkToVideo = () => {
-    navigate(`/watch/${_videoId}`);
+    navigate(`/watch?v=${_videoId}`);
   };
 
   const handleLinkToChannel = (e) => {
@@ -74,10 +74,11 @@ const Video = ({ video }) => {
 
   return (
     <div className="video_container" onClick={handleLinkToVideo}>
-      <div
+      <a
         className="video_thumbnail"
         onMouseOver={onMouseOver}
         onMouseOut={onMouseOut}
+        href={`/watch?v=${_videoId}`}
       >
         {/* <img src={medium.url} alt="thumbnail" /> */}
         <LazyLoadImage src={medium.url} alt="thumbnail" effect="blur" />
@@ -95,7 +96,7 @@ const Video = ({ video }) => {
         </div>
 
         <span className="duration">{_duration}</span>
-      </div>
+      </a>
 
       <div className="video_details">
         <Link
@@ -112,7 +113,7 @@ const Video = ({ video }) => {
         </Link>
         <div className="video_metadata">
           <h3 className="title">
-            <a href="#">{title}</a>
+            <a href={`/watch?v=${_videoId}`}>{title}</a>
           </h3>
           <div className="additional_medata">
             <div className="channel_name">
@@ -130,7 +131,7 @@ const Video = ({ video }) => {
             </div>
           </div>
           <div className="video_menu_grid">
-            <TopbarMenu className={"menu_video"} />
+            <TopbarMenu className="menu_video" />
           </div>
         </div>
       </div>

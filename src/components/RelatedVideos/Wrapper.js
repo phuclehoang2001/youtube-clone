@@ -4,7 +4,6 @@ import RelatedVideoItem from "./RelatedVideoList/RelatedVideoItem";
 import CategoriesBar from "../CategoriesBar/";
 import "./Wrapper.scss";
 const categories_related_videos = [
-  "Tất cả",
   "Của Mr X",
   "Video có liên quan",
   "Tải lên gần đây",

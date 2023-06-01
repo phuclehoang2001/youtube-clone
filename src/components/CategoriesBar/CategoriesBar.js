@@ -5,10 +5,10 @@ import "./CategoriesBar.scss";
 import SliderCategories, { CategoryItem } from "./SliderCategories/";
 import {
   getPopularVideos,
-  getVideosByCategory,
+  getVideosByCategoryId,
 } from "../../redux/actions/videos";
 
-const CategoriesBar = ({ categories, className }) => {
+const CategoriesBar = ({ categories, getAPI = false, className }) => {
   const [activeCategory, setActiveCategory] = useState("Tất cả");
   const [isDragging, setIsDragging] = useState(false);
   const sliderRef = useRef(null);
@@ -16,13 +16,13 @@ const CategoriesBar = ({ categories, className }) => {
   const rightIconRef = useRef(null);
 
   const dispatch = useDispatch();
-
-  const handleClick = (value) => {
-    setActiveCategory(value);
-    if (value === "Tất cả") {
+  const allCategories = ["Tất cả", ...categories];
+  const handleClick = (title, categoryId) => {
+    setActiveCategory(title);
+    if (title === "Tất cả") {
       dispatch(getPopularVideos());
     } else {
-      dispatch(getVideosByCategory(value));
+      dispatch(getVideosByCategoryId(title, categoryId));
     }
   };
 
@@ -47,12 +47,12 @@ const CategoriesBar = ({ categories, className }) => {
     const classList = e.currentTarget.classList;
     if (classList.contains("left_icon")) {
       sliderRef.current.scroll({
-        left: sliderRef.current.scrollLeft - 900,
+        left: sliderRef.current.scrollLeft - 1000,
         behavior: "smooth",
       });
     } else if (classList.contains("right_icon")) {
       sliderRef.current.scroll({
-        left: sliderRef.current.scrollLeft + 900,
+        left: sliderRef.current.scrollLeft + 1000,
         behavior: "smooth",
       });
     }
@@ -75,14 +75,36 @@ const CategoriesBar = ({ categories, className }) => {
         onScroll={handleIcons}
         elementRef={sliderRef}
       >
-        {categories.map((value, index) => (
-          <CategoryItem
-            category={value}
-            key={index}
-            handleClick={handleClick}
-            className={activeCategory === value ? "active" : ""}
-          ></CategoryItem>
-        ))}
+        {allCategories.map((data, index) => {
+          let categoryTitle = null;
+          let categoryId = null;
+          if (getAPI) {
+            if (data === "Tất cả") {
+              categoryTitle = data;
+              categoryId = null;
+            } else {
+              const {
+                id,
+                snippet: { title, assignable, channelId },
+              } = data;
+              categoryTitle = title;
+              categoryId = id;
+            }
+          } else {
+            categoryTitle = data;
+          }
+
+          //xử lý assignable
+          return (
+            <CategoryItem
+              title={categoryTitle}
+              categoryId={categoryId}
+              key={index}
+              handleClick={handleClick}
+              className={activeCategory === categoryTitle ? "active" : ""}
+            ></CategoryItem>
+          );
+        })}
       </SliderCategories>
       <div className="slider_category_icon">
         <button

@@ -1,0 +1,131 @@
+.playlist_container {
+  font-size: 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.menu_video {
+  fill: transparent;
+}
+.col:hover {
+  cursor: pointer;
+  .overlay_hover {
+    opacity: 1;
+  }
+  .menu_video {
+    fill: #030303;
+  }
+}
+.playlist_thumbnail {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 1;
+  }
+  .thumbnail_overlay {
+    background-color: rgba(89, 68, 62, 0.8);
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    height: 24px;
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    &_icon {
+      fill: #fff;
+    }
+  }
+}
+
+.playlist_details {
+  position: relative;
+  cursor: pointer;
+  margin: 0;
+  flex: auto;
+  display: flex;
+  flex-direction: row;
+  .playlist_metadata {
+    overflow-x: hidden;
+    padding-right: 24px;
+    .title {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #0f0f0f;
+      margin: 12px 0 6px 0;
+      font-size: 16px;
+    }
+    .channel_playlist {
+      font-size: 0.8rem;
+      max-width: 100%;
+      flex-wrap: wrap;
+      display: flex;
+      color: #606060;
+      span {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    .video_menu_grid {
+      position: absolute;
+      top: 4px;
+      right: -12px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+.lazy-load-image-background {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: inherit;
+  z-index: 1;
+}
+
+.overlay_hover {
+  opacity: 0;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.8);
+  text-align: center;
+  transition: opacity 0.1s;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 12px;
+  &_icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    vertical-align: middle;
+    fill: currentcolor;
+  }
+  &_text {
+    line-height: 1.2rem;
+  }
+}

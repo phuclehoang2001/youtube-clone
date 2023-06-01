@@ -1,19 +1,19 @@
 import React from "react";
 import "./SliderCategories.scss";
 
-const CategoryItem = ({ category, handleClick, className }) => {
-  const onClick = (value) => {
-    handleClick(value);
+const CategoryItem = ({ title, categoryId, handleClick, className }) => {
+  const onClick = (title, categoryId) => {
+    handleClick(title, categoryId);
   };
 
   return (
     <span
       className={`category_item ${className}`}
       onClick={() => {
-        onClick(category);
+        onClick(title, categoryId);
       }}
     >
-      {category}
+      {title}
     </span>
   );
 };
