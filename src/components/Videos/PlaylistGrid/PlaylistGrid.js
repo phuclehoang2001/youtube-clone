@@ -9,7 +9,7 @@ const PlaylistGrid = ({ video }) => {
       channelId,
       title,
       channelTitle,
-      thumbnails: { medium },
+      thumbnails: { maxres },
     },
     playlistItems,
   } = video;
@@ -30,8 +30,7 @@ const PlaylistGrid = ({ video }) => {
         // onMouseOut={onMouseOut}
         href={`/watch?v=${videoId}&list=${id}&start_radio=1`}
       >
-        {/* <img src={medium.url} alt="thumbnail" /> */}
-        <LazyLoadImage src={medium.url} alt="thumbnail" effect="blur" />
+        <LazyLoadImage src={maxres.url} alt="thumbnail" effect="blur" />
         <div className="overlays" id="playlist">
           <div className="thumbnail_overlay">
             <div className="thumbnail_overlay_icon">

@@ -5,11 +5,13 @@ import { authReducer } from "./reducers/authReducer";
 import { homeVideosReducer } from "./reducers/homeVideosReducer";
 import { homePlaylistsReducer } from "./reducers/homePlaylistsReducer";
 import { homeVideoCategoriesReducer } from "./reducers/homeVideoCategoriesReducer";
+import { videoPlaylistItemsReducer } from "./reducers/videoPlaylistItemsReducer";
 const rootReducer = combineReducers({
   auth: authReducer,
   homeVideos: homeVideosReducer,
   homePlaylists: homePlaylistsReducer,
   homeVideoCategories: homeVideoCategoriesReducer,
+  videoPlaylistItems: videoPlaylistItemsReducer,
 });
 
 const store = createStore(

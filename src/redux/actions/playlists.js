@@ -2,6 +2,9 @@ import {
   HOME_PLAYLISTS_SUCCESS,
   HOME_PLAYLISTS_FAIL,
   HOME_PLAYLISTS_REQUEST,
+  VIDEO_PLAYLISTITEMS_REQUEST,
+  VIDEO_PLAYLISTITEMS_SUCCESS,
+  VIDEO_PLAYLISTITEMS_FAIL,
 } from "../actionType";
 import request from "../../utils/httpRequests";
 
@@ -43,10 +46,39 @@ async function getPlaylistItems(playlists) {
       params: {
         part: "snippet",
         playlistId: playlist.id,
-        maxResults: 10,
+        maxResults: 1,
         pageToken: "",
       },
     });
     playlist.playlistItems = data;
   }
 }
+
+export const getItemsByPlaylistId = (playlistId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: VIDEO_PLAYLISTITEMS_REQUEST,
+    });
+    const { data } = await request("/playlistItems", {
+      params: {
+        part: "snippet",
+        playlistId: playlistId,
+        maxResults: 10,
+        pageToken: "",
+      },
+    });
+    dispatch({
+      type: VIDEO_PLAYLISTITEMS_SUCCESS,
+      payload: {
+        playlistItems: data.items,
+        pageInfo: data.pageInfo,
+      },
+    });
+  } catch (error) {
+    console.log(error.message);
+    dispatch({
+      type: VIDEO_PLAYLISTITEMS_FAIL,
+      payload: error.message,
+    });
+  }
+};

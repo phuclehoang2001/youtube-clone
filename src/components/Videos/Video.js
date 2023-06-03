@@ -17,7 +17,7 @@ const Video = ({ video }) => {
       channelId,
       title,
       channelTitle,
-      thumbnails: { medium },
+      thumbnails: { maxres },
     },
   } = video;
   const [isLocaleSet, setIsLocaleSet] = useState(false);
@@ -80,8 +80,7 @@ const Video = ({ video }) => {
         onMouseOut={onMouseOut}
         href={`/watch?v=${_videoId}`}
       >
-        {/* <img src={medium.url} alt="thumbnail" /> */}
-        <LazyLoadImage src={medium.url} alt="thumbnail" effect="blur" />
+        <LazyLoadImage src={maxres.url} alt="thumbnail" effect="blur" />
         <div className="preview_video">
           {/* <iframe
             ref={playerRef}
@@ -109,7 +108,6 @@ const Video = ({ video }) => {
             alt="avatar channel"
             effect="blur"
           />
-          {/* <img src={channelAvatar?.url} alt="avatar channel" /> */}
         </Link>
         <div className="video_metadata">
           <h3 className="title">

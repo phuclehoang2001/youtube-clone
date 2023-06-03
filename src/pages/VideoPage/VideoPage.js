@@ -1,20 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./VideoPage.scss";
 import WatchMetadata from "../../components/WatchMetadata/WatchMetadata";
 import { Wrapper as CommentsWrapper } from "../../components/Comments";
 import { Wrapper as RelatedVideosWrapper } from "../../components/RelatedVideos";
 import { Wrapper as PlaylistWrapper } from "../../components/Playlist";
 import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+
 const VideoPage = () => {
   const location = useLocation();
   const videoId = new URLSearchParams(location.search).get("v");
   const playlistId = new URLSearchParams(location.search).get("list");
-
-  const { playlists, loading: loadingPlaylists } = useSelector(
-    (state) => state.homePlaylists
-  );
-  console.log(playlists);
+  let start = new URLSearchParams(location.search).get("start_radio");
+  let index = new URLSearchParams(location.search).get("index");
+  let activedPlaylistItem = 0;
+  if (start) activedPlaylistItem = start--;
+  if (index) activedPlaylistItem = index--;
   return (
     <div className="wrapper_video_content">
       <div className="columns">
@@ -40,7 +40,13 @@ const VideoPage = () => {
         </div>
         <div className="secondary_content">
           <div className="secondary_inner">
-            <PlaylistWrapper />
+            {playlistId && (
+              <PlaylistWrapper
+                playlistId={playlistId}
+                activedPlaylistItem={activedPlaylistItem}
+              />
+            )}
+
             <RelatedVideosWrapper />
           </div>
         </div>
