@@ -5,6 +5,8 @@ import { Wrapper as CommentsWrapper } from "../../components/Comments";
 import { Wrapper as RelatedVideosWrapper } from "../../components/RelatedVideos";
 import { Wrapper as PlaylistWrapper } from "../../components/Playlist";
 import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getVideoById } from "../../redux/actions/videos";
 
 const VideoPage = () => {
   const location = useLocation();
@@ -15,6 +17,13 @@ const VideoPage = () => {
   let activedPlaylistItem = 0;
   if (start) activedPlaylistItem = start--;
   if (index) activedPlaylistItem = index--;
+
+  const dispatch = useDispatch();
+  const { video, loading } = useSelector((state) => state.selectedVideo);
+
+  useEffect(() => {
+    dispatch(getVideoById(videoId));
+  }, [dispatch, videoId]);
   return (
     <div className="wrapper_video_content">
       <div className="columns">
@@ -32,9 +41,13 @@ const VideoPage = () => {
             </div>
             <div className="below">
               {/* component WatchMetadata */}
-              <WatchMetadata />
+              {!loading ? (
+                <WatchMetadata video={video} videoId={videoId} />
+              ) : (
+                <h1>Loading...</h1>
+              )}
               {/* component Comment */}
-              <CommentsWrapper />
+              <CommentsWrapper videoId={videoId} />
             </div>
           </div>
         </div>
