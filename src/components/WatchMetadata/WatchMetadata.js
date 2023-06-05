@@ -4,6 +4,7 @@ import moment from "moment";
 import "numeral/locales/vi";
 import "moment/locale/vi";
 import Tippy from "@tippyjs/react";
+import ShowMoreText from "react-show-more-text";
 import "./WatchMetadata.scss";
 import {
   CheckedIcon,
@@ -15,7 +16,6 @@ import {
   ScriptIcon,
   ShareIcon,
 } from "../Icons/Icons";
-import Button from "../../components/Button/Button";
 import TippyMenuVideo from "./Tippy/TippyMenuVideo";
 moment.locale("vi");
 
@@ -26,10 +26,9 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
   } = video;
 
   const moreButton = useRef(null);
+  const expandButton = useRef(null);
   const [isLocaleSet, setIsLocaleSet] = useState(false);
-  const [describe, setDescription] = useState("");
-  const [showHideName, setShowHideName] = useState("Hiện thêm");
-  const [isShowMore, setIsShowMore] = useState(false);
+  const [showMore, setShowMore] = useState(false);
 
   const items = [
     {
@@ -54,21 +53,26 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
     }
   }, [isLocaleSet]);
 
-  useEffect(() => {
-    setDescription(description.substring(0, 200));
-  }, [description]);
-
-  const handleShowHideButton = () => {
-    setIsShowMore(!isShowMore);
-
-    if (isShowMore) {
-      setDescription(description);
-      setShowHideName("Ẩn bớt");
-    } else {
-      setDescription(description.substring(0, 200));
-      setShowHideName("Hiện thêm");
+  const handleShowMore = () => {
+    if (!showMore) {
+      setShowMore(true);
     }
   };
+
+  const handleShowLess = () => {
+    if (showMore) {
+      setShowMore(false);
+    }
+  };
+  useEffect(() => {
+    if (showMore) {
+      expandButton.current.state.expanded = true;
+      expandButton.current.state.truncated = false;
+    } else {
+      expandButton.current.state.expanded = false;
+      expandButton.current.state.truncated = true;
+    }
+  }, [showMore]);
 
   return (
     <div className="watch_active_metadata">
@@ -91,7 +95,7 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
               </div>
               <span className="owner_sub_count">2,12 Tr người đăng ký</span>
             </div>
-            <button className="btn-subscribe">Đăng ký</button>
+            <button className="btn-subscribe action_feedback">Đăng ký</button>
           </div>
         </div>
         <div className="actions">
@@ -104,7 +108,7 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
               content="Tôi thích video này"
               placement="bottom"
             >
-              <button className="btn_like">
+              <button className="btn_like action_feedback">
                 <LikeIcon />
                 <span>{_likeCount}</span>
               </button>
@@ -117,7 +121,7 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
               content="Tôi không thích video này"
               placement="bottom"
             >
-              <button className="btn_dislike">
+              <button className="btn_dislike action_feedback">
                 <DisLikedIcon />
               </button>
             </Tippy>
@@ -131,7 +135,7 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
               content="Chia sẻ"
               placement="bottom"
             >
-              <button className="btn_share">
+              <button className="btn_share action_feedback">
                 <ShareIcon />
                 <span>Chia sẻ</span>
               </button>
@@ -146,7 +150,7 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
               content="Lưu"
               placement="bottom"
             >
-              <button className="btn_save">
+              <button className="btn_save action_feedback">
                 <SaveIcon />
                 <span>Lưu</span>
               </button>
@@ -154,7 +158,7 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
           </div>
           <div className="display_flex">
             <TippyMenuVideo items={items}>
-              <button className="btn_more" ref={moreButton}>
+              <button className="btn_more action_feedback" ref={moreButton}>
                 <MoreIcon />
               </button>
             </TippyMenuVideo>
@@ -164,31 +168,47 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
 
       {/* Container for describe of video*/}
       <div className="bottom_row">
-        <div className="container_describe">
-          <Tippy
-            delay={[0, 50]}
-            offset={[0, 18]}
-            arrow={false}
-            className="tippy_box_header"
-            content="25.401 lượt xem  19 thg 5, 2023  #nhaclofi #CryzT #thucuoi"
-            placement="bottom"
+        <div
+          className={`container_describe ${showMore ? "active" : ""}`}
+          onClick={handleShowMore}
+        >
+          <div className="header_description">
+            <Tippy
+              delay={[0, 20]}
+              offset={[0, 24]}
+              arrow={false}
+              className="tippy_box_header"
+              content={`${numeral(viewCount).format(
+                "0,0.[0000]"
+              )} lượt xem  • Đã công chiếu vào ${moment(publishedAt).format(
+                "D [thg] M, YYYY"
+              )}`}
+              placement="bottom-start"
+            >
+              <div className="inner_description">
+                <span>
+                  {_views} lượt xem {moment(publishedAt).fromNow()}
+                </span>
+                <span>
+                  #{tags[10]} #{tags[21]}
+                </span>
+              </div>
+            </Tippy>
+          </div>
+          <ShowMoreText
+            lines={2}
+            more={"Hiện thêm"}
+            less={"Ẩn bớt"}
+            anchorClass="btn_show_hide_more"
+            expanded={showMore}
+            truncatedEndingComponent={"..."}
+            keepNewLines={true}
+            expandByClick={false}
+            ref={expandButton}
+            onClick={handleShowLess}
           >
-            <div className="header_description">
-              <span>
-                {_views} lượt xem {moment(publishedAt).fromNow()}
-              </span>
-              <span>
-                #{tags[10]} #{tags[21]}
-              </span>
-            </div>
-          </Tippy>
-          <br></br>
-          <span>{describe}</span>
-          <Button
-            children={showHideName}
-            className="btn_show_hide_more"
-            onClick={handleShowHideButton}
-          />
+            {description}
+          </ShowMoreText>
         </div>
       </div>
     </div>

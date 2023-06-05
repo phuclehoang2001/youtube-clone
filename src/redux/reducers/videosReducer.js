@@ -50,7 +50,7 @@ export const homeVideosReducer = (
 
 export const selectedVideoReducer = (
   prevState = {
-    loading: true,
+    loading: false,
     video: null,
   },
   action

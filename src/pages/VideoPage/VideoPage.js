@@ -41,7 +41,7 @@ const VideoPage = () => {
             </div>
             <div className="below">
               {/* component WatchMetadata */}
-              {!loading ? (
+              {!loading && video !== null ? (
                 <WatchMetadata video={video} videoId={videoId} />
               ) : (
                 <h1>Loading...</h1>

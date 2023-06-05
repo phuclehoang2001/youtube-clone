@@ -43,8 +43,8 @@
   }
 
   .btn-subscribe {
+    margin-top: 6px;
     border-radius: 20rem;
-    height: 2.5rem;
     width: 6rem;
     background-color: #000000;
     color: white;
@@ -57,19 +57,28 @@
   }
 
   .btn_like {
-    height: 2.5rem;
-    background-color: #e9eaecfb;
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.05);
     display: flex;
     gap: 0.5rem;
     align-items: center;
     padding: 1rem 0.5rem;
     border: none;
-    border-right: 1px solid #0000001a;
     border-top-left-radius: 2rem;
     border-bottom-left-radius: 2rem;
     span {
       font-weight: 500;
     }
+  }
+
+  .btn_like::after {
+    content: "";
+    background: rgba(0, 0, 0, 0.1);
+    position: absolute;
+    right: 0;
+    top: 6px;
+    height: 24px;
+    width: 1px;
   }
 
   .btn_like:hover {
@@ -81,7 +90,7 @@
   }
 
   .actions {
-    max-height: 2.5rem;
+    margin-top: 6px;
     display: flex;
     flex-direction: row;
     gap: 0.5rem;
@@ -89,20 +98,19 @@
   }
 
   .btn_dislike {
-    background-color: #e9eaecfb;
+    background-color: rgba(0, 0, 0, 0.05);
     border-top-right-radius: 2rem;
     border-bottom-right-radius: 2rem;
     border: none;
-    height: 2.5rem;
     padding: 0.5rem;
     align-items: center;
+    display: flex;
   }
 
   .btn_share {
-    background-color: #e9eaecfb;
+    background-color: rgba(0, 0, 0, 0.05);
     border-radius: 40rem;
     border: none;
-    height: 2.5rem;
     display: flex;
     gap: 0.5rem;
     padding: 0.5rem;
@@ -121,10 +129,9 @@
   }
 
   .btn_save {
-    background-color: #e9eaecfb;
+    background-color: rgba(0, 0, 0, 0.05);
     border-radius: 40rem;
     border: none;
-    height: 2.5rem;
     padding: 0.5rem;
     display: flex;
     gap: 0.5rem;
@@ -134,25 +141,33 @@
     }
   }
 
+  .action_feedback {
+    height: 36px;
+  }
+
   .btn_save:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
   .btn_more {
-    background-color: #e9eaecfb;
+    background-color: rgba(0, 0, 0, 0.05);
     border-radius: 40rem;
     border: none;
-    height: 2.5rem;
     padding: 0.5rem;
     align-items: center;
+    display: flex;
   }
 
   .btn_more:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
   .container_describe {
-    background-color: #e9eaecfb;
+    background-color: rgba(0, 0, 0, 0.05);
     border-radius: 1rem;
     padding: 1rem 1rem;
+    &:not(.active):hover {
+      background-color: rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
   }
 
   .bottom_row {
@@ -160,12 +175,19 @@
   }
 
   .btn_show_hide_more {
-    border: none;
     font-weight: 600;
-    margin-left: -2rem;
-    background-color: transparent;
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
   }
   .header_description {
+    overflow: hidden;
+    display: inline-flex;
+    width: 100%;
     font-weight: 500;
   }
+}
+
+.tippy_box_header {
+  background-color: rgba($color: #707070, $alpha: 0.9);
 }
