@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import numeral from "numeral";
 import moment from "moment";
 import "numeral/locales/vi";
@@ -15,8 +16,15 @@ import {
   SaveIcon,
   ScriptIcon,
   ShareIcon,
+  DonateIcon,
+  ExpandIcon,
+  BellIcon,
 } from "../Icons/Icons";
 import TippyMenuVideo from "./Tippy/TippyMenuVideo";
+import {
+  checkSubscriptionStatus,
+  getChannelDetailsById,
+} from "../../redux/actions/channel";
 moment.locale("vi");
 
 const WatchMetadata = ({ video, videoId, playlistId }) => {
@@ -25,12 +33,24 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
     statistics: { viewCount, likeCount },
   } = video;
 
+  const { snippet: channelSnippet, statistics: channelStatistics } =
+    useSelector((state) => state.channelDetails.channel || {});
+
+  const subscriptionStatus = useSelector(
+    (state) => state.channelDetails.subscriptionStatus
+  );
+
+  const dispatch = useDispatch();
   const moreButton = useRef(null);
   const expandButton = useRef(null);
   const [isLocaleSet, setIsLocaleSet] = useState(false);
   const [showMore, setShowMore] = useState(false);
 
   const items = [
+    {
+      leftIcon: <SaveIcon />,
+      title: "Lưu",
+    },
     {
       leftIcon: <ReportIcon />,
       title: "Báo cáo vi phạm",
@@ -43,6 +63,9 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
 
   const _views = numeral(viewCount).format("0,0.0a");
   const _likeCount = numeral(likeCount).format("0,0a");
+  const _subscriberCount = numeral(channelStatistics?.subscriberCount).format(
+    "0,0.0a"
+  );
   useEffect(() => {
     if (!isLocaleSet) {
       numeral.locales.vi.abbreviations.thousand = " N";
@@ -74,6 +97,21 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
     }
   }, [showMore]);
 
+  useEffect(() => {
+    if (showMore) {
+      expandButton.current.state.expanded = true;
+      expandButton.current.state.truncated = false;
+    } else {
+      expandButton.current.state.expanded = false;
+      expandButton.current.state.truncated = true;
+    }
+  }, [showMore]);
+
+  useEffect(() => {
+    dispatch(getChannelDetailsById(channelId));
+    dispatch(checkSubscriptionStatus(channelId));
+  }, [dispatch, channelId]);
+
   return (
     <div className="watch_active_metadata">
       <div className="title">
@@ -83,23 +121,47 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
         <div className="owner">
           <div className="channel_info">
             <a className="avatar">
-              <img src="https://yt3.ggpht.com/5SNxZQaK8yLgStxRuzh_KF0d-aK5-gzj7eXxAwGCwVCCWPKaazju_O_dHjyRUvWoqRc-7kjPaQk=s88-c-k-c0x00ffffff-no-rj" />
+              <img src={channelSnippet?.thumbnails?.default?.url} />
             </a>
             <div className="upload_info">
               <div className="channel_name">
                 <span>{channelTitle}</span>
-                <CheckedIcon />
-                {/* tick channel */}
-
-                {/* <div></div>  */}
+                <Tippy
+                  delay={[0, 20]}
+                  offset={[0, 18]}
+                  arrow={false}
+                  className="tippy_box_header"
+                  content="Đã xác minh"
+                  placement="top"
+                >
+                  <div className="checked_channel">
+                    <CheckedIcon
+                      className="checked_icon"
+                      width="14px"
+                      height="14px"
+                    />
+                  </div>
+                </Tippy>
               </div>
-              <span className="owner_sub_count">2,12 Tr người đăng ký</span>
+              <span className="owner_sub_count">
+                {_subscriberCount} người đăng ký
+              </span>
             </div>
-            <button className="btn-subscribe action_feedback">Đăng ký</button>
+            {subscriptionStatus ? (
+              <button className="btn-subscribed display_flex action_feedback">
+                <BellIcon className="subscribe_bell" />
+                <span>Đã đăng ký</span>
+                <ExpandIcon className="subscribe_expand" />
+              </button>
+            ) : (
+              <button className="btn-subscribe action_feedback">
+                <span>Đăng ký</span>
+              </button>
+            )}
           </div>
         </div>
         <div className="actions">
-          <div className="dislay_flex">
+          <div className="display_flex">
             <Tippy
               delay={[0, 50]}
               offset={[0, 18]}
@@ -147,12 +209,12 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
               offset={[0, 18]}
               arrow={false}
               className="tippy_box_header"
-              content="Lưu"
+              content="Ủng hộ bằng ảnh động Super Thanks"
               placement="bottom"
             >
-              <button className="btn_save action_feedback">
-                <SaveIcon />
-                <span>Lưu</span>
+              <button className="btn_donate action_feedback">
+                <DonateIcon />
+                <span>Cảm ơn</span>
               </button>
             </Tippy>
           </div>

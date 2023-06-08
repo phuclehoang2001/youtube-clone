@@ -7,6 +7,7 @@ import { selectedVideoReducer } from "./reducers/videosReducer";
 import { homePlaylistsReducer } from "./reducers/homePlaylistsReducer";
 import { homeVideoCategoriesReducer } from "./reducers/homeVideoCategoriesReducer";
 import { videoPlaylistItemsReducer } from "./reducers/videoPlaylistItemsReducer";
+import { channelDetailsReducer } from "./reducers/channelReducer";
 const rootReducer = combineReducers({
   auth: authReducer,
   homeVideos: homeVideosReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   homeVideoCategories: homeVideoCategoriesReducer,
   videoPlaylistItems: videoPlaylistItemsReducer,
   selectedVideo: selectedVideoReducer,
+  channelDetails: channelDetailsReducer,
 });
 
 const store = createStore(

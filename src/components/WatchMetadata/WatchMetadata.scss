@@ -18,10 +18,14 @@
   .channel_info {
     display: flex;
     flex-direction: row;
+    align-items: center;
   }
 
   .upload_info {
     margin-left: -2rem;
+    flex-direction: column;
+    display: flex;
+    margin-right: 24px;
   }
   img {
     width: 50%;
@@ -31,9 +35,14 @@
   .channel_name {
     display: flex;
     flex-direction: row;
-    gap: 1rem;
     span {
-      font-weight: bold;
+      font-weight: 600;
+    }
+    .checked_channel {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding-left: 4px;
     }
   }
 
@@ -45,15 +54,30 @@
   .btn-subscribe {
     margin-top: 6px;
     border-radius: 20rem;
-    width: 6rem;
     background-color: #000000;
     color: white;
-    font-weight: 400;
-    margin-left: 1rem;
+    font-weight: 600;
   }
 
   .btn-subscribe:hover {
     background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .btn-subscribed {
+    border: none;
+    border-radius: 2rem;
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+    .subscribe_bell {
+      margin-right: 6px;
+    }
+    .subscribe_expand {
+      margin-left: 6px;
+    }
+    span {
+      font-weight: 600;
+    }
   }
 
   .btn_like {
@@ -90,7 +114,6 @@
   }
 
   .actions {
-    margin-top: 6px;
     display: flex;
     flex-direction: row;
     gap: 0.5rem;
@@ -123,12 +146,14 @@
   .btn_share:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
-  .dislay_flex {
+  .display_flex {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 
-  .btn_save {
+  .btn_donate {
     background-color: rgba(0, 0, 0, 0.05);
     border-radius: 40rem;
     border: none;
@@ -143,9 +168,10 @@
 
   .action_feedback {
     height: 36px;
+    padding: 0 12px;
   }
 
-  .btn_save:hover {
+  .btn_donate:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
   .btn_more {

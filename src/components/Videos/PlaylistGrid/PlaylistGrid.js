@@ -9,10 +9,12 @@ const PlaylistGrid = ({ video }) => {
       channelId,
       title,
       channelTitle,
-      thumbnails: { maxres },
+      thumbnails: { maxres, medium },
     },
     playlistItems,
   } = video;
+
+  const thumbnailURL = maxres ? maxres : medium;
 
   // lấy videoId của video đầu tiền trong playlist
   const firstVideo = playlistItems.items[0];
@@ -30,7 +32,7 @@ const PlaylistGrid = ({ video }) => {
         // onMouseOut={onMouseOut}
         href={`/watch?v=${videoId}&list=${id}&start_radio=1`}
       >
-        <LazyLoadImage src={maxres.url} alt="thumbnail" effect="blur" />
+        <LazyLoadImage src={thumbnailURL.url} alt="thumbnail" effect="blur" />
         <div className="overlays" id="playlist">
           <div className="thumbnail_overlay">
             <div className="thumbnail_overlay_icon">
