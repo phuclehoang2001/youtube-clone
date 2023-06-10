@@ -19,11 +19,12 @@ const VideoPage = () => {
   if (index) activedPlaylistItem = index--;
 
   const dispatch = useDispatch();
-  const { video, loading } = useSelector((state) => state.selectedVideo);
 
   useEffect(() => {
     dispatch(getVideoById(videoId));
   }, [dispatch, videoId]);
+
+  const { video, loading } = useSelector((state) => state.selectedVideo);
   return (
     <div className="wrapper_video_content">
       <div className="columns">
@@ -47,7 +48,10 @@ const VideoPage = () => {
                 <h1>Loading...</h1>
               )}
               {/* component Comment */}
-              <CommentsWrapper videoId={videoId} />
+              <CommentsWrapper
+                videoId={videoId}
+                totalComments={video?.statistics?.commentCount}
+              />
             </div>
           </div>
         </div>

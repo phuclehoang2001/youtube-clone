@@ -1,23 +1,56 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import numeral from "numeral";
+import "numeral/locales/vi";
+import Tippy from "@tippyjs/react";
+import TippyMenuVideo from "../../WatchMetadata/Tippy/TippyMenuVideo";
 import { ShapeIcon, SortIcon } from "../../Icons/Icons";
 import EmojiComment from "../EmojiComment";
+import { login } from "../../../redux/actions/auth";
+import { addComment } from "../../../redux/actions/comments";
 
-const CommentHeader = () => {
+const CommentHeader = ({ totalComments, videoId }) => {
   const [isDisabled, setIsDisabled] = useState(true);
   const [showEmoji, setShowEmoji] = useState(false);
   const [commentBox, setCommentBox] = useState(false);
   const [comment, setComment] = useState("");
+  const [activedMenuSort, setActivedMenuSort] = useState(false);
+
+  //Sắp xếp theo...
+  // Hiện comment gần nhất
+
+  const MENU_ITEMS_SORT = [
+    {
+      title: "Bình luận hàng đầu",
+    },
+    {
+      title: "Mới nhất xếp trước",
+    },
+  ];
 
   const inputRef = useRef(null);
+  const sortRef = useRef(null);
   const tippyInstance = useRef(null);
   const wrapperEmojiRef = useRef(null);
+  const dispatch = useDispatch();
 
-  const handleComment = () => {
-    console.log("Đăng bình luận!");
+  const { accessToken, user } = useSelector((state) => state.auth);
+
+  const handleComment = (event) => {
+    event.preventDefault();
+    dispatch(addComment(videoId, comment));
+    setComment("");
   };
 
-  const handleInputFocus = () => {
-    if (!commentBox) setCommentBox(true);
+  const handleInputFocus = (event) => {
+    if (!commentBox) {
+      if (accessToken === null) {
+        dispatch(login());
+        event.preventDefault();
+      } else {
+        setCommentBox(true);
+      }
+    }
   };
 
   const handleButtonClick = () => {
@@ -28,7 +61,7 @@ const CommentHeader = () => {
     useEffect(() => {
       function handleClickOutside(event) {
         if (ref.current && !ref.current.contains(event.target)) {
-          if (event.target == inputRef.current) {
+          if (event.target === inputRef.current) {
             return;
           }
           if (
@@ -55,8 +88,15 @@ const CommentHeader = () => {
   };
 
   const handleInputChange = (event) => {
-    const value = event.target.value;
-    setComment(value);
+    setComment(event.target.value);
+  };
+
+  const handleShowMenu = () => {
+    setActivedMenuSort(true);
+  };
+
+  const handleHideMenu = () => {
+    setActivedMenuSort(false);
   };
 
   //Thêm emoji vào bình luận
@@ -74,6 +114,23 @@ const CommentHeader = () => {
     }
   }, [comment]);
 
+  const preventScroll = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  };
+
+  useEffect(() => {
+    if (!activedMenuSort) {
+      sortRef.current.hide();
+    } else {
+      document.addEventListener("wheel", preventScroll, { passive: false });
+    }
+    return () => {
+      document.removeEventListener("wheel", preventScroll);
+    };
+  }, [activedMenuSort]);
+
   useEffect(() => {
     if (tippyInstance.current) {
       if (!tippyInstance.current.state.isVisible && showEmoji) {
@@ -87,18 +144,47 @@ const CommentHeader = () => {
   return (
     <div className="header_comment">
       <div className="header_comment_title">
-        <h2 className="count comment_header_renderer">800 bình luận</h2>
-        <div className="sort_menu comment_header_renderer">
-          <SortIcon className={"dropdown_menu"} />
-          <span>Sắp xếp theo</span>
-        </div>
+        <h2 className="count comment_header_renderer">
+          {numeral(totalComments).format("0,0.[0000]")} bình luận
+        </h2>
+        <Tippy
+          delay={[0, 20]}
+          offset={[0, 0]}
+          arrow={false}
+          className="tippy_box_header"
+          content="Sắp xếp bình luận"
+          placement="bottom"
+        >
+          <TippyMenuVideo
+            items={MENU_ITEMS_SORT}
+            hideOnClick={false}
+            placement={"bottom-end"}
+            onCreate={(instance) => {
+              sortRef.current = instance;
+            }}
+          >
+            <div
+              tabIndex="0"
+              className="sort_menu comment_header_renderer"
+              onClick={handleShowMenu}
+              onBlur={handleHideMenu}
+            >
+              <SortIcon className={"dropdown_menu"} />
+              <span>Sắp xếp theo</span>
+            </div>
+          </TippyMenuVideo>
+        </Tippy>
       </div>
       <div className="simple_box">
         <div className="author_thumbnail">
-          <img
-            src="https://yt3.ggpht.com/FID9udkB2vTqIte2w003UhOkJdjGNEaPoFLcCQNXm3gcum0AtFZBVQG-MVIeC0B_vIWmd1NIpw=s88-c-k-c0x00ffffff-no-rj"
-            alt="avatar user"
-          />
+          {accessToken === null ? (
+            <img
+              src="https://yt3.ggpht.com/a/default-user=s88-c-k-c0x00ffffff-no-rj"
+              alt="avatar default"
+            />
+          ) : (
+            <img src={user.photoURL} alt="avatar user" />
+          )}
         </div>
         <div className="author_comment">
           <div className="input_container">

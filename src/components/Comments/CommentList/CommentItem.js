@@ -1,4 +1,9 @@
 import React from "react";
+import ShowMoreText from "react-show-more-text";
+import numeral from "numeral";
+import moment from "moment";
+import "numeral/locales/vi";
+import "moment/locale/vi";
 import {
   ReplyCommment,
   TopbarMenu,
@@ -6,7 +11,17 @@ import {
   DislikeIcon,
   TickChannel,
 } from "../../Icons/Icons";
-const CommentItem = () => {
+const CommentItem = ({ comment }) => {
+  const {
+    textDisplay,
+    authorDisplayName,
+    authorProfileImageUrl,
+    publishedAt,
+    likeCount,
+  } = comment;
+
+  const _likeCount = numeral(likeCount).format("0,0.[0]a");
+
   return (
     <div className="comment_item">
       <div className="comment_thread">
@@ -15,10 +30,7 @@ const CommentItem = () => {
           className="comment_channel"
         >
           <div className="author_thumbnail">
-            <img
-              src="https://yt3.ggpht.com/P64wDmA6-bXrTyhVM0lN0oS14E5Mfko5wV_XDC98DMZFiuyP4EktqrqxOewv3NPqn0u_PpJ7D_Q=s88-c-k-c0x00ffffff-no-rj"
-              alt="avatar user"
-            />
+            <img src={authorProfileImageUrl} alt="avatar user" />
           </div>
         </a>
         <div id="main" className="comment_render">
@@ -29,30 +41,44 @@ const CommentItem = () => {
                   href="https://www.youtube.com/channel/UCWu91J5KWEj1bQhCBuGeJxw"
                   className="channel_name"
                 >
-                  Đen Vâu Offical
+                  {authorDisplayName}
                 </a>
                 <div className="channel_tick">
                   <TickChannel className={"icon"} />
                 </div>
               </div>
               <div id="header_comment_publish_date" className="comment_render">
-                <a href="http://localhost:3000/watch/1414">7 ngày trước</a>
+                <a href="http://localhost:3000/watch/1414">
+                  {moment(publishedAt).fromNow()}
+                </a>
               </div>
             </div>
           </div>
           <div id="comment_content" className="comment_render">
-            <span>
-              Cảm ơn ca sĩ Đen Vâu và ekip vì 1 sp nghệ thuật rất hay, xúc động,
-              góp phần lan tỏa những thông điệp ý nghĩa trong cuộc sống. Yêu
-              thích rất nhiều ❤
-            </span>
+            <ShowMoreText
+              lines={3}
+              more={"Đọc thêm"}
+              less={"Ẩn bớt"}
+              anchorClass="btn_show_hide_comment"
+              expanded={false}
+              truncatedEndingComponent={"..."}
+              keepNewLines={true}
+              expandByClick={true}
+            >
+              {textDisplay}
+            </ShowMoreText>
           </div>
           <div id="actions" className="comment_render">
             <div className="toolbar">
               <button className="btn_like comment_action_render">
                 <LikeIcon />
               </button>
-              <span className="vote_count_middle">3,2 N</span>
+              {likeCount > 0 ? (
+                <span className="vote_count_middle">{_likeCount}</span>
+              ) : (
+                ""
+              )}
+
               <button className="btn_dislike comment_action_render">
                 <DislikeIcon />
               </button>
