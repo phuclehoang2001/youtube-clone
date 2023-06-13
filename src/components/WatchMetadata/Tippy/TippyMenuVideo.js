@@ -5,7 +5,8 @@ import "./TippyMenuVideo.scss";
 
 const TippyMenuVideo = ({
   items = [],
-  className,
+  activedItemSort,
+  onClick,
   placement,
   hideOnClick = true,
   children,
@@ -15,7 +16,11 @@ const TippyMenuVideo = ({
     return items.map((item, index) => {
       return (
         <div key={index}>
-          <MenuItem data={item} />
+          <MenuItem
+            data={item}
+            handleSort={onClick}
+            active={activedItemSort === item.title}
+          />
         </div>
       );
     });
@@ -35,7 +40,7 @@ const TippyMenuVideo = ({
       offset={[0, 20]}
       delay={[0, 150]}
       placement={placement}
-      render={() => <RenderResult />}
+      render={RenderResult}
       onCreate={onCreate}
     >
       {children}

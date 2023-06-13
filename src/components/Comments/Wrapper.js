@@ -12,7 +12,7 @@ const Wrapper = ({ videoId, totalComments }) => {
     dispatch(getCommentsOfVideoById(videoId));
   }, [dispatch, videoId]);
 
-  const comments = useSelector((state) => state.commentList.comments);
+  const { comments, loading } = useSelector((state) => state.commentList);
   const _comments = comments?.map(
     (comment) => comment.snippet.topLevelComment.snippet
   );
@@ -21,9 +21,15 @@ const Wrapper = ({ videoId, totalComments }) => {
     <div className="wrapper_comments">
       <CommentList>
         <CommentHeader totalComments={totalComments} videoId={videoId} />
-        {_comments?.map((comment, index) => (
-          <CommentItem comment={comment} key={index} />
-        ))}
+        {!loading ? (
+          <>
+            {_comments?.map((comment, index) => (
+              <CommentItem comment={comment} key={index} />
+            ))}
+          </>
+        ) : (
+          <h1>Loading comments....</h1>
+        )}
       </CommentList>
     </div>
   );

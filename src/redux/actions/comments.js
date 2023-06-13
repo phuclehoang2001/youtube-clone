@@ -51,6 +51,8 @@ export const getLatestCommentsOfVideoById = (videoId) => async (dispatch) => {
       },
     });
 
+    console.log(data);
+
     dispatch({
       type: COMMENT_LIST_TIME_SUCCESS,
       payload: data.items,

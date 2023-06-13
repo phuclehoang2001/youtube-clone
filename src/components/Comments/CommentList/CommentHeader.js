@@ -4,10 +4,15 @@ import numeral from "numeral";
 import "numeral/locales/vi";
 import Tippy from "@tippyjs/react";
 import TippyMenuVideo from "../../WatchMetadata/Tippy/TippyMenuVideo";
+
 import { ShapeIcon, SortIcon } from "../../Icons/Icons";
 import EmojiComment from "../EmojiComment";
 import { login } from "../../../redux/actions/auth";
-import { addComment } from "../../../redux/actions/comments";
+import {
+  addComment,
+  getLatestCommentsOfVideoById,
+  getCommentsOfVideoById,
+} from "../../../redux/actions/comments";
 
 const CommentHeader = ({ totalComments, videoId }) => {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -15,9 +20,22 @@ const CommentHeader = ({ totalComments, videoId }) => {
   const [commentBox, setCommentBox] = useState(false);
   const [comment, setComment] = useState("");
   const [activedMenuSort, setActivedMenuSort] = useState(false);
+  const [activedItemSort, setActivedItemSort] = useState("Bình luận hàng đầu");
 
-  //Sắp xếp theo...
+  const dispatch = useDispatch();
+
   // Hiện comment gần nhất
+  const handleSort = (title) => {
+    setActivedItemSort(title);
+    sortRef.current.hide();
+  };
+  useEffect(() => {
+    if (activedItemSort === "Bình luận hàng đầu") {
+      dispatch(getCommentsOfVideoById(videoId));
+    } else {
+      dispatch(getLatestCommentsOfVideoById(videoId));
+    }
+  }, [activedItemSort]);
 
   const MENU_ITEMS_SORT = [
     {
@@ -32,7 +50,6 @@ const CommentHeader = ({ totalComments, videoId }) => {
   const sortRef = useRef(null);
   const tippyInstance = useRef(null);
   const wrapperEmojiRef = useRef(null);
-  const dispatch = useDispatch();
 
   const { accessToken, user } = useSelector((state) => state.auth);
 
@@ -57,7 +74,11 @@ const CommentHeader = ({ totalComments, videoId }) => {
     setShowEmoji((value) => !value);
   };
 
-  const useOutsideAlerter = (ref) => {
+  const handleMenuSort = () => {
+    setActivedMenuSort((value) => !value);
+  };
+
+  const useOutsideClick = (ref) => {
     useEffect(() => {
       function handleClickOutside(event) {
         if (ref.current && !ref.current.contains(event.target)) {
@@ -79,7 +100,7 @@ const CommentHeader = ({ totalComments, videoId }) => {
       };
     }, [ref]);
   };
-  useOutsideAlerter(wrapperEmojiRef);
+  useOutsideClick(wrapperEmojiRef);
 
   //Khi nhấn nút "hủy"
   const handleCancel = () => {
@@ -89,14 +110,6 @@ const CommentHeader = ({ totalComments, videoId }) => {
 
   const handleInputChange = (event) => {
     setComment(event.target.value);
-  };
-
-  const handleShowMenu = () => {
-    setActivedMenuSort(true);
-  };
-
-  const handleHideMenu = () => {
-    setActivedMenuSort(false);
   };
 
   //Thêm emoji vào bình luận
@@ -122,7 +135,7 @@ const CommentHeader = ({ totalComments, videoId }) => {
 
   useEffect(() => {
     if (!activedMenuSort) {
-      sortRef.current.hide();
+      document.removeEventListener("wheel", preventScroll);
     } else {
       document.addEventListener("wheel", preventScroll, { passive: false });
     }
@@ -157,7 +170,9 @@ const CommentHeader = ({ totalComments, videoId }) => {
         >
           <TippyMenuVideo
             items={MENU_ITEMS_SORT}
-            hideOnClick={false}
+            activedItemSort={activedItemSort}
+            onClick={handleSort}
+            hideOnClick={true}
             placement={"bottom-end"}
             onCreate={(instance) => {
               sortRef.current = instance;
@@ -166,8 +181,8 @@ const CommentHeader = ({ totalComments, videoId }) => {
             <div
               tabIndex="0"
               className="sort_menu comment_header_renderer"
-              onClick={handleShowMenu}
-              onBlur={handleHideMenu}
+              onClick={handleMenuSort}
+              onBlur={handleMenuSort}
             >
               <SortIcon className={"dropdown_menu"} />
               <span>Sắp xếp theo</span>
