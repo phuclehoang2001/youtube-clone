@@ -5,6 +5,8 @@ import {
   COMMENT_LIST_TIME_FAIL,
   COMMENT_LIST_TIME_SUCCESS,
   COMMENT_LIST_TIME_REQUEST,
+  CREATE_COMMENT_SUCCESS,
+  CREATE_COMMENT_FAIL,
 } from "../actionType";
 export const commentListReducer = (
   prevState = {
@@ -14,6 +16,7 @@ export const commentListReducer = (
   action
 ) => {
   const { type, payload } = action;
+
   switch (type) {
     case COMMENT_LIST_RELEVANCE_REQUEST:
       return {
@@ -49,6 +52,17 @@ export const commentListReducer = (
       return {
         ...prevState,
         comments: null,
+        loading: false,
+        error: payload,
+      };
+    case CREATE_COMMENT_SUCCESS:
+      return {
+        ...prevState,
+        comments: [payload.comment, ...prevState.comments],
+      };
+    case CREATE_COMMENT_FAIL:
+      return {
+        ...prevState,
         loading: false,
         error: payload,
       };

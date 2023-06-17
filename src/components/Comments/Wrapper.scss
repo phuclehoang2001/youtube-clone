@@ -1,0 +1,11 @@
+.comments_section {
+  position: relative;
+}
+.loading {
+  position: absolute;
+  right: 50%;
+  transform: translateY(-50%);
+  svg {
+    fill: rgba(22, 24, 35, 0.34);
+  }
+}

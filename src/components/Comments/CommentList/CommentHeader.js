@@ -24,7 +24,7 @@ const CommentHeader = ({ totalComments, videoId }) => {
 
   const dispatch = useDispatch();
 
-  // Hiện comment gần nhất
+  // hiện Reply comments
   const handleSort = (title) => {
     setActivedItemSort(title);
     sortRef.current.hide();
@@ -173,6 +173,7 @@ const CommentHeader = ({ totalComments, videoId }) => {
             activedItemSort={activedItemSort}
             onClick={handleSort}
             hideOnClick={true}
+            offset={[(0, 0)]}
             placement={"bottom-end"}
             onCreate={(instance) => {
               sortRef.current = instance;

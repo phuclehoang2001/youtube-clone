@@ -51,8 +51,6 @@ export const getLatestCommentsOfVideoById = (videoId) => async (dispatch) => {
       },
     });
 
-    console.log(data);
-
     dispatch({
       type: COMMENT_LIST_TIME_SUCCESS,
       payload: data.items,
@@ -79,19 +77,31 @@ export const addComment = (videoId, text) => async (dispatch, getState) => {
       },
     };
 
-    await request.post("/commentThreads", obj, {
-      params: {
-        part: "snippet",
-      },
-      headers: {
-        Authorization: `Bearer ${getState().auth.accessToken}`,
-      },
-    });
-
-    dispatch({
-      type: CREATE_COMMENT_SUCCESS,
-    });
-    setTimeout(() => dispatch(getCommentsOfVideoById(videoId)), 3000);
+    await request
+      .post("/commentThreads", obj, {
+        params: {
+          part: "snippet",
+        },
+        headers: {
+          Authorization: `Bearer ${getState().auth.accessToken}`,
+        },
+      })
+      .then((response) => {
+        const { data } = response;
+        dispatch({
+          type: CREATE_COMMENT_SUCCESS,
+          payload: {
+            comment: data,
+          },
+        });
+      })
+      .catch((error) => {
+        console.log(error.message);
+        dispatch({
+          type: CREATE_COMMENT_FAIL,
+          payload: error.message,
+        });
+      });
   } catch (error) {
     console.log(error.message);
     dispatch({

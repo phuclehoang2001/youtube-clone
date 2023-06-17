@@ -11,6 +11,7 @@
     "bootstrap": "^5.2.3",
     "emoji-picker-react": "^4.4.9",
     "firebase": "^9.21.0",
+    "fuse.js": "^6.6.2",
     "moment": "^2.29.4",
     "node-sass": "^7.0.3",
     "numeral": "^2.0.6",

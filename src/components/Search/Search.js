@@ -1,30 +1,228 @@
 import { useEffect, useState, useRef } from "react";
-import { SearchIcon, TouchResponse } from "../Icons";
+import Fuse from "fuse.js";
 import HeadlessTippy from "@tippyjs/react/headless";
+import { SearchIcon, TouchResponse, CloseIcon } from "../Icons";
 import Tippy from "@tippyjs/react";
 import { Wrapper as SearchPopper } from "../Popper";
 import SearchItem from "./SearchItem";
-
 import "./Search.scss";
+const characters = [
+  {
+    title: "Old Man's War",
+    author: {
+      firstName: "John",
+      lastName: "Scalzi",
+    },
+  },
+  {
+    title: "The Lock Artist",
+    author: {
+      firstName: "Steve",
+      lastName: "Hamilton",
+    },
+  },
+  {
+    title: "HTML5",
+    author: {
+      firstName: "Remy",
+      lastName: "Sharp",
+    },
+  },
+  {
+    title: "Right Ho Jeeves",
+    author: {
+      firstName: "P.D",
+      lastName: "Woodhouse",
+    },
+  },
+  {
+    title: "The Code of the Wooster",
+    author: {
+      firstName: "P.D",
+      lastName: "Woodhouse",
+    },
+  },
+  {
+    title: "Thank You Jeeves",
+    author: {
+      firstName: "P.D",
+      lastName: "Woodhouse",
+    },
+  },
+  {
+    title: "The DaVinci Code",
+    author: {
+      firstName: "Dan",
+      lastName: "Brown",
+    },
+  },
+  {
+    title: "Angels & Demons",
+    author: {
+      firstName: "Dan",
+      lastName: "Brown",
+    },
+  },
+  {
+    title: "The Silmarillion",
+    author: {
+      firstName: "J.R.R",
+      lastName: "Tolkien",
+    },
+  },
+  {
+    title: "Syrup",
+    author: {
+      firstName: "Max",
+      lastName: "Barry",
+    },
+  },
+  {
+    title: "The Lost Symbol",
+    author: {
+      firstName: "Dan",
+      lastName: "Brown",
+    },
+  },
+  {
+    title: "The Book of Lies",
+    author: {
+      firstName: "Brad",
+      lastName: "Meltzer",
+    },
+  },
+  {
+    title: "Lamb",
+    author: {
+      firstName: "Christopher",
+      lastName: "Moore",
+    },
+  },
+  {
+    title: "Fool",
+    author: {
+      firstName: "Christopher",
+      lastName: "Moore",
+    },
+  },
+  {
+    title: "Incompetence",
+    author: {
+      firstName: "Rob",
+      lastName: "Grant",
+    },
+  },
+  {
+    title: "Fat",
+    author: {
+      firstName: "Rob",
+      lastName: "Grant",
+    },
+  },
+  {
+    title: "Colony",
+    author: {
+      firstName: "Rob",
+      lastName: "Grant",
+    },
+  },
+  {
+    title: "Backwards, Red Dwarf",
+    author: {
+      firstName: "Rob",
+      lastName: "Grant",
+    },
+  },
+  {
+    title: "The Grand Design",
+    author: {
+      firstName: "Stephen",
+      lastName: "Hawking",
+    },
+  },
+  {
+    title: "The Book of Samson",
+    author: {
+      firstName: "David",
+      lastName: "Maine",
+    },
+  },
+  {
+    title: "The Preservationist",
+    author: {
+      firstName: "David",
+      lastName: "Maine",
+    },
+  },
+  {
+    title: "Fallen",
+    author: {
+      firstName: "David",
+      lastName: "Maine",
+    },
+  },
+  {
+    title: "Monster 1959",
+    author: {
+      firstName: "David",
+      lastName: "Maine",
+    },
+  },
+];
+const options = {
+  // isCaseSensitive: false,
+  // includeScore: false,
+  // shouldSort: true,
+  // includeMatches: false,
+  // findAllMatches: false,
+  // minMatchCharLength: 1,
+  // location: 0,
+  // threshold: 0.6,
+  // distance: 100,
+  // useExtendedSearch: false,
+  // ignoreLocation: false,
+  // ignoreFieldNorm: false,
+  // fieldNormWeight: 1,
+  keys: ["title", "author.firstName"],
+};
 function Search() {
+  const [searchValue, setSearchValue] = useState("");
+  const [showResult, setShowResult] = useState(false);
   const inputRef = useRef();
+  const handleSearch = (e) => {
+    setSearchValue(e.target.value);
+  };
+  const handleHideResult = () => {
+    setShowResult(false);
+  };
+  const handleClear = () => {
+    setSearchValue("");
+    inputRef.current.focus();
+  };
+
+  const fuse = new Fuse(characters, options);
+  const results = fuse.search(searchValue);
+  const characterResults = searchValue
+    ? results.map((result) => result.item)
+    : [];
   return (
     <div className="header_center">
       <div>
         <HeadlessTippy
           interactive
-          visible={false}
-          // onClickOutside={handleHideResult}
+          visible={showResult && characterResults.length > 0}
           placement="bottom-start"
           offset={[0, 5]}
+          onClickOutside={handleHideResult}
           render={(attrs) => (
             <div className="search_result" tabIndex="-1" {...attrs}>
               <SearchPopper className="menu_search_popper">
-                <SearchItem />
-                <SearchItem />
-                <SearchItem />
-                <SearchItem />
-                <SearchItem />
+                {characterResults.map((data) => (
+                  <SearchItem data={data} />
+                ))}
+                <div className="search_report">
+                  <span>Báo cáo đề xuất tìm kiếm không phù hợp</span>
+                </div>
               </SearchPopper>
             </div>
           )}
@@ -34,13 +232,29 @@ function Search() {
               <div className="search_icon_box">
                 <SearchIcon />
               </div>
-              <input ref={inputRef} placeholder="Tìm kiếm" spellCheck={false} />
-              <div className="keyboard">
-                <img
-                  src="data:image/gif;base64,R0lGODlhEwALAKECAAAAABISEv///////yH5BAEKAAIALAAAAAATAAsAAAIdDI6pZ+suQJyy0ocV3bbm33EcCArmiUYk1qxAUAAAOw=="
-                  alt="Bàn phím"
+              <div className="search_input">
+                <input
+                  ref={inputRef}
+                  placeholder="Tìm kiếm"
+                  spellCheck={false}
+                  value={searchValue}
+                  onChange={handleSearch}
+                  onFocus={() => setShowResult(true)}
                 />
+                <div className="keyboard">
+                  <img
+                    src="data:image/gif;base64,R0lGODlhEwALAKECAAAAABISEv///////yH5BAEKAAIALAAAAAATAAsAAAIdDI6pZ+suQJyy0ocV3bbm33EcCArmiUYk1qxAUAAAOw=="
+                    alt="Bàn phím"
+                  />
+                </div>
               </div>
+              {showResult && characterResults.length > 0 && (
+                <div className="clear_search">
+                  <button className="btn_clear" onClick={handleClear}>
+                    <CloseIcon />
+                  </button>
+                </div>
+              )}
             </div>
 
             <Tippy

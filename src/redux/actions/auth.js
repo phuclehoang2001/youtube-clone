@@ -7,7 +7,7 @@ import {
   LOGIN_SUCCESS,
   LOG_OUT,
 } from "../actionType";
-
+import request from "../../utils/httpRequests";
 export const login = () => async (dispatch) => {
   try {
     dispatch({
@@ -20,12 +20,22 @@ export const login = () => async (dispatch) => {
     const res = await auth.signInWithPopup(provider);
 
     const accessToken = res.credential.accessToken;
-    const profile = {
-      name: res.additionalUserInfo.profile.name,
-      photoURL: res.additionalUserInfo.profile.picture,
-      email: res.additionalUserInfo.profile.email,
-    };
 
+    const channelInfo = await request("/channels", {
+      params: {
+        part: "snippet",
+        mine: true,
+      },
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    const profile = {
+      name: channelInfo.data.items[0].snippet.title,
+      photoURL: channelInfo.data.items[0].snippet.thumbnails.medium.url,
+      email: channelInfo.data.items[0].snippet.customUrl,
+    };
     // luu data o sessionStorage
     sessionStorage.setItem("yt-access-token", accessToken);
     sessionStorage.setItem("yt-user", JSON.stringify(profile));

@@ -1225,3 +1225,29 @@ export const BellIcon = ({
     </g>
   </svg>
 );
+
+export const LoadingIcon = ({
+  width = "1.4rem",
+  height = "1.4rem",
+  className,
+}) => (
+  <svg
+    className={className}
+    width={width}
+    height={height}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 50 50"
+  >
+    <path d="M25 48c-11 0-20-9-20-20S14 8 25 8V3c-12.7 0-23 10.3-23 23s10.3 23 23 23v-5z">
+      <animateTransform
+        attributeType="xml"
+        attributeName="transform"
+        type="rotate"
+        from="0 25 25"
+        to="360 25 25"
+        dur="0.6s"
+        repeatCount="indefinite"
+      />
+    </path>
+  </svg>
+);

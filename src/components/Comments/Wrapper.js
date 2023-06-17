@@ -5,7 +5,7 @@ import CommentList from "./CommentList/";
 import CommentItem from "./CommentList/CommentItem";
 import CommentHeader from "./CommentList/CommentHeader";
 import { getCommentsOfVideoById } from "../../redux/actions/comments";
-
+import { LoadingIcon } from "../Icons/Icons";
 const Wrapper = ({ videoId, totalComments }) => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -13,9 +13,7 @@ const Wrapper = ({ videoId, totalComments }) => {
   }, [dispatch, videoId]);
 
   const { comments, loading } = useSelector((state) => state.commentList);
-  const _comments = comments?.map(
-    (comment) => comment.snippet.topLevelComment.snippet
-  );
+  const _comments = comments?.map((comment) => comment.snippet);
 
   return (
     <div className="wrapper_comments">
@@ -28,7 +26,9 @@ const Wrapper = ({ videoId, totalComments }) => {
             ))}
           </>
         ) : (
-          <h1>Loading comments....</h1>
+          <div className="loading">
+            <LoadingIcon />
+          </div>
         )}
       </CommentList>
     </div>

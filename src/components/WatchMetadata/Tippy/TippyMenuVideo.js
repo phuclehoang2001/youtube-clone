@@ -11,6 +11,7 @@ const TippyMenuVideo = ({
   hideOnClick = true,
   children,
   onCreate,
+  offset,
 }) => {
   const renderItems = () => {
     return items.map((item, index) => {
@@ -37,7 +38,7 @@ const TippyMenuVideo = ({
       hideOnClick={hideOnClick}
       interactive
       trigger="click"
-      offset={[0, 20]}
+      offset={offset ? offset : [(0, 20)]}
       delay={[0, 150]}
       placement={placement}
       render={RenderResult}
