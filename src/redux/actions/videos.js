@@ -156,3 +156,19 @@ export const getVideoById = (videoId) => async (dispatch) => {
     });
   }
 };
+
+export const checkRatingStatus = (videoId) => async (dispatch, getState) => {
+  try {
+    const { data } = await request("/videos/getRating", {
+      params: {
+        id: videoId,
+      },
+      headers: {
+        Authorization: `Bearer ${getState().auth.accessToken}`,
+      },
+    });
+    console.log(data);
+  } catch (error) {
+    console.log(error.message);
+  }
+};

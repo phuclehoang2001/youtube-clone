@@ -26,7 +26,7 @@ const Wrapper = ({ videoId, totalComments }) => {
             ))}
           </>
         ) : (
-          <div className="loading">
+          <div className="loading" width="2rem" height="2rem">
             <LoadingIcon />
           </div>
         )}

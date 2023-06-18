@@ -335,7 +335,8 @@
 #expander.comment_render {
   display: block;
   text-transform: none;
-  .more_replies {
+  .more_replies,
+  .reply_contents {
     margin-left: -16px;
     .btn_expand_comment {
       border: none;

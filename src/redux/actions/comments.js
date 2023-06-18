@@ -110,3 +110,15 @@ export const addComment = (videoId, text) => async (dispatch, getState) => {
     });
   }
 };
+
+export const getReplies = async (commentId, nextPageToken = "") => {
+  const { data } = await request("/comments", {
+    params: {
+      part: "snippet",
+      parentId: commentId,
+      maxResults: 5,
+      pageToken: nextPageToken,
+    },
+  });
+  return data;
+};

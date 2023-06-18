@@ -19,12 +19,14 @@ import {
   DonateIcon,
   ExpandIcon,
   BellIcon,
+  LikedIcon,
 } from "../Icons/Icons";
 import TippyMenuVideo from "./Tippy/TippyMenuVideo";
 import {
   checkSubscriptionStatus,
   getChannelDetailsById,
 } from "../../redux/actions/channel";
+import { checkRatingStatus } from "../../redux/actions/videos";
 moment.locale("vi");
 
 const WatchMetadata = ({ video, videoId, playlistId }) => {
@@ -110,7 +112,8 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
   useEffect(() => {
     dispatch(getChannelDetailsById(channelId));
     dispatch(checkSubscriptionStatus(channelId));
-  }, [dispatch, channelId]);
+    dispatch(checkRatingStatus(videoId));
+  }, [dispatch, channelId, videoId]);
 
   return (
     <div className="watch_active_metadata">
@@ -121,7 +124,10 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
         <div className="owner">
           <div className="channel_info">
             <a className="avatar">
-              <img src={channelSnippet?.thumbnails?.default?.url} />
+              <img
+                src={channelSnippet?.thumbnails?.default?.url}
+                alt="avatar channel"
+              />
             </a>
             <div className="upload_info">
               <div className="channel_name">
@@ -171,7 +177,8 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
               placement="bottom"
             >
               <button className="btn_like action_feedback">
-                <LikeIcon />
+                {/* <LikeIcon /> */}
+                <LikedIcon />
                 <span>{_likeCount}</span>
               </button>
             </Tippy>
