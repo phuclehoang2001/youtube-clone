@@ -8,7 +8,7 @@ import {
 } from "../actionType";
 import request from "../../utils/httpRequests";
 
-export const getPlaylists = () => async (dispatch) => {
+export const getPlaylists = () => async (dispatch, getState) => {
   try {
     dispatch({
       type: HOME_PLAYLISTS_REQUEST,
@@ -17,19 +17,35 @@ export const getPlaylists = () => async (dispatch) => {
       params: {
         part: "snippet,contentDetails",
         hl: "vi_VN",
-        id: "PLnmXaJYr8TimwOdSFXhESvvQ6enkO0xvE,PLY-AuYi7sTugPLS6_J0oa1wFmWkCExstr",
+        mine: true,
         pageToken: "",
+        maxResults: 2,
+      },
+      headers: {
+        Authorization: `Bearer ${getState().auth.accessToken}`,
       },
     });
-
-    getPlaylistItems(data).then(() => {
-      dispatch({
-        type: HOME_PLAYLISTS_SUCCESS,
-        payload: {
-          playlists: data.items,
-          pageInfo: data.pageInfo,
+    for (const playlist of data.items) {
+      await request("/playlistItems", {
+        params: {
+          part: "snippet",
+          playlistId: playlist.id,
+          maxResults: 1,
+          pageToken: "",
         },
+        headers: {
+          Authorization: `Bearer ${getState().auth.accessToken}`,
+        },
+      }).then((item) => {
+        playlist.playlistItem = item.data;
       });
+    }
+    dispatch({
+      type: HOME_PLAYLISTS_SUCCESS,
+      payload: {
+        playlists: data.items,
+        pageInfo: data.pageInfo,
+      },
     });
   } catch (error) {
     console.log(error.message);
@@ -40,45 +56,35 @@ export const getPlaylists = () => async (dispatch) => {
   }
 };
 
-async function getPlaylistItems(playlists) {
-  for (const playlist of playlists.items) {
-    const { data } = await request("/playlistItems", {
-      params: {
-        part: "snippet",
-        playlistId: playlist.id,
-        maxResults: 1,
-        pageToken: "",
-      },
-    });
-    playlist.playlistItems = data;
-  }
-}
-
-export const getItemsByPlaylistId = (playlistId) => async (dispatch) => {
-  try {
-    dispatch({
-      type: VIDEO_PLAYLISTITEMS_REQUEST,
-    });
-    const { data } = await request("/playlistItems", {
-      params: {
-        part: "snippet",
-        playlistId: playlistId,
-        maxResults: 10,
-        pageToken: "",
-      },
-    });
-    dispatch({
-      type: VIDEO_PLAYLISTITEMS_SUCCESS,
-      payload: {
-        playlistItems: data.items,
-        pageInfo: data.pageInfo,
-      },
-    });
-  } catch (error) {
-    console.log(error.message);
-    dispatch({
-      type: VIDEO_PLAYLISTITEMS_FAIL,
-      payload: error.message,
-    });
-  }
-};
+export const getItemsByPlaylistId =
+  (playlistId) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: VIDEO_PLAYLISTITEMS_REQUEST,
+      });
+      const { data } = await request("/playlistItems", {
+        params: {
+          part: "snippet",
+          playlistId: playlistId,
+          maxResults: 10,
+          pageToken: "",
+        },
+        headers: {
+          Authorization: `Bearer ${getState().auth.accessToken}`,
+        },
+      });
+      dispatch({
+        type: VIDEO_PLAYLISTITEMS_SUCCESS,
+        payload: {
+          playlistItems: data.items,
+          pageInfo: data.pageInfo,
+        },
+      });
+    } catch (error) {
+      console.log(error.message);
+      dispatch({
+        type: VIDEO_PLAYLISTITEMS_FAIL,
+        payload: error.message,
+      });
+    }
+  };

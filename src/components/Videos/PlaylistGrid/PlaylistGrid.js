@@ -6,21 +6,20 @@ const PlaylistGrid = ({ video }) => {
   const {
     id,
     snippet: {
-      channelId,
       title,
-      channelTitle,
       thumbnails: { maxres, medium },
     },
-    playlistItems,
+    playlistItem,
   } = video;
 
   const thumbnailURL = maxres ? maxres : medium;
 
   // lấy videoId của video đầu tiền trong playlist
-  const firstVideo = playlistItems.items[0];
+  const firstVideo = playlistItem.items[0];
   const {
     snippet: {
       resourceId: { videoId },
+      videoOwnerChannelTitle,
     },
   } = firstVideo;
 
@@ -28,8 +27,6 @@ const PlaylistGrid = ({ video }) => {
     <div className="playlist_container">
       <a
         className="playlist_thumbnail"
-        // onMouseOver={onMouseOver}
-        // onMouseOut={onMouseOut}
         href={`/watch?v=${videoId}&list=${id}&start_radio=1`}
       >
         <LazyLoadImage src={thumbnailURL.url} alt="thumbnail" effect="blur" />
@@ -56,7 +53,7 @@ const PlaylistGrid = ({ video }) => {
             </a>
           </h3>
           <div className="channel_playlist">
-            <span>{channelTitle}</span>
+            <span>{videoOwnerChannelTitle}</span>
           </div>
           <div className="video_menu_grid">
             <TopbarMenu className="menu_video" />

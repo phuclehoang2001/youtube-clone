@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -10,7 +10,7 @@ import Video from "../../components/Videos";
 import PlaylistGrid from "../../components/Videos/PlaylistGrid/";
 import {
   getPopularVideos,
-  getVideosByCategory,
+  getVideosByKeyword,
 } from "../../redux/actions/videos";
 import { getPlaylists } from "../../redux/actions/playlists";
 import { getVideoCategories } from "../../redux/actions/categories";
@@ -32,9 +32,12 @@ const HomePage = () => {
   const { categories, loading: loadingCategories } = useSelector(
     (state) => state.homeVideoCategories
   );
+
+  const { accessToken } = useSelector((state) => state.auth);
+
   useEffect(() => {
-    dispatch(getPlaylists());
-  }, [dispatch]);
+    if (accessToken !== null) dispatch(getPlaylists());
+  }, [dispatch, accessToken]);
 
   useEffect(() => {
     dispatch(getPopularVideos());
@@ -57,8 +60,8 @@ const HomePage = () => {
     ...categoryHomePage(assignableCategories.slice(0, 12)),
   ];
 
-  // trộn video và playlists
-  const mixture = [...playlists, ...videos];
+  // trộn video và playlists sau đó random
+  const mixture = categoryHomePage([...playlists, ...videos]);
 
   // const fetchData = () => {
   //   if (activeCategory === "Tất cả") {

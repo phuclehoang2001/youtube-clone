@@ -5,6 +5,7 @@ import {
   SELECTED_VIDEO_REQUEST,
   SELECTED_VIDEO_SUCCESS,
   SELECTED_VIDEO_FAIL,
+  SET_RATING_STATUS,
 } from "../actionType";
 
 export const homeVideosReducer = (
@@ -52,6 +53,7 @@ export const selectedVideoReducer = (
   prevState = {
     loading: false,
     video: null,
+    rating: "none",
   },
   action
 ) => {
@@ -75,7 +77,8 @@ export const selectedVideoReducer = (
         loading: false,
         error: payload,
       };
-
+    case SET_RATING_STATUS:
+      return { ...prevState, rating: payload };
     default:
       return prevState;
   }

@@ -9,8 +9,10 @@ import ShowMoreText from "react-show-more-text";
 import "./WatchMetadata.scss";
 import {
   CheckedIcon,
-  DisLikedIcon,
+  DislikeIcon,
+  DislikedIcon,
   LikeIcon,
+  LikedIcon,
   MoreIcon,
   ReportIcon,
   SaveIcon,
@@ -19,14 +21,13 @@ import {
   DonateIcon,
   ExpandIcon,
   BellIcon,
-  LikedIcon,
 } from "../Icons/Icons";
 import TippyMenuVideo from "./Tippy/TippyMenuVideo";
 import {
   checkSubscriptionStatus,
   getChannelDetailsById,
 } from "../../redux/actions/channel";
-import { checkRatingStatus } from "../../redux/actions/videos";
+import { checkRatingStatus, rateVideo } from "../../redux/actions/videos";
 moment.locale("vi");
 
 const WatchMetadata = ({ video, videoId, playlistId }) => {
@@ -41,6 +42,8 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
   const subscriptionStatus = useSelector(
     (state) => state.channelDetails.subscriptionStatus
   );
+  const { accessToken } = useSelector((state) => state.auth);
+  const { rating } = useSelector((state) => state.selectedVideo);
 
   const dispatch = useDispatch();
   const moreButton = useRef(null);
@@ -89,6 +92,43 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
       setShowMore(false);
     }
   };
+
+  const renderRatingIcon = (isLike = true) => {
+    if (accessToken === null || rating === "none") {
+      return isLike ? <LikeIcon /> : <DislikeIcon />;
+    }
+    if (isLike) {
+      return rating === "like" ? <LikedIcon /> : <LikeIcon />;
+    }
+    if (!isLike) {
+      return rating === "dislike" ? <DislikedIcon /> : <DislikeIcon />;
+    }
+  };
+
+  const renderRatingTitle = (isLike = true) => {
+    if (accessToken === null || rating === "none") {
+      return isLike ? "Tôi thích video này" : "Tôi không thích video này";
+    }
+    if (isLike) {
+      return rating === "like" ? "Bỏ thích" : "Tôi thích video này";
+    }
+    if (!isLike) {
+      return "Tôi không thích video này";
+    }
+  };
+
+  const handleRating = (isLike = true) => {
+    /// lỗi api
+    if (accessToken === null) {
+    } else {
+      if (isLike) {
+        dispatch(rateVideo(videoId, "like"));
+      } else {
+        dispatch(rateVideo(videoId, "dislike"));
+      }
+    }
+  };
+
   useEffect(() => {
     if (showMore) {
       expandButton.current.state.expanded = true;
@@ -112,8 +152,11 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
   useEffect(() => {
     dispatch(getChannelDetailsById(channelId));
     dispatch(checkSubscriptionStatus(channelId));
-    dispatch(checkRatingStatus(videoId));
-  }, [dispatch, channelId, videoId]);
+  }, [dispatch, channelId]);
+
+  // useEffect(() => {
+  //   dispatch(checkRatingStatus(videoId));
+  // }, [dispatch, videoId]);
 
   return (
     <div className="watch_active_metadata">
@@ -173,12 +216,14 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
               offset={[0, 18]}
               arrow={false}
               className="tippy_box_header"
-              content="Tôi thích video này"
+              content={renderRatingTitle()}
               placement="bottom"
             >
-              <button className="btn_like action_feedback">
-                {/* <LikeIcon /> */}
-                <LikedIcon />
+              <button
+                className="btn_like action_feedback"
+                onClick={() => handleRating(true)}
+              >
+                {renderRatingIcon()}
                 <span>{_likeCount}</span>
               </button>
             </Tippy>
@@ -187,11 +232,14 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
               offset={[0, 18]}
               arrow={false}
               className="tippy_box_header"
-              content="Tôi không thích video này"
+              content={renderRatingTitle(false)}
               placement="bottom"
             >
-              <button className="btn_dislike action_feedback">
-                <DisLikedIcon />
+              <button
+                className="btn_dislike action_feedback"
+                onClick={() => handleRating(false)}
+              >
+                {renderRatingIcon(false)}
               </button>
             </Tippy>
           </div>

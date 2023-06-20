@@ -33,7 +33,7 @@ const PlaylistItem = ({ item, active, index }) => {
     snippet: {
       title,
       thumbnails: { medium },
-      channelTitle,
+      videoOwnerChannelTitle,
       playlistId,
       resourceId: { videoId },
     },
@@ -94,7 +94,7 @@ const PlaylistItem = ({ item, active, index }) => {
               {title}
             </h4>
             <span id="byline" className="playlist_item_renderer">
-              {channelTitle}
+              {videoOwnerChannelTitle}
             </span>
           </div>
         </div>

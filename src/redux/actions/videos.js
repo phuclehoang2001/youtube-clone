@@ -5,6 +5,7 @@ import {
   SELECTED_VIDEO_REQUEST,
   SELECTED_VIDEO_SUCCESS,
   SELECTED_VIDEO_FAIL,
+  SET_RATING_STATUS,
 } from "../actionType";
 import request from "../../utils/httpRequests";
 
@@ -64,7 +65,7 @@ export const getChannelDetails = async (channelId) => {
   return items;
 };
 
-export const getVideosByCategory = (keyword) => async (dispatch, getState) => {
+export const getVideosByKeyword = (keyword) => async (dispatch, getState) => {
   try {
     dispatch({
       type: HOME_VIDEOS_REQUEST,
@@ -77,6 +78,7 @@ export const getVideosByCategory = (keyword) => async (dispatch, getState) => {
         pageToken: getState().homeVideos.nextPageToken,
         q: keyword,
         type: "video",
+        safeSearch: "moderate",
       },
     });
 
@@ -167,7 +169,39 @@ export const checkRatingStatus = (videoId) => async (dispatch, getState) => {
         Authorization: `Bearer ${getState().auth.accessToken}`,
       },
     });
-    console.log(data);
+    dispatch({
+      type: SET_RATING_STATUS,
+      payload: data.items[0].rating,
+    });
+  } catch (error) {
+    console.log(error.message);
+    dispatch({
+      type: SET_RATING_STATUS,
+      payload: "none",
+    });
+  }
+};
+
+export const rateVideo = (videoId, rating) => async (dispatch, getState) => {
+  try {
+    const accessToken = getState().auth.accessToken;
+
+    await request
+      .post("/videos/rate", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        params: {
+          id: videoId,
+          rating: rating,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   } catch (error) {
     console.log(error.message);
   }

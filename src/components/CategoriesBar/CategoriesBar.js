@@ -8,7 +8,13 @@ import {
   getVideosByCategoryId,
 } from "../../redux/actions/videos";
 
-const CategoriesBar = ({ categories, getAPI = false, className }) => {
+const CategoriesBar = ({
+  categories,
+  getAPI = false,
+  videoId,
+  channelId,
+  className,
+}) => {
   const [activeCategory, setActiveCategory] = useState("Tất cả");
   const [isDragging, setIsDragging] = useState(false);
   const sliderRef = useRef(null);
@@ -47,12 +53,12 @@ const CategoriesBar = ({ categories, getAPI = false, className }) => {
     const classList = e.currentTarget.classList;
     if (classList.contains("left_icon")) {
       sliderRef.current.scroll({
-        left: sliderRef.current.scrollLeft - 1000,
+        left: sliderRef.current.scrollLeft - 900,
         behavior: "smooth",
       });
     } else if (classList.contains("right_icon")) {
       sliderRef.current.scroll({
-        left: sliderRef.current.scrollLeft + 1000,
+        left: sliderRef.current.scrollLeft + 900,
         behavior: "smooth",
       });
     }

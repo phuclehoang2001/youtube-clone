@@ -11,7 +11,6 @@ const categoryHomePage = (categories) => {
     ];
   }
 
-  // trả về mảng đã được xáo trộn với 15 phần tử đầu tiên
   return shuffledCategory;
 };
 export { categoryHomePage };

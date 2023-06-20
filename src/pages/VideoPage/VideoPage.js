@@ -63,8 +63,15 @@ const VideoPage = () => {
                 activedPlaylistItem={activedPlaylistItem}
               />
             )}
-
-            <RelatedVideosWrapper />
+            {!loading && video !== null ? (
+              <RelatedVideosWrapper
+                videoId={videoId}
+                channelId={video.snippet.channelId}
+                channelTitle={video.snippet.channelTitle}
+              />
+            ) : (
+              <h1>Loading...</h1>
+            )}
           </div>
         </div>
       </div>
