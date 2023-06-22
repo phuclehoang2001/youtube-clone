@@ -6,9 +6,10 @@ import "./Wrapper.scss";
 
 const Wrapper = ({ videoId, channelId, channelTitle }) => {
   const categories_related_videos = [
-    `Của ${channelTitle}`,
-    "Video có liên quan",
-    "Tải lên gần đây",
+    { title: "Tất cả", type: "BY_ALL" },
+    { title: `Của ${channelTitle}`, type: "BY_CHANNEL" },
+    { title: "Video có liên quan", type: "BY_RELAVANCE" },
+    { title: "Tải lên gần đây", type: "BY_RECENT" },
   ];
   return (
     <div className="wrapper_related_videos">

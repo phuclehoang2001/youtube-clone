@@ -5,16 +5,11 @@ import "./CategoriesBar.scss";
 import SliderCategories, { CategoryItem } from "./SliderCategories/";
 import {
   getPopularVideos,
-  getVideosByCategoryId,
+  getVideosByKeyword,
+  getVideosByChannel,
 } from "../../redux/actions/videos";
 
-const CategoriesBar = ({
-  categories,
-  getAPI = false,
-  videoId,
-  channelId,
-  className,
-}) => {
+const CategoriesBar = ({ categories, videoId, channelId, className }) => {
   const [activeCategory, setActiveCategory] = useState("Tất cả");
   const [isDragging, setIsDragging] = useState(false);
   const sliderRef = useRef(null);
@@ -22,14 +17,20 @@ const CategoriesBar = ({
   const rightIconRef = useRef(null);
 
   const dispatch = useDispatch();
-  const allCategories = ["Tất cả", ...categories];
-  const handleClick = (title, categoryId) => {
+  const allCategories = [...categories];
+  const handleRenderHomeVideos = (title) => {
     setActiveCategory(title);
     if (title === "Tất cả") {
       dispatch(getPopularVideos());
     } else {
-      dispatch(getVideosByCategoryId(title, categoryId));
+      dispatch(getVideosByKeyword(title));
     }
+  };
+
+  const handleRenderRelatedVideos = (title) => {
+    setActiveCategory(title);
+    //Xử lý relatedVideos
+    // dispatch(getVideosByChannel(channelId));
   };
 
   const dragging = (e) => {
@@ -53,12 +54,12 @@ const CategoriesBar = ({
     const classList = e.currentTarget.classList;
     if (classList.contains("left_icon")) {
       sliderRef.current.scroll({
-        left: sliderRef.current.scrollLeft - 900,
+        left: sliderRef.current.scrollLeft - 1000,
         behavior: "smooth",
       });
     } else if (classList.contains("right_icon")) {
       sliderRef.current.scroll({
-        left: sliderRef.current.scrollLeft + 900,
+        left: sliderRef.current.scrollLeft + 1000,
         behavior: "smooth",
       });
     }
@@ -84,27 +85,20 @@ const CategoriesBar = ({
         {allCategories.map((data, index) => {
           let categoryTitle = null;
           let categoryId = null;
-          if (getAPI) {
-            if (data === "Tất cả") {
-              categoryTitle = data;
-              categoryId = null;
-            } else {
-              const {
-                id,
-                snippet: { title, assignable, channelId },
-              } = data;
-              categoryTitle = title;
-              categoryId = id;
-            }
-          } else {
+          let handleClick = null;
+          if (typeof data === "string") {
             categoryTitle = data;
+            handleClick = handleRenderHomeVideos;
+          } else if (typeof data === "object") {
+            categoryTitle = data.title;
+            handleClick = handleRenderRelatedVideos;
           }
 
-          //xử lý assignable
           return (
             <CategoryItem
               title={categoryTitle}
               categoryId={categoryId}
+              channelId={channelId}
               key={index}
               handleClick={handleClick}
               className={activeCategory === categoryTitle ? "active" : ""}
