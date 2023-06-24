@@ -6,7 +6,10 @@ import SliderCategories, { CategoryItem } from "./SliderCategories/";
 import {
   getPopularVideos,
   getVideosByKeyword,
-  getVideosByChannel,
+  getRelatedVideosByChannel,
+  getRelatedVideos,
+  getRelatedVideosByRelevance,
+  getRelatedVideosByRecent,
 } from "../../redux/actions/videos";
 
 const CategoriesBar = ({ categories, videoId, channelId, className }) => {
@@ -18,7 +21,8 @@ const CategoriesBar = ({ categories, videoId, channelId, className }) => {
 
   const dispatch = useDispatch();
   const allCategories = [...categories];
-  const handleRenderHomeVideos = (title) => {
+
+  const handleRenderHomeVideos = ({ title }) => {
     setActiveCategory(title);
     if (title === "Tất cả") {
       dispatch(getPopularVideos());
@@ -27,8 +31,25 @@ const CategoriesBar = ({ categories, videoId, channelId, className }) => {
     }
   };
 
-  const handleRenderRelatedVideos = (title) => {
+  const handleRenderRelatedVideos = ({ title, filter, channelId }) => {
     setActiveCategory(title);
+
+    switch (filter) {
+      case "BY_ALL":
+        dispatch(getRelatedVideos());
+        break;
+      case "BY_CHANNEL":
+        dispatch(getRelatedVideosByChannel(channelId));
+        break;
+      case "BY_RELEVANCE":
+        // dispatch(getRelatedVideosByRelevance());
+        break;
+      case "BY_RECENT":
+        dispatch(getRelatedVideosByRecent());
+        break;
+      default:
+        break;
+    }
     //Xử lý relatedVideos
     // dispatch(getVideosByChannel(channelId));
   };
@@ -101,6 +122,7 @@ const CategoriesBar = ({ categories, videoId, channelId, className }) => {
               channelId={channelId}
               key={index}
               handleClick={handleClick}
+              filter={data.type}
               className={activeCategory === categoryTitle ? "active" : ""}
             ></CategoryItem>
           );

@@ -1,5 +1,10 @@
 import Tippy from "@tippyjs/react";
 import React, { useState, useRef, useEffect } from "react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import moment from "moment";
+import numeral from "numeral";
+import "numeral/locales/vi";
+import "moment/locale/vi";
 import {
   QueueIcon,
   ShareIcon,
@@ -7,9 +12,26 @@ import {
   WatchLaterIcon,
 } from "../../Icons/Icons";
 import TippyMenuVideo from "../../WatchMetadata/Tippy/TippyMenuVideo";
-const RelatedVideoItem = () => {
+
+import { getVideoDetails } from "../../../redux/actions/videos";
+const RelatedVideoItem = ({ video }) => {
+  const {
+    id: { videoId },
+    snippet: {
+      title,
+      channelTitle,
+      thumbnails: { medium },
+      publishedAt,
+    },
+  } = video;
   const [activedMenu, setActivedMenu] = useState(false);
+  const [views, setViews] = useState(null);
+  const [duration, setDuration] = useState(null);
   const tippyRef = useRef(null);
+
+  const seconds = moment.duration(duration).asSeconds();
+  const _duration = moment.utc(seconds * 1000).format("mm:ss");
+
   const handleShowMenu = () => {
     setActivedMenu(true);
   };
@@ -27,6 +49,11 @@ const RelatedVideoItem = () => {
       title: "Chia sẻ",
     },
   ];
+
+  const formatNumber = (number) => {
+    const formattedNumber = numeral(number).format("0,0.0a");
+    return formattedNumber;
+  };
 
   const preventScroll = (e) => {
     e.preventDefault();
@@ -50,12 +77,27 @@ const RelatedVideoItem = () => {
       document.removeEventListener("wheel", preventScroll);
     }
   }, [activedMenu]);
-
+  useEffect(() => {
+    getVideoDetails(videoId).then((details) => {
+      setDuration(details[0].contentDetails.duration);
+      let _views = formatNumber(details[0].statistics.viewCount);
+      setViews(_views);
+    });
+  }, [videoId]);
   return (
     <div className="related-video-item-container">
-      <a target="_self" href="#">
+      <a
+        target="_self"
+        href={`/watch?v=${videoId}`}
+        className="video-compact-render"
+      >
         <div className="video-thumbnails">
-          <img src="https://i.ytimg.com/vi/S8uwvNf3Jo8/hqdefault.jpg?sqp=-oaymwEiCKgBEF5IWvKriqkDFQgBFQAAAAAYASUAAMhCPQCAokN4AQ==&rs=AOn4CLBbCMC7_uvMVtoS88b0vFTvcANzxA"></img>
+          <LazyLoadImage
+            src={medium.url}
+            alt="thumbnail related video"
+            effect="blur"
+          />
+
           <div className="action_container">
             <button className="btn_icon_thumbnail">
               <WatchLaterIcon
@@ -69,32 +111,35 @@ const RelatedVideoItem = () => {
             </button>
           </div>
         </div>
+        <span className="duration">{_duration}</span>
       </a>
-      <a className="video-anchor" target="_self" href="#">
+      <a className="video-anchor" target="_self" href={`/watch?v=${videoId}`}>
         <div className="video-information">
           <Tippy
             delay={[0, 50]}
             offset={[0, 1]}
             arrow={false}
             className="tippy_box"
-            content="4 mùa thương em"
+            content={title}
             placement="bottom"
           >
-            <span className="video-tittle">4 mùa thương em</span>
+            <span className="video-tittle">{title}</span>
           </Tippy>
           <Tippy
             delay={[0, 50]}
-            offset={[0, 1]}
+            offset={[-8, 20]}
             arrow={false}
             className="light-gray"
-            content="1 9 6 7"
+            content={channelTitle}
             placement="top-start"
           >
-            <span className="video-channel">1 9 6 7</span>
+            <span className="video-channel">{channelTitle}</span>
           </Tippy>
           <div className="video-data">
-            <span>604 N lượt xem</span>
-            <span className="video-time-upload">2 tháng trước</span>
+            <span>{views} lượt xem</span>
+            <span className="video-time-upload">
+              {moment(publishedAt).fromNow()}
+            </span>
           </div>
         </div>
       </a>

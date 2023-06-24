@@ -5,11 +5,17 @@ const CategoryItem = ({
   title,
   categoryId,
   channelId,
+  filter,
   handleClick,
   className,
 }) => {
   const onClick = (title) => {
-    handleClick(title, categoryId);
+    const data = {
+      title: title,
+      channelId: channelId,
+      filter: filter,
+    };
+    handleClick(data);
   };
 
   return (

@@ -5,6 +5,9 @@ import {
   SELECTED_VIDEO_REQUEST,
   SELECTED_VIDEO_SUCCESS,
   SELECTED_VIDEO_FAIL,
+  VIDEO_RELEVANCE_SUCCESS,
+  VIDEO_RELEVANCE_FAIL,
+  VIDEO_RELEVANCE_REQUEST,
   SET_RATING_STATUS,
 } from "../actionType";
 import request from "../../utils/httpRequests";
@@ -207,34 +210,132 @@ export const rateVideo = (videoId, rating) => async (dispatch, getState) => {
   }
 };
 
-export const getVideosByChannel = (channelId) => async (dispatch, getState) => {
+export const getRelatedVideosByChannel =
+  (channelId) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: VIDEO_RELEVANCE_REQUEST,
+      });
+      const { data } = await request("/search", {
+        params: {
+          part: "snippet",
+          maxResults: 6,
+          regionCode: "VN",
+          channelId: channelId,
+          type: "video",
+          safeSearch: "moderate",
+        },
+      });
+
+      dispatch({
+        type: VIDEO_RELEVANCE_SUCCESS,
+        payload: {
+          videos: data.items,
+          nextPageToken: data.nextPageToken,
+        },
+      });
+    } catch (error) {
+      console.log(error.message);
+      dispatch({
+        type: VIDEO_RELEVANCE_FAIL,
+        payload: error.message,
+      });
+    }
+  };
+
+export const getRelatedVideos = () => async (dispatch, getState) => {
   try {
     dispatch({
-      type: HOME_VIDEOS_REQUEST,
+      type: VIDEO_RELEVANCE_REQUEST,
     });
     const { data } = await request("/search", {
       params: {
         part: "snippet",
         maxResults: 6,
         regionCode: "VN",
-        channelId: channelId,
+        topicId: "/m/04rlf",
         type: "video",
+        relevanceLanguage: "vi",
         safeSearch: "moderate",
       },
     });
-    console.log(data);
-    // dispatch({
-    //   type: HOME_VIDEOS_SUCCESS,
-    //   payload: {
-    //     videos: data.items,
-    //     nextPageToken: data.nextPageToken,
-    //     category: keyword,
-    //   },
-    // });
+
+    dispatch({
+      type: VIDEO_RELEVANCE_SUCCESS,
+      payload: {
+        videos: data.items,
+        nextPageToken: data.nextPageToken,
+      },
+    });
   } catch (error) {
     console.log(error.message);
     dispatch({
-      type: HOME_VIDEOS_FAIL,
+      type: VIDEO_RELEVANCE_FAIL,
+      payload: error.message,
+    });
+  }
+};
+
+export const getRelatedVideosByRelevance = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: VIDEO_RELEVANCE_REQUEST,
+    });
+    const { data } = await request("/search", {
+      params: {
+        part: "snippet",
+        maxResults: 6,
+        regionCode: "VN",
+        type: "video",
+        safeSearch: "moderate",
+        relevanceLanguage: "vi",
+      },
+    });
+
+    dispatch({
+      type: VIDEO_RELEVANCE_SUCCESS,
+      payload: {
+        videos: data.items,
+        nextPageToken: data.nextPageToken,
+      },
+    });
+  } catch (error) {
+    console.log(error.message);
+    dispatch({
+      type: VIDEO_RELEVANCE_FAIL,
+      payload: error.message,
+    });
+  }
+};
+
+export const getRelatedVideosByRecent = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: VIDEO_RELEVANCE_REQUEST,
+    });
+    const { data } = await request("/search", {
+      params: {
+        part: "snippet",
+        maxResults: 6,
+        regionCode: "VN",
+        type: "video",
+        order: "date",
+        safeSearch: "moderate",
+        relevanceLanguage: "vi",
+      },
+    });
+
+    dispatch({
+      type: VIDEO_RELEVANCE_SUCCESS,
+      payload: {
+        videos: data.items,
+        nextPageToken: data.nextPageToken,
+      },
+    });
+  } catch (error) {
+    console.log(error.message);
+    dispatch({
+      type: VIDEO_RELEVANCE_FAIL,
       payload: error.message,
     });
   }
