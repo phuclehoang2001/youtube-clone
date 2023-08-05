@@ -1,174 +1,15 @@
 import { useEffect, useState, useRef } from "react";
 import Fuse from "fuse.js";
 import HeadlessTippy from "@tippyjs/react/headless";
+import { useDispatch, useSelector } from "react-redux";
 import { SearchIcon, TouchResponse, CloseIcon } from "../Icons";
 import Tippy from "@tippyjs/react";
 import { Wrapper as SearchPopper } from "../Popper";
 import SearchItem from "./SearchItem";
+import { useDebounce } from "../../hooks";
 import "./Search.scss";
-const characters = [
-  {
-    title: "Old Man's War",
-    author: {
-      firstName: "John",
-      lastName: "Scalzi",
-    },
-  },
-  {
-    title: "The Lock Artist",
-    author: {
-      firstName: "Steve",
-      lastName: "Hamilton",
-    },
-  },
-  {
-    title: "HTML5",
-    author: {
-      firstName: "Remy",
-      lastName: "Sharp",
-    },
-  },
-  {
-    title: "Right Ho Jeeves",
-    author: {
-      firstName: "P.D",
-      lastName: "Woodhouse",
-    },
-  },
-  {
-    title: "The Code of the Wooster",
-    author: {
-      firstName: "P.D",
-      lastName: "Woodhouse",
-    },
-  },
-  {
-    title: "Thank You Jeeves",
-    author: {
-      firstName: "P.D",
-      lastName: "Woodhouse",
-    },
-  },
-  {
-    title: "The DaVinci Code",
-    author: {
-      firstName: "Dan",
-      lastName: "Brown",
-    },
-  },
-  {
-    title: "Angels & Demons",
-    author: {
-      firstName: "Dan",
-      lastName: "Brown",
-    },
-  },
-  {
-    title: "The Silmarillion",
-    author: {
-      firstName: "J.R.R",
-      lastName: "Tolkien",
-    },
-  },
-  {
-    title: "Syrup",
-    author: {
-      firstName: "Max",
-      lastName: "Barry",
-    },
-  },
-  {
-    title: "The Lost Symbol",
-    author: {
-      firstName: "Dan",
-      lastName: "Brown",
-    },
-  },
-  {
-    title: "The Book of Lies",
-    author: {
-      firstName: "Brad",
-      lastName: "Meltzer",
-    },
-  },
-  {
-    title: "Lamb",
-    author: {
-      firstName: "Christopher",
-      lastName: "Moore",
-    },
-  },
-  {
-    title: "Fool",
-    author: {
-      firstName: "Christopher",
-      lastName: "Moore",
-    },
-  },
-  {
-    title: "Incompetence",
-    author: {
-      firstName: "Rob",
-      lastName: "Grant",
-    },
-  },
-  {
-    title: "Fat",
-    author: {
-      firstName: "Rob",
-      lastName: "Grant",
-    },
-  },
-  {
-    title: "Colony",
-    author: {
-      firstName: "Rob",
-      lastName: "Grant",
-    },
-  },
-  {
-    title: "Backwards, Red Dwarf",
-    author: {
-      firstName: "Rob",
-      lastName: "Grant",
-    },
-  },
-  {
-    title: "The Grand Design",
-    author: {
-      firstName: "Stephen",
-      lastName: "Hawking",
-    },
-  },
-  {
-    title: "The Book of Samson",
-    author: {
-      firstName: "David",
-      lastName: "Maine",
-    },
-  },
-  {
-    title: "The Preservationist",
-    author: {
-      firstName: "David",
-      lastName: "Maine",
-    },
-  },
-  {
-    title: "Fallen",
-    author: {
-      firstName: "David",
-      lastName: "Maine",
-    },
-  },
-  {
-    title: "Monster 1959",
-    author: {
-      firstName: "David",
-      lastName: "Maine",
-    },
-  },
-];
+import { searchByKeyword } from "../../redux/actions/search";
+
 const options = {
   // isCaseSensitive: false,
   // includeScore: false,
@@ -183,12 +24,18 @@ const options = {
   // ignoreLocation: false,
   // ignoreFieldNorm: false,
   // fieldNormWeight: 1,
-  keys: ["title", "author.firstName"],
+  keys: ["snippet.channelTitle", "snippet.title"],
 };
 function Search() {
   const [searchValue, setSearchValue] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
   const [showResult, setShowResult] = useState(false);
   const inputRef = useRef();
+  const debouncedValue = useDebounce(searchValue, 300);
+  const dispatch = useDispatch();
+
+  const { results } = useSelector((state) => state.search);
+
   const handleSearch = (e) => {
     setSearchValue(e.target.value);
   };
@@ -197,28 +44,39 @@ function Search() {
   };
   const handleClear = () => {
     setSearchValue("");
+    setSearchResult([]);
     inputRef.current.focus();
   };
 
-  const fuse = new Fuse(characters, options);
-  const results = fuse.search(searchValue);
-  const characterResults = searchValue
-    ? results.map((result) => result.item)
-    : [];
+  useEffect(() => {
+    if (!debouncedValue.trim()) {
+      setSearchResult([]);
+      return;
+    }
+    const fetchApi = async () => {
+      dispatch(searchByKeyword(debouncedValue));
+      const fuse = new Fuse(results, options);
+      const data = fuse.search(searchValue);
+
+      setSearchResult(searchValue ? data.map((result) => result.item) : []);
+    };
+    fetchApi();
+  }, [debouncedValue]);
+
   return (
     <div className="header_center">
       <div>
         <HeadlessTippy
           interactive
-          visible={showResult && characterResults.length > 0}
+          visible={showResult && searchResult.length > 0}
           placement="bottom-start"
           offset={[0, 5]}
           onClickOutside={handleHideResult}
           render={(attrs) => (
             <div className="search_result" tabIndex="-1" {...attrs}>
               <SearchPopper className="menu_search_popper">
-                {characterResults.map((data) => (
-                  <SearchItem data={data} />
+                {searchResult.map((data) => (
+                  <SearchItem data={data} keyword={searchValue} />
                 ))}
                 <div className="search_report">
                   <span>Báo cáo đề xuất tìm kiếm không phù hợp</span>
@@ -248,7 +106,7 @@ function Search() {
                   />
                 </div>
               </div>
-              {showResult && characterResults.length > 0 && (
+              {showResult && searchResult.length > 0 && (
                 <div className="clear_search">
                   <button className="btn_clear" onClick={handleClear}>
                     <CloseIcon />

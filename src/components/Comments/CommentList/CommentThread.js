@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ShowMoreText from "react-show-more-text";
 import Tippy from "@tippyjs/react";
 import numeral from "numeral";
@@ -21,6 +21,17 @@ const CommentThread = ({ snippet, canReply, reply = false }) => {
     authorChannelUrl,
   } = snippet;
   const _likeCount = numeral(likeCount).format("0,0.[0]a");
+  const [isLocaleSet, setIsLocaleSet] = useState(false);
+  useEffect(() => {
+    if (!isLocaleSet) {
+      numeral.locales.vi.abbreviations.thousand = " N";
+      numeral.locales.vi.abbreviations.million = " Tr";
+      numeral.locale("vi");
+
+      setIsLocaleSet(true);
+    }
+  }, [isLocaleSet]);
+
   return (
     <div className="comment_thread">
       <a href={authorChannelUrl} className="comment_channel">

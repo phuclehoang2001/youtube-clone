@@ -50,7 +50,7 @@ const HomeLayout = () => {
     <InfiniteScroll
       dataLength={videos.length}
       // next={fetchData}
-      // hasMore={true}
+      hasMore={true}
       loader={
         <div className="spinner-border text-danger d-block mx-auto"></div>
       }

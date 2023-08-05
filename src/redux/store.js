@@ -12,7 +12,7 @@ import { homeVideoCategoriesReducer } from "./reducers/homeVideoCategoriesReduce
 import { videoPlaylistItemsReducer } from "./reducers/videoPlaylistItemsReducer";
 import { channelDetailsReducer } from "./reducers/channelReducer";
 import { commentListReducer } from "./reducers/commentsReducer";
-
+import { searchReducer } from "./reducers/searchReducer";
 const rootReducer = combineReducers({
   auth: authReducer,
   homeVideos: homeVideosReducer,
@@ -23,6 +23,7 @@ const rootReducer = combineReducers({
   channelDetails: channelDetailsReducer,
   commentList: commentListReducer,
   relatedVideos: relatedVideosReducer,
+  search: searchReducer,
 });
 
 const store = createStore(

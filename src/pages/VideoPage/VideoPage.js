@@ -7,7 +7,8 @@ import { Wrapper as PlaylistWrapper } from "../../components/Playlist";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getVideoById } from "../../redux/actions/videos";
-
+import SkeletonWatchMetadata from "../../components/Skeletons/SkeletonWatchMetadata";
+import SkeletonRelatedVideo from "../../components/Skeletons/SkeletonRelatedVideo";
 const VideoPage = () => {
   const location = useLocation();
   const videoId = new URLSearchParams(location.search).get("v");
@@ -45,7 +46,7 @@ const VideoPage = () => {
               {!loading && video !== null ? (
                 <WatchMetadata video={video} videoId={videoId} />
               ) : (
-                <h1>Loading...</h1>
+                <SkeletonWatchMetadata />
               )}
               {/* component Comment */}
               <CommentsWrapper
@@ -70,7 +71,7 @@ const VideoPage = () => {
                 channelTitle={video.snippet.channelTitle}
               />
             ) : (
-              <h1>Loading...</h1>
+              [...new Array(10)].map(() => <SkeletonRelatedVideo />)
             )}
           </div>
         </div>

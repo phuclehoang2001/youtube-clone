@@ -42,7 +42,7 @@ const CategoriesBar = ({ categories, videoId, channelId, className }) => {
         dispatch(getRelatedVideosByChannel(channelId));
         break;
       case "BY_RELEVANCE":
-        // dispatch(getRelatedVideosByRelevance());
+        dispatch(getRelatedVideosByRelevance());
         break;
       case "BY_RECENT":
         dispatch(getRelatedVideosByRecent());

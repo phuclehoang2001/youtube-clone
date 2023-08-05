@@ -56,6 +56,7 @@ export const selectedVideoReducer = (
   prevState = {
     loading: false,
     video: null,
+    categoryId: null,
     rating: "none",
   },
   action
@@ -71,7 +72,8 @@ export const selectedVideoReducer = (
       return {
         ...prevState,
         loading: false,
-        video: payload,
+        video: payload.video,
+        categoryId: payload.categoryId,
       };
     case SELECTED_VIDEO_FAIL:
       return {

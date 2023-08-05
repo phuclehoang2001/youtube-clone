@@ -151,7 +151,10 @@ export const getVideoById = (videoId) => async (dispatch) => {
 
     dispatch({
       type: SELECTED_VIDEO_SUCCESS,
-      payload: data.items[0],
+      payload: {
+        video: data.items[0],
+        categoryId: data.items[0].snippet.categoryId,
+      },
     });
   } catch (error) {
     console.log(error.message);
@@ -252,11 +255,10 @@ export const getRelatedVideos = () => async (dispatch, getState) => {
       params: {
         part: "snippet",
         maxResults: 6,
-        regionCode: "VN",
-        topicId: "/m/04rlf",
         type: "video",
+        regionCode: "VN",
         relevanceLanguage: "vi",
-        safeSearch: "moderate",
+        safeSearch: "none",
       },
     });
 
@@ -289,6 +291,7 @@ export const getRelatedVideosByRelevance = () => async (dispatch, getState) => {
         type: "video",
         safeSearch: "moderate",
         relevanceLanguage: "vi",
+        relatedToVideoId: "T2c7Vy5ng3M",
       },
     });
 
@@ -319,9 +322,9 @@ export const getRelatedVideosByRecent = () => async (dispatch, getState) => {
         maxResults: 6,
         regionCode: "VN",
         type: "video",
-        order: "date",
         safeSearch: "moderate",
         relevanceLanguage: "vi",
+        order: "date",
       },
     });
 

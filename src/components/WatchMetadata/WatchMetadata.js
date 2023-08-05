@@ -6,6 +6,7 @@ import "numeral/locales/vi";
 import "moment/locale/vi";
 import Tippy from "@tippyjs/react";
 import ShowMoreText from "react-show-more-text";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import "./WatchMetadata.scss";
 import {
   CheckedIcon,
@@ -122,9 +123,9 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
     if (accessToken === null) {
     } else {
       if (isLike) {
-        dispatch(rateVideo(videoId, "like"));
+        // dispatch(rateVideo(videoId, "like"));
       } else {
-        dispatch(rateVideo(videoId, "dislike"));
+        // dispatch(rateVideo(videoId, "dislike"));
       }
     }
   };
@@ -167,9 +168,10 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
         <div className="owner">
           <div className="channel_info">
             <a className="avatar">
-              <img
+              <LazyLoadImage
                 src={channelSnippet?.thumbnails?.default?.url}
                 alt="avatar channel"
+                effect="blur"
               />
             </a>
             <div className="upload_info">
@@ -323,6 +325,11 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
             expandByClick={false}
             ref={expandButton}
             onClick={handleShowLess}
+            afterMore={
+              <a href="http://popsww.com/BaoThanhNien">
+                http://popsww.com/BaoThanhNien
+              </a>
+            }
           >
             {description}
           </ShowMoreText>

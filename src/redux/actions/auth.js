@@ -31,6 +31,7 @@ export const login = () => async (dispatch) => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
+    console.log(channelInfo);
 
     const profile = {
       name: channelInfo.data.items[0].snippet.title,

@@ -9,14 +9,20 @@
     background-color: rgba(0, 0, 0, 0.1);
   }
   &_icon {
-    width: 48px;
+    max-width: 42px;
     height: 20px;
     padding: 0 10px;
     display: inline-flex;
   }
   &_keyword {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
     font-weight: 500;
-    text-align: left;
+    // text-align: left;
     line-height: 32px;
     font-size: 16px;
     color: #030303;
