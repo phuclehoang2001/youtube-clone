@@ -309,7 +309,8 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
                   {_views} lượt xem {moment(publishedAt).fromNow()}
                 </span>
                 <span>
-                  #{tags[10]} #{tags[21]}
+                  {tags !== undefined && `#${tags[1]}`}
+                  {tags !== undefined && `#${tags[2]}`}
                 </span>
               </div>
             </Tippy>
@@ -325,11 +326,6 @@ const WatchMetadata = ({ video, videoId, playlistId }) => {
             expandByClick={false}
             ref={expandButton}
             onClick={handleShowLess}
-            afterMore={
-              <a href="http://popsww.com/BaoThanhNien">
-                http://popsww.com/BaoThanhNien
-              </a>
-            }
           >
             {description}
           </ShowMoreText>

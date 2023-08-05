@@ -14,7 +14,7 @@ import {
 import TippyMenuVideo from "../../WatchMetadata/Tippy/TippyMenuVideo";
 
 import { getVideoDetails } from "../../../redux/actions/videos";
-const RelatedVideoItem = ({ video }) => {
+const RelatedVideoItem = ({ video, searchItem = false }) => {
   const {
     id: { videoId },
     snippet: {
@@ -89,7 +89,7 @@ const RelatedVideoItem = ({ video }) => {
       <a
         target="_self"
         href={`/watch?v=${videoId}`}
-        className="video-compact-render"
+        className={`video-compact-render ${searchItem ? "search-render" : ""}`}
       >
         <div className="video-thumbnails">
           <LazyLoadImage
@@ -133,14 +133,18 @@ const RelatedVideoItem = ({ video }) => {
             content={channelTitle}
             placement="top-start"
           >
-            <span className="video-channel">{channelTitle}</span>
+            {!searchItem && (
+              <span className="video-channel">{channelTitle}</span>
+            )}
           </Tippy>
+
           <div className="video-data">
             <span>{views} lượt xem</span>
             <span className="video-time-upload">
               {moment(publishedAt).fromNow()}
             </span>
           </div>
+          {searchItem && <div className="video-channel"></div>}
         </div>
       </a>
 

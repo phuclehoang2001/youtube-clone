@@ -14,7 +14,7 @@
   flex-direction: row;
   margin: 1rem 1rem;
   gap: 8px;
-  max-height: 8rem;
+  max-height: 800px;
   position: relative;
 
   .menu_action {
@@ -31,7 +31,10 @@
     min-width: 168px;
     border-radius: 0.5rem;
     position: relative;
-
+    &.search-render {
+      height: 200px;
+      min-width: 360px;
+    }
     .video-thumbnails {
       max-width: 100%;
       width: 100%;

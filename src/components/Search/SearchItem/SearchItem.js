@@ -9,7 +9,7 @@ const SearchItem = ({ data, keyword }) => {
       ? data.snippet.channelTitle
       : data.snippet.title;
   return (
-    <Link to={`/result?search_query=${titleSearch}`} className="item_search">
+    <Link to={`/results?search_query=${titleSearch}`} className="item_search">
       <div className="item_search_icon">
         <SearchIcon />
       </div>
